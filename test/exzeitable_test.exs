@@ -1,8 +1,6 @@
 defmodule ExzeitableTest do
+  @moduledoc false
   use ExUnit.Case
-  doctest Exzeitable
+  # doctest Exzeitable
 
-  test "greets the world" do
-    assert Exzeitable.hello() == :world
-  end
 end

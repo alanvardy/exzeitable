@@ -1,20 +1,42 @@
 defmodule Exzeitable.MixProject do
+  @moduledoc false
   use Mix.Project
+
+  @version "0.1.0"
 
   def project do
     [
       app: :exzeitable,
-      version: "0.1.0",
+      version: @version,
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      elixirc_paths: elixirc_paths(Mix.env()),
+      description: "Live Datatables",
+      package: package(),
+      deps: deps(),
+      aliases: aliases(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [coveralls: :test]
     ]
   end
 
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      mod: {Exzeitable.Phoenix.Application, []},
+      extra_applications: [:logger, :postgrex, :ecto, :timex]
+    ]
+  end
+
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
+
+  defp package do
+    [
+      maintainers: ["Alan Vardy"],
+      licenses: ["MIT"],
+      links: %{github: "https://github.com/alanvardy/exzeitable"},
+      files: ~w(README.md)
     ]
   end
 
@@ -25,14 +47,26 @@ defmodule Exzeitable.MixProject do
       {:phoenix, "~> 1.3.0 or ~> 1.4.0"},
       {:phoenix_html, ">= 2.0.0 and <= 3.0.0"},
       {:plug, ">= 1.5.0 and < 2.0.0", optional: true},
-      {:phoenix_ecto, "~> 4.0.0", only: [:dev, :test]},
+      {:phoenix_ecto, "~> 4.0.0"},
+      {:ecto_sql, "~> 3.1"},
+      {:plug_cowboy, "~> 2.0"},
+      {:postgrex, "~> 0.15.0"},
       {:phoenix_live_view, "~> 0.3.0"},
+      {:timex, "~> 3.5", only: [:dev, :test]},
       {:ex_check, ">= 0.0.0", only: :dev, runtime: false},
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0.0-rc.6", only: [:dev, :test], runtime: false},
-      {:sobelow, "~> 0.8", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.10", only: :test, runtime: false},
-      {:ex_doc, "~> 0.21", only: :dev, runtime: false},
+      {:ex_doc, "~> 0.21", only: :dev, runtime: false}
+    ]
+  end
+
+  defp aliases do
+    [
+      "ecto.seed": ["run priv/repo/seeds.exs"],
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end
