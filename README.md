@@ -1,12 +1,16 @@
 # Exzeitable
 
+[![Build Status](https://github.com/alanvardy/exzeitable/workflows/Elixir%20ex_check/badge.svg)](https://github.com/alanvardy/exzeitable) [![hex.pm](http://img.shields.io/hexpm/v/exzeitable.svg?style=flat)](https://hex.pm/packages/exzeitable)
+
 Dynamic searchable, sortable datatable that takes a database query and a module, and makes the magic happen. Uses Phoenix Liveview and Postgres. Bootstrap friendly and easily configured for other CSS frameworks.
   
 ![Exzeitable](assets/screenshot.png)
 
 ## Installation
 
-The package can be installed by adding `exzeitable` to your list of dependencies in `mix.exs`:
+This package requires a Postgres database and Phoenix.
+
+The package can be installed by adding [exzeitable](https://github.com/alanvardy/exzeitable) and [Phoenix Live View](https://github.com/phoenixframework/phoenix_live_view) to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -19,12 +23,7 @@ end
 Documentation can be found at [https://hexdocs.pm/exzeitable](https://hexdocs.pm/exzeitable).
 
 
-## Setup
-
-### Dependencies
-
-Add Phoenix LiveView to your dependencies
-(See their sites for more information)
+## Getting Started
 
 ### Module
 
@@ -41,9 +40,9 @@ defmodule YourAppWeb.Live.File do
     repo: YourApp.Repo,
     routes: Routes,
     path: :file_path,
+    query: from(f in File)
     fields: [
       image: [virtual: true],
-      content: [virtual: true],
       title: [hidden: true],
       description: [hidden: true],
       category: [hidden: true],
@@ -51,47 +50,34 @@ defmodule YourAppWeb.Live.File do
       inserted_at: [hidden: true, function: true, label: "Created"],
       updated_at: [hidden: true, function: true, label: "Updated"]
     ],
-    query: from(f in File)
+    
+    # Optional
     debounce: 300
 
+  # The callback that renders your table
   def render(assigns), do: ~L"<%= build_table(assigns) %>"
 
+  # Field functions, called when virtual: true or function: true
   def image(socket, file) do
     img_tag(file.url, class: "w-100")
     |> link(to: Routes.file_path(socket, :show, file))
   end
+  
+  def filesize, do: ...
+  def inserted_at, do: ...
+  def updated_at, do: ...
 
-  def content(_socket, file) do
-    [
-      content_tag(:h5, file.title, []),
-      content_tag(:p, file.description, []),
-      content_tag(:p, "Created \#{nice_date(file.inserted_at)} by \#{file.user}",
-        class: "text-muted"
-      )
-    ]
-  end
-
-def filesize(_socket, file) do
-  Format.nice_filesize(file)
-end
-
-def inserted_at(_socket, %{inserted_at: inserted_at}), do: nice_date(inserted_at)
-def updated_at(_socket, %{updated_at: updated_at}), do: nice_date(updated_at)
 ```
 
-### Options
-
-Options can be added to either your module (as seen above), in the template (As seen below) or both.
-If an option is defined in both the template option will replace the module option.
-
-The exception to this rule is the `:search` key which can only be defined in module.
+Options can be added to either your module (as seen above), or in the template (As seen below) or both.
+If an option is defined in both the template option will replace the module option. The only exception is `:fields` which must be specified in the module.
 
 #### Required options
 
   - `repo` The module for your repository. Example: `YourApp.Repo`
   - `routes` Your route module. Example: `YourAppWeb.Router.Helpers`
   - `path` The base path for your resource. Example: `:site_path`
-  - `query` A Ecto.Query struct, the part before you give it to the Repo. Example: `from(s in Site, select: [:id, :number, :address])`
+  - `query` A Ecto.Query struct, the part before you give it to the Repo. Example: `from(s in Site, preload: [:users`
 
 #### Defining your fields
 
@@ -116,7 +102,7 @@ The following field options are available (with their defaults):
 
 
 
-#### Optional... options (with defaults)
+Optional... options (with defaults)
 
   - `action_buttons: [:new, :edit, :show, :delete]` A list of atoms representing action buttons avaliable for the user to use. This does not do authorization, the routes will still be available.
   - `per_page: 20` Integer representing number of entries per page.
@@ -124,7 +110,7 @@ The following field options are available (with their defaults):
 
 #### Options for nested routes
 
-If you dont know what this is then don't worry about it. You can look at [The official docs](https://hexdocs.pm/phoenix/routing.html#nested-resources) if you would like to learn more.
+If you dont know what this is then you likely don't need to worry about it. You can look at [The official docs](https://hexdocs.pm/phoenix/routing.html#nested-resources) if you would like to learn more.
 
 If you define one of the below options you then need to define the other.
 
