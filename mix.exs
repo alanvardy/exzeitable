@@ -49,7 +49,6 @@ defmodule Exzeitable.MixProject do
 
   defp docs do
     [
-      markdown_processor: ExDoc.Exzeitable.Markdown,
       source_ref: "v#{@version}",
       main: "README",
       canonical: "http://hexdocs.pm/exzeitable",
@@ -58,7 +57,7 @@ defmodule Exzeitable.MixProject do
       assets: "assets",
       extras: [
         "README.md": [filename: "README"],
-        "CHANGELOG.md": [filename: "CHANGELOG"],
+        "CHANGELOG.md": [filename: "CHANGELOG"]
       ]
     ]
   end
