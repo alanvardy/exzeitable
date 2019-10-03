@@ -25,7 +25,7 @@ defmodule TradeswayWeb.LiveTableFilterTest do
   test "parent_for/1 selects the parent for the item" do
     {:ok, user} = %User{name: "Dufus", age: 2} |> Repo.insert()
 
-    {:ok, post} =
+    {:ok, _post} =
       %Post{
         title: "I picked my nose today",
         content: "It was rather amazing. Would do again.",
@@ -47,7 +47,7 @@ defmodule TradeswayWeb.LiveTableFilterTest do
   test "parent_for/1 raises an error when it cannot find the field" do
     {:ok, user} = %User{name: "Dufus", age: 2} |> Repo.insert()
 
-    {:ok, post} =
+    {:ok, _post} =
       %Post{
         title: "I picked my nose today",
         content: "It was rather amazing. Would do again.",
