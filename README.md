@@ -1,6 +1,6 @@
 # Exzeitable
 
-[![Build Status](https://github.com/alanvardy/exzeitable/workflows/Elixir%20ex_check/badge.svg)](https://github.com/alanvardy/exzeitable)[![Build Status](https://github.com/alanvardy/exzeitable/workflows/Elixir%20Dialyzer/badge.svg)](https://github.com/alanvardy/exzeitable) [![hex.pm](http://img.shields.io/hexpm/v/exzeitable.svg?style=flat)](https://hex.pm/packages/exzeitable)
+[![Build Status](https://github.com/alanvardy/exzeitable/workflows/Elixir%20ex_check/badge.svg)](https://github.com/alanvardy/exzeitable) [![Build Status](https://github.com/alanvardy/exzeitable/workflows/Elixir%20Dialyzer/badge.svg)](https://github.com/alanvardy/exzeitable) [![hex.pm](http://img.shields.io/hexpm/v/exzeitable.svg?style=flat)](https://hex.pm/packages/exzeitable)
 
 Dynamic searchable, sortable datatable that takes a database query and a module, and makes the magic happen. Uses Phoenix Liveview and Postgres. Bootstrap friendly and easily configured for other CSS frameworks.
   
