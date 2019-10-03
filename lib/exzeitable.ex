@@ -151,7 +151,7 @@ defmodule Exzeitable do
   Everything the table does is with a subset of this data.
 
   ```elixir
-  query: from(f in Files)
+  query = from(f in Files)
   render(conn, "index.html", query: query)
   ```
 

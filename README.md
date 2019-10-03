@@ -151,7 +151,7 @@ This is where you can specify the query that forms the default data of the table
 Everything the table does is with a subset of this data.
 
 ```elixir
-query: from(f in Files)
+query = from(f in Files)
 render(conn, "index.html", query: query)
 ```
 
