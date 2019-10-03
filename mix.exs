@@ -10,13 +10,20 @@ defmodule Exzeitable.MixProject do
       version: @version,
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
+      build_embedded: Mix.env() == :prod,
       elixirc_paths: elixirc_paths(Mix.env()),
-      description: "Live Datatables",
-      package: package(),
       deps: deps(),
       aliases: aliases(),
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [coveralls: :test]
+      preferred_cli_env: [coveralls: :test],
+
+      # Hex
+      description: "Dynamically updating, searchable, sortable datatables with Phoenix LiveView",
+      package: package(),
+
+      # Docs
+      name: "Exzeitable",
+      docs: docs()
     ]
   end
 
@@ -36,7 +43,23 @@ defmodule Exzeitable.MixProject do
       maintainers: ["Alan Vardy"],
       licenses: ["MIT"],
       links: %{github: "https://github.com/alanvardy/exzeitable"},
-      files: ~w(README.md)
+      files: ~w(lib mix.exs README.md )
+    ]
+  end
+
+  defp docs do
+    [
+      markdown_processor: ExDoc.Exzeitable.Markdown,
+      source_ref: "v#{@version}",
+      main: "README",
+      canonical: "http://hexdocs.pm/exzeitable",
+      source_url: "https://github.com/alanvardy/exzeitable",
+      logo: "assets/screenshot.png",
+      assets: "assets",
+      extras: [
+        "README.md": [filename: "README"],
+        "CHANGELOG.md": [filename: "CHANGELOG"],
+      ]
     ]
   end
 

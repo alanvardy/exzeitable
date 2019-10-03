@@ -1,4 +1,4 @@
-defmodule TradeswayWeb.LiveTableFilterTest do
+defmodule Exzeitable.FilterTest do
   @moduledoc false
   use Exzeitable.DataCase, async: true
   alias Exzeitable.{Database, Filter}

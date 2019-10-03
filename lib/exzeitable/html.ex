@@ -1,8 +1,6 @@
 defmodule Exzeitable.HTML do
   @moduledoc """
-
-  ## For building the HTML Views
-
+  
   You will need to add styling for the form, I attempted to make the classes as unopiniated as possible.
 
   Below is a SASS example for Bootstrap 4
