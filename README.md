@@ -143,11 +143,25 @@ render(conn, "index.html", query: query)
 
 ### Template
 
-And call the table from your template
+Call the table from your template
 
 ```elixir
 <h1> My Awesome Files </h1>
 <%= YourAppWeb.Live.File.live_table(@conn, query: @query, action_buttons: [:show, :edit]) %>
+```
+
+### Migration
+
+And add the migration with `mix ecto.gen.migration`
+
+```elixir
+  def up do
+    execute("CREATE EXTENSION pg_trgm")
+  end
+
+  def down do
+    execute("DROP EXTENSION pg_trgm")
+  end
 ```
 
 ## Contributing
