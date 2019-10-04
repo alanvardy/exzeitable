@@ -23,3 +23,4 @@ erl_crash.dump
 exzeitable-*.tar
 
 .elixir_ls
+assets/node_modules

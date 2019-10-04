@@ -12,6 +12,7 @@ defmodule Exzeitable.MixProject do
       start_permanent: Mix.env() == :prod,
       build_embedded: Mix.env() == :prod,
       elixirc_paths: elixirc_paths(Mix.env()),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       deps: deps(),
       aliases: aliases(),
       test_coverage: [tool: ExCoveralls],
@@ -29,10 +30,16 @@ defmodule Exzeitable.MixProject do
 
   # Run "mix help compile.app" to learn about applications.
   def application do
-    [
-      mod: {Exzeitable.Phoenix.Application, []},
-      extra_applications: [:logger, :postgrex, :ecto, :timex]
-    ]
+    if Mix.env() == :test do
+      [
+        mod: {PhoenixWeb.Application, []},
+        extra_applications: [:logger, :postgrex, :ecto, :timex]
+      ]
+    else
+      [
+        extra_applications: [:logger, :postgrex, :ecto, :timex]
+      ]
+    end
   end
 
   defp elixirc_paths(:test), do: ["lib", "test/support"]
@@ -74,6 +81,7 @@ defmodule Exzeitable.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:postgrex, "~> 0.15.0"},
       {:phoenix_live_view, "~> 0.3.0"},
+      {:floki, ">= 0.0.0", only: :test},
       {:timex, "~> 3.5", only: [:dev, :test]},
       {:ex_check, ">= 0.0.0", only: :dev, runtime: false},
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},

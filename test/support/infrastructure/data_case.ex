@@ -17,7 +17,7 @@ defmodule Exzeitable.DataCase do
 
   using do
     quote do
-      alias Exzeitable.Phoenix.Repo
+      alias PhoenixWeb.Repo
 
       import Ecto
       import Ecto.Changeset
@@ -27,10 +27,10 @@ defmodule Exzeitable.DataCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Exzeitable.Phoenix.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(PhoenixWeb.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Exzeitable.Phoenix.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(PhoenixWeb.Repo, {:shared, self()})
     end
 
     :ok

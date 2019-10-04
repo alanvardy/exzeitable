@@ -1,11 +1,11 @@
-defmodule Exzeitable.Phoenix.Post do
+defmodule PhoenixWeb.Post do
   @moduledoc false
   use Ecto.Schema
 
   schema "posts" do
     field(:title, :string)
     field(:content, :string)
-    belongs_to(:user, Exzeitable.Phoenix.User)
+    belongs_to(:user, PhoenixWeb.User)
 
     timestamps()
   end
