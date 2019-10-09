@@ -119,14 +119,14 @@ defmodule Exzeitable.HTML do
   .lt-hide-link {
     @extend .mx-1;
     @extend .small;
-    cursor: grabbing;
+    cursor: pointer;
   }
 
   // Sort link
   .lt-sort-link {
     @extend .mx-1;
     @extend .small;
-    cursor: grabbing;
+    cursor: pointer;
   }
 
   // Buttons for showing hidden columns
@@ -135,7 +135,7 @@ defmodule Exzeitable.HTML do
     @extend .btn-sm;
     @extend .btn-outline-secondary;
     @extend .m-1;
-    cursor: grabbing;
+    cursor: pointer;
   }
     // #############################
     // ###### Action Buttons #######
@@ -176,7 +176,7 @@ defmodule Exzeitable.HTML do
   use Phoenix.HTML
   alias Exzeitable.{Filter, Format}
 
-  @spec build_table(map) :: [binary | {:safe, iolist}]
+  @spec build_table(map) :: {:safe, iolist}
   def build_table(assigns) do
     assigns
     |> head_section()
@@ -206,7 +206,8 @@ defmodule Exzeitable.HTML do
     [head_section, body]
   end
 
-  @spec build_outer({:safe, iolist}, map) :: [binary | {:safe, iolist}]
+  # onclick="" is for iOS support
+  @spec build_outer({:safe, iolist}, map) :: {:safe, iolist}
   defp build_outer(contents, assigns) do
     search_box = build_search(assigns)
     new_button = build_action_button(:new, assigns)
@@ -223,6 +224,7 @@ defmodule Exzeitable.HTML do
       show_buttons,
       pagination
     ]
+    |> cont(:div, class: "outer-wrapper", onclick: "")
   end
 
   @spec build_search(map) :: {:safe, iolist}
@@ -337,7 +339,7 @@ defmodule Exzeitable.HTML do
   defp paginate_button("Next", page, _pages) do
     cont("Next", :a,
       class: "lt-pagination-a",
-      style: "cursor: grabbing",
+      style: "cursor: pointer",
       "phx-click": "change_page",
       "phx-value-page": page + 1
     )
@@ -347,7 +349,7 @@ defmodule Exzeitable.HTML do
   defp paginate_button("Previous", page, _pages) do
     cont("Previous", :a,
       class: "lt-pagination-a",
-      style: "cursor: grabbing",
+      style: "cursor: pointer",
       "phx-click": "change_page",
       "phx-value-page": page - 1
     )
@@ -362,7 +364,7 @@ defmodule Exzeitable.HTML do
   defp paginate_button(label, _page, _pages) do
     cont(label, :a,
       class: "lt-pagination-a lt-pagination-width",
-      style: "cursor: grabbing",
+      style: "cursor: pointer",
       "phx-click": "change_page",
       "phx-value-page": label
     )
