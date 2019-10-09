@@ -1,6 +1,7 @@
 defmodule Exzeitable.Validation do
   @moduledoc "Using these instead of Keyword.fetch! to provide nice easily resolvable errors."
 
+  @doc "The required options"
   @spec required_options(map) :: map | nil
   def required_options(session) do
     %{
@@ -28,7 +29,7 @@ defmodule Exzeitable.Validation do
     end
   end
 
-  # If you have parent then you need belongs_to, and vice versa.
+  @doc "If you have parent then you need belongs_to, and vice versa."
   @spec paired_options(map) :: map | nil
   def paired_options(%{parent: parent, belongs_to: belongs_to} = session) do
     cond do

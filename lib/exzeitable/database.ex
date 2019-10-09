@@ -1,8 +1,9 @@
 defmodule Exzeitable.Database do
   @moduledoc "Database interactions"
   import Ecto.Query
-  @spec get_records(map) :: [map]
 
+  @doc "Get the data using query"
+  @spec get_records(map) :: [map]
   def get_records(%{query: query} = assigns) do
     query
     |> order_query(assigns)
