@@ -15,7 +15,7 @@ defmodule Exzeitable.Filter do
     order: false
   ]
 
-  # The parent that the nested resource belongs to
+  @doc "Gets the parent that the nested resource belongs to"
   @spec parent_for(map, map) :: map | nil
   def parent_for(entry, %{belongs_to: belongs_to}) do
     case Map.get(entry, belongs_to) do
@@ -24,7 +24,7 @@ defmodule Exzeitable.Filter do
     end
   end
 
-  # Selects the page buttons we need for pagination
+  @doc "Selects the page buttons we need for pagination"
   @spec filter_pages(integer, integer) :: [String.t() | Integer]
   def filter_pages(pages, _page) when pages <= 7, do: 1..pages
 
@@ -36,6 +36,7 @@ defmodule Exzeitable.Filter do
     [1, "...."] ++ [page - 1, page, page + 1] ++ ["....", pages]
   end
 
+  @doc "Returns true if any of the fields have search enabled"
   def search_enabled?(%{fields: fields}) do
     fields
     |> Enum.filter(fn {_k, field} -> Map.get(field, :search) end)
@@ -52,12 +53,15 @@ defmodule Exzeitable.Filter do
     |> Enum.reject(fn {_k, field} -> Map.get(field, attribute) end)
   end
 
+  @doc "Gets fields from options and merges it into the defaults"
+  @spec set_fields(keyword) :: [any]
   def set_fields(opts) do
     opts
     |> Keyword.get(:fields, [])
     |> Enum.map(fn {key, field} -> {key, merge_fields(field)} end)
   end
 
+  # If virtual: true, a number of other options have to be overridden
   defp merge_fields([virtual: true] = field) do
     @default_fields
     |> Keyword.merge(field)

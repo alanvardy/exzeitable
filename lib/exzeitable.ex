@@ -3,6 +3,7 @@ defmodule Exzeitable do
   # Exzeitable
   """
 
+  @doc "Expands into the gigantic monstrosity that is Exzeitable"
   defmacro __using__(opts) do
     alias Exzeitable.{Database, Filter}
 
