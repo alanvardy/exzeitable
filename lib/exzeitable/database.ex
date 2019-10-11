@@ -34,6 +34,8 @@ defmodule Exzeitable.Database do
     from(q in query, limit: ^per_page, offset: ^offset)
   end
 
+  # Filter out the previous selects and preloads, because we only need the ids to get a count
+  @spec select_ids(Ecto.Query.t()) :: Ecto.Query.t()
   defp select_ids(query) do
     query =
       query
@@ -43,10 +45,11 @@ defmodule Exzeitable.Database do
     from(q in query, select: count(q.id))
   end
 
+  # Repo.all
   @spec get_query(Ecto.Query.t(), map) :: [map]
   defp get_query(query, %{repo: repo}), do: apply(repo, :all, [query])
 
-  # I want to just do a select: count(c.id)
+  @doc "I want to just do a select: count(c.id)"
   @spec get_record_count(map) :: integer
   def get_record_count(%{query: query} = assigns) do
     query
@@ -56,12 +59,17 @@ defmodule Exzeitable.Database do
     |> List.first()
   end
 
-  # We only want letters to avoid SQL injection attacks
+  @doc "We only want letters to avoid SQL injection attacks"
   @spec prefix_search(String.t()) :: String.t()
   def prefix_search(term) do
     String.replace(term, ~r/\W|_/u, "") <> ":*"
   end
 
+  @doc """
+    Generates the magic SQL fragment that performs search dynamically.
+    Created outside macro to bypass ecto restrictions
+  """
+  @spec tsvector_string([keyword]) :: String.t()
   def tsvector_string(fields) do
     search_columns =
       fields

@@ -15,7 +15,9 @@ The package can be installed by adding [exzeitable](https://github.com/alanvardy
 ```elixir
 def deps do
   [
-    {:exzeitable, "~> 0.1.1"}
+    {:exzeitable, "~> 0.1.2"},
+    {:phoenix_live_view, "~> 0.3.0"},
+    {:floki, ">= 0.0.0", only: :test}
   ]
 end
 ```
@@ -96,11 +98,11 @@ The following field options are available (with their defaults):
 - `label: nil` Set a custom string value for the column heading
 - `function: false` Pass (socket, entry) to a function with the same name as the field
 - `hidden: false` Hide the column by default (user can click show button to reveal)
-- `search: true` Do not include the column in searches
+- `search: true` Whether to include the column in search results. 
 - `order: true` Do not allow the column to be sorted (hide the sort button)
 - `virtual: false` This is shorthand for [function: true, search: false, order: false] and will override those settings. Intended for creating fields that are not database backed.
 
-
+**IMPORTANT NOTE**: Search uses [ts_vector](https://www.postgresql.org/docs/10/datatype-textsearch.html), which is performed by Postgres inside the database on string fields. This means that you cannot search fields that are _not_ string type (i.e. datetime, associations, virtual fields). Make sure to set `search: false` or `virtual: true` on such fields.
 
 Optional... options (with defaults)
 

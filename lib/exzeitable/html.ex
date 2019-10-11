@@ -176,6 +176,7 @@ defmodule Exzeitable.HTML do
   use Phoenix.HTML
   alias Exzeitable.{Filter, Format}
 
+  @doc "Root function for building the HTML table"
   @spec build_table(map) :: {:safe, iolist}
   def build_table(assigns) do
     assigns
