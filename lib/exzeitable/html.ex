@@ -18,6 +18,7 @@ defmodule Exzeitable.HTML do
   // the table
   .lt-table {
     @extend .table;
+
     thead {
       @extend .thead-dark;
     }
@@ -68,6 +69,7 @@ defmodule Exzeitable.HTML do
   .lt-pagination-wrapper {
     @extend .col-xl-6;
   }
+
   // nav around pagination ul
   .lt-pagination-nav {
     @extend .mt-1;
@@ -119,14 +121,14 @@ defmodule Exzeitable.HTML do
   .lt-hide-link {
     @extend .mx-1;
     @extend .small;
-    cursor: pointer;
+    cursor: grabbing;
   }
 
   // Sort link
   .lt-sort-link {
     @extend .mx-1;
     @extend .small;
-    cursor: pointer;
+    cursor: grabbing;
   }
 
   // Buttons for showing hidden columns
@@ -135,11 +137,21 @@ defmodule Exzeitable.HTML do
     @extend .btn-sm;
     @extend .btn-outline-secondary;
     @extend .m-1;
-    cursor: pointer;
+    cursor: grabbing;
   }
-    // #############################
-    // ###### Action Buttons #######
-    // #############################
+
+  // Buttons for showing hidden columns
+  .lt-info-button {
+    @extend .btn;
+    @extend .btn-sm;
+    @extend .btn-outline-info;
+    @extend .m-1;
+    cursor: grabbing;
+  }
+
+  // #############################
+  // ###### Action Buttons #######
+  // #############################
 
   .lt-action-delete {
     @extend .btn;
@@ -172,6 +184,7 @@ defmodule Exzeitable.HTML do
     @extend .mr-1;
     @extend .btn-outline-info;
   }
+
   """
   use Phoenix.HTML
   alias Exzeitable.{Filter, Format}

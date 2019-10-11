@@ -6,6 +6,8 @@ Dynamic searchable, sortable datatable that takes a database query and a module,
   
 ![Exzeitable](assets/screenshot.png)
 
+Documentation can be found at [https://hexdocs.pm/exzeitable](https://hexdocs.pm/exzeitable).
+
 ## Installation
 
 This package requires a Postgres database and Phoenix.
@@ -22,10 +24,35 @@ def deps do
 end
 ```
 
-Documentation can be found at [https://hexdocs.pm/exzeitable](https://hexdocs.pm/exzeitable).
-
-
 ## Getting Started
+
+### Migration
+
+Search requires the `pg_trgm` extension for Postgres.
+
+Create a new migration
+
+```bash
+mix ecto.gen.migration add_pg_trgm
+```
+
+And add the following code to your migration file
+
+```elixir
+  def up do
+    execute("CREATE EXTENSION pg_trgm")
+  end
+
+  def down do
+    execute("DROP EXTENSION pg_trgm")
+  end
+```
+
+Then migrate
+
+```bash
+mix ecto.migrate
+```
 
 ### Module
 
@@ -152,19 +179,11 @@ Call the table from your template
 <%= YourAppWeb.Live.File.live_table(@conn, query: @query, action_buttons: [:show, :edit]) %>
 ```
 
-### Migration
+### CSS
 
-And add the migration with `mix ecto.gen.migration`
+Almost no CSS styling is included out of the box. I have added generic classes elements in the table in the hopes of making the table as CSS framwork agnostic as possible.
 
-```elixir
-  def up do
-    execute("CREATE EXTENSION pg_trgm")
-  end
-
-  def down do
-    execute("DROP EXTENSION pg_trgm")
-  end
-```
+I have included a Bootstrap SASS example in the [HTML Module](Exzeitable.HTML.html)
 
 ## Contributing
 
