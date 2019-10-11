@@ -1,6 +1,6 @@
 defmodule Exzeitable do
   @moduledoc """
-  # Exzeitable
+  # Exzeitable. Check README for usage instructions.
   """
 
   @doc "Expands into the gigantic monstrosity that is Exzeitable"
@@ -60,7 +60,8 @@ defmodule Exzeitable do
             page: 1,
             order: nil,
             count: 0,
-            search: ""
+            search: "",
+            show_field_buttons: false
           }
           |> Validation.required_options()
           |> Validation.paired_options()
@@ -100,6 +101,16 @@ defmodule Exzeitable do
         fields = Kernel.put_in(fields, [String.to_existing_atom(column), :hidden], false)
 
         {:noreply, assign(socket, :fields, fields)}
+      end
+
+      @doc "Hide all the show buttons"
+      def handle_event("hide_buttons", _, socket) do
+        {:noreply, assign(socket, :show_field_buttons, false)}
+      end
+
+      @doc "Show all the show buttons"
+      def handle_event("show_buttons", _, socket) do
+        {:noreply, assign(socket, :show_field_buttons, true)}
       end
 
       @doc "Changes page when pagination buttons are clicked"

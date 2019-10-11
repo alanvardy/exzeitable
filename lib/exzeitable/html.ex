@@ -1,7 +1,7 @@
 defmodule Exzeitable.HTML do
   @moduledoc """
 
-  You will need to add styling for the form, I attempted to make the classes as unopiniated as possible.
+  You will need to add styling for the form, I attempted to make the classes as unopinionated as possible.
 
   Below is a SASS example for Bootstrap 4
 
@@ -18,6 +18,7 @@ defmodule Exzeitable.HTML do
   // the table
   .lt-table {
     @extend .table;
+
     thead {
       @extend .thead-dark;
     }
@@ -68,6 +69,7 @@ defmodule Exzeitable.HTML do
   .lt-pagination-wrapper {
     @extend .col-xl-6;
   }
+
   // nav around pagination ul
   .lt-pagination-nav {
     @extend .mt-1;
@@ -119,14 +121,14 @@ defmodule Exzeitable.HTML do
   .lt-hide-link {
     @extend .mx-1;
     @extend .small;
-    cursor: pointer;
+    cursor: grabbing;
   }
 
   // Sort link
   .lt-sort-link {
     @extend .mx-1;
     @extend .small;
-    cursor: pointer;
+    cursor: grabbing;
   }
 
   // Buttons for showing hidden columns
@@ -135,11 +137,21 @@ defmodule Exzeitable.HTML do
     @extend .btn-sm;
     @extend .btn-outline-secondary;
     @extend .m-1;
-    cursor: pointer;
+    cursor: grabbing;
   }
-    // #############################
-    // ###### Action Buttons #######
-    // #############################
+
+  // Buttons for showing hidden columns
+  .lt-info-button {
+    @extend .btn;
+    @extend .btn-sm;
+    @extend .btn-outline-info;
+    @extend .m-1;
+    cursor: grabbing;
+  }
+
+  // #############################
+  // ###### Action Buttons #######
+  // #############################
 
   .lt-action-delete {
     @extend .btn;
@@ -172,10 +184,12 @@ defmodule Exzeitable.HTML do
     @extend .mr-1;
     @extend .btn-outline-info;
   }
+
   """
   use Phoenix.HTML
   alias Exzeitable.{Filter, Format}
 
+  @doc "Root function for building the HTML table"
   @spec build_table(map) :: {:safe, iolist}
   def build_table(assigns) do
     assigns
@@ -213,15 +227,23 @@ defmodule Exzeitable.HTML do
     new_button = build_action_button(:new, assigns)
     show_buttons = show_buttons(assigns)
     pagination = build_pagination(assigns)
-    navigation = [pagination, search_box]
+    show_hide_fields = build_show_hide_fields_button(assigns)
+
+    top_navigation =
+      [
+        [pagination, new_button, show_hide_fields] |> cont(:div, class: "lt-pagination-wrapper"),
+        search_box
+      ]
+      |> cont(:div, class: "lt-row")
+
+    bottom_buttons = [new_button, show_hide_fields] |> cont(:div, [])
 
     [
-      cont(navigation, :div, class: "lt-row"),
-      new_button,
+      top_navigation,
       show_buttons,
       contents,
-      new_button,
       show_buttons,
+      bottom_buttons,
       pagination
     ]
     |> cont(:div, class: "outer-wrapper", onclick: "")
@@ -230,17 +252,23 @@ defmodule Exzeitable.HTML do
   @spec build_search(map) :: {:safe, iolist}
   defp build_search(%{debounce: debounce} = assigns) do
     if Filter.search_enabled?(assigns) do
-      form_for(:search, "#", [phx_change: :search, class: "lt-search-form"], fn f ->
-        [
-          text_input(f, :search,
-            placeholder: "Search",
-            class: "lt-search-field",
-            phx_debounce: debounce
-          ),
-          counter(assigns)
-        ]
-        |> cont(:div, class: "lt-search-field-wrapper")
-      end)
+      form_for(
+        :search,
+        "#",
+        # onkeypress to disable enter key in search field
+        [phx_change: :search, class: "lt-search-form", onkeypress: "return event.keyCode != 13;"],
+        fn f ->
+          [
+            text_input(f, :search,
+              placeholder: "Search",
+              class: "lt-search-field",
+              phx_debounce: debounce
+            ),
+            counter(assigns)
+          ]
+          |> cont(:div, class: "lt-search-field-wrapper")
+        end
+      )
       |> cont(:div, class: "lt-search-wrapper")
     else
       ""
@@ -290,7 +318,6 @@ defmodule Exzeitable.HTML do
        [paginate_button("Next", page, pages)])
     |> cont(:ul, class: "lt-pagination-ul")
     |> cont(:nav, class: "lt-pagination-nav")
-    |> cont(:div, class: "lt-pagination-wrapper")
   end
 
   @spec numbered_buttons(integer, integer) :: [{:safe, iolist}]
@@ -402,6 +429,8 @@ defmodule Exzeitable.HTML do
   end
 
   @spec show_buttons(map) :: [any()]
+  defp show_buttons(%{show_field_buttons: false}), do: ""
+
   defp show_buttons(assigns) do
     assigns
     |> Map.get(:fields)
@@ -502,6 +531,21 @@ defmodule Exzeitable.HTML do
       class: "lt-action-delete",
       method: :delete,
       "data-confirm": "Are you sure?"
+    )
+  end
+
+  defp build_show_hide_fields_button(%{show_field_buttons: show_field_buttons}) do
+    {name, value} =
+      if show_field_buttons do
+        {"Hide Field Buttons", "hide_buttons"}
+      else
+        {"Show Field Buttons", "show_buttons"}
+      end
+
+    name
+    |> cont(:a,
+      class: "lt-info-button",
+      "phx-click": value
     )
   end
 end
