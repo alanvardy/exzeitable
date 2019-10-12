@@ -17,7 +17,7 @@ The package can be installed by adding [exzeitable](https://github.com/alanvardy
 ```elixir
 def deps do
   [
-    {:exzeitable, "~> 0.1.2"},
+    {:exzeitable, "~> 0.2.0"},
     {:phoenix_live_view, "~> 0.3.0"},
     {:floki, ">= 0.0.0", only: :test}
   ]
