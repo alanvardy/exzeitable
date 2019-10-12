@@ -24,6 +24,8 @@
     "error_view.ex",
     "layout_view.ex",
     "gettext.ex",
-    "user_socket.ex"
+    "user_socket.ex",
+    "user_table.ex",
+    "post_table.ex"
   ]
 }

@@ -1,4 +1,5 @@
 defmodule ExzeitableWeb.Endpoint do
+  @moduledoc false
   use Phoenix.Endpoint, otp_app: :exzeitable
 
   socket("/live", Phoenix.LiveView.Socket)
