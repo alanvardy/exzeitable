@@ -1,4 +1,4 @@
-defmodule ExzeitableWeb.DataCase do
+defmodule TestWeb.DataCase do
   alias Ecto.Adapters.SQL.Sandbox
   alias Exzeitable.Repo
 
@@ -24,7 +24,7 @@ defmodule ExzeitableWeb.DataCase do
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import ExzeitableWeb.DataCase
+      import TestWeb.DataCase
     end
   end
 

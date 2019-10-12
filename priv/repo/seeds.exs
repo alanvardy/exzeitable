@@ -1,5 +1,5 @@
 alias Exzeitable.Repo
-alias ExzeitableWeb.{Post, User}
+alias TestWeb.{Post, User}
 
 Repo.delete_all(User)
 Repo.delete_all(Post)

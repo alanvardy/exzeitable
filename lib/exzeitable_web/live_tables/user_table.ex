@@ -1,7 +1,7 @@
-defmodule ExzeitableWeb.UserTable do
+defmodule TestWeb.UserTable do
   @moduledoc "User table"
-  alias ExzeitableWeb.Router.Helpers, as: Routes
-  alias ExzeitableWeb.User
+  alias TestWeb.Router.Helpers, as: Routes
+  alias TestWeb.User
 
   use Exzeitable,
     repo: Exzeitable.Repo,

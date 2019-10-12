@@ -1,5 +1,5 @@
-defmodule ExzeitableWeb.Router do
-  use ExzeitableWeb, :router
+defmodule TestWeb.Router do
+  use TestWeb, :router
 
   pipeline :browser do
     plug(:accepts, ["html"])
@@ -14,7 +14,7 @@ defmodule ExzeitableWeb.Router do
     plug(:accepts, ["json"])
   end
 
-  scope "/", ExzeitableWeb do
+  scope "/", TestWeb do
     pipe_through(:browser)
 
     resources("/users", UserController)
@@ -22,7 +22,7 @@ defmodule ExzeitableWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", ExzeitableWeb do
+  # scope "/api", TestWeb do
   #   pipe_through :api
   # end
 end

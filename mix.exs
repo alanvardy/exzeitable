@@ -64,6 +64,7 @@ defmodule Exzeitable.MixProject do
       source_url: "https://github.com/alanvardy/exzeitable",
       logo: "screenshot.png",
       assets: "assets",
+      filter_prefix: "Exzeitable",
       extras: [
         "README.md": [filename: "README"],
         "CHANGELOG.md": [filename: "CHANGELOG"]

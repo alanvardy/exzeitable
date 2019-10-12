@@ -1,3 +1,3 @@
-defmodule ExzeitableWeb.PostView do
-  use ExzeitableWeb, :view
+defmodule TestWeb.PostView do
+  use TestWeb, :view
 end

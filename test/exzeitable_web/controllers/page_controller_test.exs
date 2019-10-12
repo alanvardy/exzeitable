@@ -1,8 +1,8 @@
-defmodule ExzeitableWeb.PageControllerTest do
+defmodule TestWeb.PageControllerTest do
   @moduledoc false
-  use ExzeitableWeb.ConnCase, async: true
+  use TestWeb.ConnCase, async: true
   alias Exzeitable.Repo
-  alias ExzeitableWeb.User
+  alias TestWeb.User
 
   describe "Pages" do
     test "Get posts page", %{conn: conn} do

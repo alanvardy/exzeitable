@@ -1,4 +1,4 @@
-defmodule ExzeitableWeb.User do
+defmodule TestWeb.User do
   @moduledoc false
   use Ecto.Schema
   import Ecto.Changeset
@@ -6,7 +6,7 @@ defmodule ExzeitableWeb.User do
   schema "users" do
     field(:name, :string)
     field(:age, :integer)
-    has_many(:posts, ExzeitableWeb.Post, on_delete: :delete_all)
+    has_many(:posts, TestWeb.Post, on_delete: :delete_all)
 
     timestamps()
   end

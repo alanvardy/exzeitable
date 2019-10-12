@@ -1,6 +1,6 @@
-defmodule ExzeitableWeb.ChannelCase do
+defmodule TestWeb.ChannelCase do
   alias Ecto.Adapters.SQL.Sandbox
-  alias ExzeitableWeb.{Endpoint, Repo}
+  alias TestWeb.{Endpoint, Repo}
 
   @moduledoc """
   This module defines the test case to be used by

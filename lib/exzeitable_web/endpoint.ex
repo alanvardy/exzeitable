@@ -1,10 +1,10 @@
-defmodule ExzeitableWeb.Endpoint do
+defmodule TestWeb.Endpoint do
   @moduledoc false
   use Phoenix.Endpoint, otp_app: :exzeitable
 
   socket("/live", Phoenix.LiveView.Socket)
 
-  socket("/socket", ExzeitableWeb.UserSocket,
+  socket("/socket", TestWeb.UserSocket,
     websocket: true,
     longpoll: false
   )
@@ -49,5 +49,5 @@ defmodule ExzeitableWeb.Endpoint do
     signing_salt: "1RnbZzkx"
   )
 
-  plug(ExzeitableWeb.Router)
+  plug(TestWeb.Router)
 end

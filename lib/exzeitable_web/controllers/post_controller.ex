@@ -1,7 +1,7 @@
-defmodule ExzeitableWeb.PostController do
-  use ExzeitableWeb, :controller
+defmodule TestWeb.PostController do
+  use TestWeb, :controller
 
-  alias ExzeitableWeb.{Post, Query}
+  alias TestWeb.{Post, Query}
 
   def index(conn, _params) do
     posts = Query.list_posts()

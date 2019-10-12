@@ -1,3 +1,3 @@
-defmodule ExzeitableWeb.LayoutViewTest do
-  use ExzeitableWeb.ConnCase, async: true
+defmodule TestWeb.LayoutViewTest do
+  use TestWeb.ConnCase, async: true
 end
