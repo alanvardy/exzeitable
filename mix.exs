@@ -52,7 +52,12 @@ defmodule Exzeitable.MixProject do
       maintainers: ["Alan Vardy"],
       licenses: ["MIT"],
       links: %{github: "https://github.com/alanvardy/exzeitable"},
-      files: ["lib/exzeitable.ex", "lib/exzeitable", "mix.exs", "screenshot.png", "README.md"]
+      files: [
+        "lib/exzeitable.ex",
+        "lib/exzeitable",
+        "mix.exs",
+        "README.md"
+      ]
     ]
   end
 
