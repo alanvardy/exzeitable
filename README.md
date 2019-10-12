@@ -4,7 +4,7 @@
 
 Dynamic searchable, sortable datatable that takes a database query and a module, and makes the magic happen. Uses Phoenix Liveview and Postgres. Bootstrap friendly and easily configured for other CSS frameworks.
   
-![Exzeitable](assets/screenshot.png)
+![Exzeitable](screenshot.png)
 
 Documentation can be found at [https://hexdocs.pm/exzeitable](https://hexdocs.pm/exzeitable).
 

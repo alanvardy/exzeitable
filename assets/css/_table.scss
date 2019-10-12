@@ -1,0 +1,178 @@
+// #############################
+// ########### TABLE ###########
+// #############################
+
+// div around the table
+.lt-table-wrapper {
+  @extend .table-responsive;
+}
+
+// the table
+.lt-table {
+  @extend .table;
+
+  thead {
+    @extend .thead-dark;
+  }
+}
+
+// div around lt-pagination-div and lt-search-div
+.lt-row {
+  @extend .row;
+}
+
+// #############################
+// ########### SEARCH ##########
+// #############################
+
+// div around the search box
+.lt-search-wrapper {
+  @extend .col-xl-6;
+}
+
+//The search form (I don't need this)
+// .lt-search-form {
+
+// }
+
+.lt-search-field {
+  @extend .form-control;
+  @extend .mb-1;
+}
+
+.lt-search-field-wrapper {
+  @extend .input-group-append;
+}
+
+.lt-counter-field {
+  @extend .input-group-text;
+}
+
+.lt-counter-field-wrapper {
+  @extend .input-group-append;
+  @extend .mb-1;
+}
+
+// #############################
+// ######## PAGINATION #########
+// #############################
+
+// div around the pagination nav
+.lt-pagination-wrapper {
+  @extend .col-xl-6;
+}
+
+// nav around pagination ul
+.lt-pagination-nav {
+  @extend .mt-1;
+  @extend .mt-xl-0;
+}
+
+// ul around pagination li
+.lt-pagination-ul {
+  @extend .pagination;
+  @extend .pagination-sm;
+}
+
+// li around pagination links
+.lt-pagination-li {
+  @extend .page-item;
+}
+
+// li around pagination links when active
+.lt-pagination-li-active {
+  @extend .page-item;
+  @extend .active;
+  color: white;
+}
+
+// li around pagination links when disabled
+.lt-pagination-li-disabled {
+  @extend .page-item;
+  @extend .disabled;
+}
+
+// Base class for pagination link
+.lt-pagination-a {
+  @extend .page-link;
+  @extend .text-center;
+  @extend .mt-1;
+}
+
+// Fixed width for pagination link with number
+.lt-pagination-width {
+  width: 50px;
+}
+
+// #############################
+// ####### Header Links ########
+// #############################
+
+
+// Hide link
+.lt-hide-link {
+  @extend .mx-1;
+  @extend .small;
+  cursor: grabbing;
+}
+
+// Sort link
+.lt-sort-link {
+  @extend .mx-1;
+  @extend .small;
+  cursor: grabbing;
+}
+
+// Buttons for showing hidden columns
+.lt-show-button {
+  @extend .btn;
+  @extend .btn-sm;
+  @extend .btn-outline-secondary;
+  @extend .m-1;
+  cursor: grabbing;
+}
+
+// Buttons for showing hidden columns
+.lt-info-button {
+  @extend .btn;
+  @extend .btn-sm;
+  @extend .btn-outline-info;
+  @extend .m-1;
+  cursor: grabbing;
+}
+
+// #############################
+// ###### Action Buttons #######
+// #############################
+
+.lt-action-delete {
+  @extend .btn;
+  @extend .btn-sm;
+  @extend .my-1;
+  @extend .mr-1;
+  @extend .btn-outline-danger;
+}
+
+.lt-action-new {
+  @extend .btn;
+  @extend .btn-sm;
+  @extend .my-1;
+  @extend .mr-1;
+  @extend .btn-outline-primary;
+}
+
+.lt-action-show {
+  @extend .btn;
+  @extend .btn-sm;
+  @extend .my-1;
+  @extend .mr-1;
+  @extend .btn-outline-primary;
+}
+
+.lt-action-edit {
+  @extend .btn;
+  @extend .btn-sm;
+  @extend .my-1;
+  @extend .mr-1;
+  @extend .btn-outline-info;
+}

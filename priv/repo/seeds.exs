@@ -1,4 +1,5 @@
-alias PhoenixWeb.{Repo, User}
+alias Exzeitable.Repo
+alias ExzeitableWeb.User
 
 Repo.delete_all(User)
 

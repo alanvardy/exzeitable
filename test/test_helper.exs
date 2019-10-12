@@ -1,2 +1,2 @@
 ExUnit.start()
-Ecto.Adapters.SQL.Sandbox.mode(PhoenixWeb.Repo, :manual)
+Ecto.Adapters.SQL.Sandbox.mode(Exzeitable.Repo, :manual)

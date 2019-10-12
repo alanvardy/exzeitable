@@ -9,14 +9,13 @@ defmodule Exzeitable.MixProject do
       app: :exzeitable,
       version: @version,
       elixir: "~> 1.9",
-      start_permanent: Mix.env() == :prod,
-      build_embedded: Mix.env() == :prod,
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
-      deps: deps(),
+      start_permanent: Mix.env() == :prod,
+      build_embedded: Mix.env() == :prod,
       aliases: aliases(),
+      deps: deps(),
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [coveralls: :test],
 
       # Hex
       description: "Dynamically updating, searchable, sortable datatables with Phoenix LiveView",
@@ -28,20 +27,23 @@ defmodule Exzeitable.MixProject do
     ]
   end
 
-  # Run "mix help compile.app" to learn about applications.
+  # Configuration for the OTP application.
+  #
+  # Type `mix help compile.app` for more information.
   def application do
-    if Mix.env() == :test do
+    if Mix.env() == :prod do
       [
-        mod: {PhoenixWeb.Application, []},
-        extra_applications: [:logger, :postgrex, :ecto, :timex]
+        extra_applications: [:logger, :postgrex, :ecto]
       ]
     else
       [
+        mod: {ExzeitableWeb.Application, []},
         extra_applications: [:logger, :postgrex, :ecto, :timex]
       ]
     end
   end
 
+  # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
 
@@ -50,7 +52,7 @@ defmodule Exzeitable.MixProject do
       maintainers: ["Alan Vardy"],
       licenses: ["MIT"],
       links: %{github: "https://github.com/alanvardy/exzeitable"},
-      files: ~w(lib mix.exs README.md )
+      files: ["lib/exzeitable.exs", "lib/exzeitable", "mix.exs", "screenshot.png", "README.md"]
     ]
   end
 
@@ -60,7 +62,7 @@ defmodule Exzeitable.MixProject do
       main: "README",
       canonical: "http://hexdocs.pm/exzeitable",
       source_url: "https://github.com/alanvardy/exzeitable",
-      logo: "assets/screenshot.png",
+      logo: "screenshot.png",
       assets: "assets",
       extras: [
         "README.md": [filename: "README"],
@@ -69,20 +71,29 @@ defmodule Exzeitable.MixProject do
     ]
   end
 
-  # Run "mix help deps" to learn about dependencies.
+  # Specifies your project dependencies.
+  #
+  # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:ecto, "~> 2.2 or ~> 3.0"},
+      # Phoenix
       {:phoenix, "~> 1.3.0 or ~> 1.4.0"},
-      {:phoenix_html, ">= 2.0.0 and <= 3.0.0"},
-      {:plug, ">= 1.5.0 and < 2.0.0", optional: true},
-      {:phoenix_ecto, "~> 4.0.0"},
-      {:ecto_sql, "~> 3.1"},
+      {:phoenix_html, "~> 2.11"},
+      {:phoenix_pubsub, "~> 1.1"},
+      {:phoenix_ecto, "~> 4.0"},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:gettext, "~> 0.11"},
+      {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:postgrex, "~> 0.15.0"},
+      # Ecto
+      {:ecto, "~> 2.2 or ~> 3.0"},
+      {:ecto_sql, "~> 3.1"},
+      {:postgrex, ">= 0.0.0"},
+      # Live View
       {:phoenix_live_view, "~> 0.3.0"},
       {:floki, ">= 0.0.0", only: :test},
-      {:timex, "~> 3.5", only: [:dev, :test]},
+      {:timex, "~> 3.5", only: [:dev, :test, :systemtest]},
+      # Tooling
       {:ex_check, ">= 0.0.0", only: :dev, runtime: false},
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0.0-rc.6", only: [:dev, :test], runtime: false},
@@ -92,12 +103,20 @@ defmodule Exzeitable.MixProject do
     ]
   end
 
+  # Aliases are shortcuts or tasks specific to the current project.
+  # For example, to create, migrate and run the seeds file at once:
+  #
+  #     $ mix ecto.setup
+  #
+  # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      "ecto.seed": ["run priv/repo/seeds.exs"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"],
+      "cypress.open": ["cmd ./cypress-open.sh"],
+      "cypress.ci": ["cmd ./cypress-ci.sh"],
+      "cypress.run": ["cmd ./cypress-run.sh"]
     ]
   end
 end

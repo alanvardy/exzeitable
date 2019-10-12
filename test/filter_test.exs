@@ -1,20 +1,20 @@
 defmodule Exzeitable.FilterTest do
   @moduledoc false
-  use Exzeitable.DataCase, async: true
+  use ExzeitableWeb.DataCase, async: true
   alias Exzeitable.{Database, Filter}
-  alias PhoenixWeb.{Post, User}
+  alias ExzeitableWeb.{Post, User}
 
   @assigns %{
     query: from(p in Post, preload: [:user]),
     parent: nil,
     routes: Exzeitable.Router.Helpers,
-    repo: PhoenixWeb.Repo,
+    repo: Exzeitable.Repo,
     path: :post_path,
     fields: [title: [], content: []],
     action_buttons: [],
     belongs_to: nil,
     per_page: 50,
-    module: PhoenixWeb.PostTable,
+    module: ExzeitableWeb.PostTable,
     page: 1,
     order: nil,
     count: 0,
