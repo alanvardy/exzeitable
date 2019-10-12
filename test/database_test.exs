@@ -1,20 +1,20 @@
 defmodule Exzeitable.DatabaseTest do
   @moduledoc false
-  use Exzeitable.DataCase, async: true
+  use TestWeb.DataCase, async: true
   alias Exzeitable.Database
-  alias PhoenixWeb.User
+  alias TestWeb.User
 
   @assigns %{
     query: from(u in User),
     parent: nil,
-    routes: PhoenixWeb.Router.Helpers,
-    repo: PhoenixWeb.Repo,
+    routes: TestWeb.Router.Helpers,
+    repo: Exzeitable.Repo,
     path: :user_path,
     fields: [name: [], age: []],
     action_buttons: [],
     belongs_to: nil,
     per_page: 10,
-    module: PhoenixWeb.UserTable,
+    module: TestWeb.UserTable,
     page: 1,
     order: nil,
     count: 0,

@@ -1,8 +1,12 @@
 // We need to import the CSS so that webpack will load it via MiniCssExtractPlugin.
 import css from "../css/app.scss"
-import "phoenix_html"
+import $ from "jquery"
 
-// import a from "./bootstrap_form.js"
+window.jQuery = $
+window.$ = $
+
+import "bootstrap"
+import "phoenix_html"
 
 import { Socket } from "phoenix"
 import LiveSocket from "phoenix_live_view"

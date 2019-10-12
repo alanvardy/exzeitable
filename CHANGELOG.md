@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.2.0 (2019-10-12)
+
+* Rebuilt with Phoenix (originally was just a Mix project)
+* Added dev environment
+* Added acceptance tests with cypress
+* Added additional unit tests
+
 ## v0.1.2 (2019-10-11)
 
 * Added ability to show and hide 'show buttons' for columns

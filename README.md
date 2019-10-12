@@ -4,7 +4,7 @@
 
 Dynamic searchable, sortable datatable that takes a database query and a module, and makes the magic happen. Uses Phoenix Liveview and Postgres. Bootstrap friendly and easily configured for other CSS frameworks.
   
-![Exzeitable](assets/screenshot.png)
+![Exzeitable](assets/logo.png)
 
 Documentation can be found at [https://hexdocs.pm/exzeitable](https://hexdocs.pm/exzeitable).
 
@@ -17,7 +17,7 @@ The package can be installed by adding [exzeitable](https://github.com/alanvardy
 ```elixir
 def deps do
   [
-    {:exzeitable, "~> 0.1.2"},
+    {:exzeitable, "~> 0.2.0"},
     {:phoenix_live_view, "~> 0.3.0"},
     {:floki, ">= 0.0.0", only: :test}
   ]

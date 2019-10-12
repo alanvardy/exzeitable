@@ -16,7 +16,7 @@
     # {:my_mix_check, command: "mix release", env: %{"MIX_ENV" => "prod"}},
     # {:my_arbitrary_check, command: "npm test", cd: "assets"},
 
-    # {:cypress, command: "mix cypress.run"},
+    {:cypress, command: "mix cypress.run"},
     {:ex_coveralls,
      command: "mix coveralls.html",
      require_files: ["test/test_helper.exs"],

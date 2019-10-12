@@ -68,13 +68,13 @@ defmodule Exzeitable.Filter do
 
   # If virtual: true, a number of other options have to be overridden
   @spec merge_fields(keyword) :: keyword
-  defp merge_fields([virtual: true] = field) do
-    @default_fields
-    |> Keyword.merge(field)
-    |> Keyword.merge(@virtual_fields)
-  end
-
   defp merge_fields(field) do
-    Keyword.merge(@default_fields, field)
+    if Keyword.get(field, :virtual) do
+      @default_fields
+      |> Keyword.merge(field)
+      |> Keyword.merge(@virtual_fields)
+    else
+      Keyword.merge(@default_fields, field)
+    end
   end
 end

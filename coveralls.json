@@ -1,0 +1,31 @@
+{
+  "coverage_options": {
+    "minimum_coverage": 50
+  },
+  "skip_files": [
+    "error_helpers.ex",
+    "channel_case.ex",
+    "conn_case.ex",
+    "helpers.ex",
+    "endpoint.ex",
+    "application.ex",
+    "repo.ex",
+    "data_case.ex",
+    "exzeitable_web.ex",
+    "fallback_controller.ex",
+    "query.ex",
+    "router.ex",
+    "post.ex",
+    "user.ex",
+    "post_controller.ex",
+    "user_controller.ex",
+    "post_view.ex",
+    "user_view.ex",
+    "error_view.ex",
+    "layout_view.ex",
+    "gettext.ex",
+    "user_socket.ex",
+    "user_table.ex",
+    "post_table.ex"
+  ]
+}

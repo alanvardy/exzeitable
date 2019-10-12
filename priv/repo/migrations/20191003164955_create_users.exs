@@ -1,8 +1,8 @@
-defmodule PhoenixWeb.Repo.Migrations.CreateUsersAndPosts do
+defmodule Exzeitable.Repo.Migrations.CreateUsersAndPosts do
   @moduledoc false
   use Ecto.Migration
 
-  def change do
+  def up do
     create table("users") do
       add(:name, :string, size: 40)
       add(:age, :integer)
@@ -17,10 +17,13 @@ defmodule PhoenixWeb.Repo.Migrations.CreateUsersAndPosts do
 
       timestamps()
     end
+
+    execute("CREATE EXTENSION pg_trgm")
   end
 
   def down do
     drop(table("users"))
     drop(table("posts"))
+    execute("DROP EXTENSION pg_trgm")
   end
 end
