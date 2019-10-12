@@ -1,6 +1,7 @@
 defmodule ExzeitableWeb.Post do
   @moduledoc false
   use Ecto.Schema
+  import Ecto.Changeset
 
   schema "posts" do
     field(:title, :string)
@@ -8,5 +9,11 @@ defmodule ExzeitableWeb.Post do
     belongs_to(:user, ExzeitableWeb.User)
 
     timestamps()
+  end
+
+  def changeset(post, attrs) do
+    post
+    |> cast(attrs, [:title, :content])
+    |> validate_required([:title, :content])
   end
 end

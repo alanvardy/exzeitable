@@ -1,2 +1,2 @@
-<h1>Users</h1>
+<h1>Listing Users</h1>
 <%= ExzeitableWeb.UserTable.live_table(@conn) %>

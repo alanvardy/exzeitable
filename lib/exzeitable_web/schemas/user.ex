@@ -1,6 +1,7 @@
 defmodule ExzeitableWeb.User do
   @moduledoc false
   use Ecto.Schema
+  import Ecto.Changeset
 
   schema "users" do
     field(:name, :string)
@@ -8,5 +9,12 @@ defmodule ExzeitableWeb.User do
     has_many(:posts, ExzeitableWeb.Post, on_delete: :delete_all)
 
     timestamps()
+  end
+
+  @doc false
+  def changeset(user, attrs) do
+    user
+    |> cast(attrs, [:name, :age])
+    |> validate_required([:name, :age])
   end
 end

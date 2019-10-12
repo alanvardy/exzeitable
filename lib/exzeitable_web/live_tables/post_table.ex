@@ -6,8 +6,7 @@ defmodule ExzeitableWeb.PostTable do
   use Exzeitable,
     repo: Exzeitable.Repo,
     routes: Routes,
-    action_buttons: [],
-    path: :page_path,
+    path: :post_path,
     fields: [title: [], content: []],
     query: from(p in Post)
 

@@ -1,2 +1,2 @@
-<h1>Posts</h1>
+<h1>Listing Posts</h1>
 <%= ExzeitableWeb.PostTable.live_table(@conn) %>

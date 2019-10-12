@@ -6,8 +6,7 @@ defmodule ExzeitableWeb.UserTable do
   use Exzeitable,
     repo: Exzeitable.Repo,
     routes: Routes,
-    path: :page_path,
-    action_buttons: [],
+    path: :user_path,
     fields: [name: [], age: []],
     query: from(u in User),
     per_page: 5

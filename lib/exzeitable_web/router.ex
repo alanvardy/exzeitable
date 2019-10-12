@@ -17,8 +17,8 @@ defmodule ExzeitableWeb.Router do
   scope "/", ExzeitableWeb do
     pipe_through(:browser)
 
-    get("/posts", PageController, :posts)
-    get("/users", PageController, :users)
+    resources("/users", UserController)
+    resources("/posts", PostController)
   end
 
   # Other scopes may use custom stacks.
