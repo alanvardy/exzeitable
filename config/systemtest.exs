@@ -11,7 +11,7 @@ config :exzeitable, ecto_repos: [Exzeitable.Repo]
 
 config :exzeitable, env: :systemtest
 
-config :exzeitable, Exzeitable.Endpoint,
+config :exzeitable, ExzeitableWeb.Endpoint,
   secret_key_base: "PuPVb+cWuZmcKPrLR+Cydi2BhbQ+Q+hOqN1cOKYC3QnTzUTWb0HLyfx1enJVot6r",
   http: [port: 5000],
   url: [host: "localhost"],
