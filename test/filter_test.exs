@@ -7,7 +7,7 @@ defmodule Exzeitable.FilterTest do
   @assigns %{
     query: from(p in Post, preload: [:user]),
     parent: nil,
-    routes: Exzeitable.Router.Helpers,
+    routes: ExzeitableWeb.Router.Helpers,
     repo: Exzeitable.Repo,
     path: :post_path,
     fields: [title: [], content: []],

@@ -25,7 +25,7 @@ defmodule ExzeitableWeb.ConnCase do
       alias ExzeitableWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
-      @endpoint ExzeitableWeb.Endpoint
+      @endpoint Exzeitable.Endpoint
     end
   end
 

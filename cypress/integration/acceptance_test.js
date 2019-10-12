@@ -10,8 +10,14 @@ describe('Acceptance Test', function () {
     Cypress.Cookies.preserveOnce('_tradesway_key')
   })
 
-  it('Visits the main page', function () {
-    cy.visit('http://localhost:5000/posts')
+  it('Can visit the users page', function () {
+    cy.visit('http://localhost:5000/users')
+    cy.contains('SUCCESS')
+  })
+
+  it('Can hide the names column', function () {
+    cy.contains('Bob')
+    cy.get('[phx-value-column=name]').first().click()
     cy.contains('sdsdfa')
   })
 

@@ -37,7 +37,7 @@ defmodule Exzeitable.MixProject do
       ]
     else
       [
-        mod: {ExzeitableWeb.Application, []},
+        mod: {Exzeitable.Application, []},
         extra_applications: [:logger, :postgrex, :ecto, :timex]
       ]
     end
@@ -91,7 +91,7 @@ defmodule Exzeitable.MixProject do
       {:postgrex, ">= 0.0.0"},
       # Live View
       {:phoenix_live_view, "~> 0.3.0"},
-      {:floki, ">= 0.0.0", only: :test},
+      {:floki, ">= 0.0.0", only: [:test, :systemtest]},
       {:timex, "~> 3.5", only: [:dev, :test, :systemtest]},
       # Tooling
       {:ex_check, ">= 0.0.0", only: :dev, runtime: false},

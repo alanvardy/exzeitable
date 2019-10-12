@@ -9,7 +9,8 @@ defmodule ExzeitableWeb.UserTable do
     path: :page_path,
     action_buttons: [],
     fields: [name: [], age: []],
-    query: from(u in User)
+    query: from(u in User),
+    per_page: 5
 
   def render(assigns), do: ~L"<%= build_table(assigns) %>"
 end

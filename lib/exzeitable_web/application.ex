@@ -1,4 +1,4 @@
-defmodule ExzeitableWeb.Application do
+defmodule Exzeitable.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -11,7 +11,7 @@ defmodule ExzeitableWeb.Application do
       # Start the Ecto repository
       Exzeitable.Repo,
       # Start the endpoint when the application starts
-      ExzeitableWeb.Endpoint
+      Exzeitable.Endpoint
       # Starts a worker by calling: Exzeitable.Worker.start_link(arg)
       # {Exzeitable.Worker, arg},
     ]
@@ -25,7 +25,7 @@ defmodule ExzeitableWeb.Application do
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    ExzeitableWeb.Endpoint.config_change(changed, removed)
+    Exzeitable.Endpoint.config_change(changed, removed)
     :ok
   end
 end

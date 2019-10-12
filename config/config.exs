@@ -7,21 +7,6 @@
 # General application configuration
 use Mix.Config
 
-config :exzeitable,
-  ecto_repos: [Exzeitable.Repo]
-
-# Configures the endpoint
-config :exzeitable, ExzeitableWeb.Endpoint,
-  url: [host: "localhost"],
-  secret_key_base: "6Eai8HYo2vYr7Zt4xhid/os3bG67+1wFRODKHTZTz6APV918Hh/xnxYO9EIpwydR",
-  render_errors: [view: ExzeitableWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Exzeitable.PubSub, adapter: Phoenix.PubSub.PG2]
-
-# Configures Elixir's Logger
-config :logger, :console,
-  format: "$time $metadata[$level] $message\n",
-  metadata: [:request_id]
-
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
