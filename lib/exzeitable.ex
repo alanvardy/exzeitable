@@ -61,7 +61,8 @@ defmodule Exzeitable do
             order: nil,
             count: 0,
             search: "",
-            show_field_buttons: false
+            show_field_buttons: false,
+            csrf_token: Phoenix.Controller.get_csrf_token()
           }
           |> Validation.required_options()
           |> Validation.paired_options()
