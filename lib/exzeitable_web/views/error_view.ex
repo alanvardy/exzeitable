@@ -1,5 +1,5 @@
-defmodule ExzeitableWeb.ErrorView do
-  use ExzeitableWeb, :view
+defmodule TestWeb.ErrorView do
+  use TestWeb, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

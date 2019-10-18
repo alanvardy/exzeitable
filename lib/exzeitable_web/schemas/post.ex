@@ -1,4 +1,4 @@
-defmodule ExzeitableWeb.Post do
+defmodule TestWeb.Post do
   @moduledoc false
   use Ecto.Schema
   import Ecto.Changeset
@@ -6,7 +6,7 @@ defmodule ExzeitableWeb.Post do
   schema "posts" do
     field(:title, :string)
     field(:content, :string)
-    belongs_to(:user, ExzeitableWeb.User)
+    belongs_to(:user, TestWeb.User)
 
     timestamps()
   end

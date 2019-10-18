@@ -11,7 +11,7 @@ defmodule Exzeitable.Application do
       # Start the Ecto repository
       Exzeitable.Repo,
       # Start the endpoint when the application starts
-      ExzeitableWeb.Endpoint
+      TestWeb.Endpoint
       # Starts a worker by calling: Exzeitable.Worker.start_link(arg)
       # {Exzeitable.Worker, arg},
     ]
@@ -25,7 +25,7 @@ defmodule Exzeitable.Application do
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    ExzeitableWeb.Endpoint.config_change(changed, removed)
+    TestWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end

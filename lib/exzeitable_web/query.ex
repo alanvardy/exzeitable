@@ -1,10 +1,10 @@
-defmodule ExzeitableWeb.Query do
+defmodule TestWeb.Query do
   @moduledoc false
 
   import Ecto.Query, warn: false
   alias Exzeitable.Repo
 
-  alias ExzeitableWeb.{Post, User}
+  alias TestWeb.{Post, User}
 
   def list_users do
     Repo.all(User)

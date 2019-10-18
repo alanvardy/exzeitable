@@ -1,12 +1,12 @@
-defmodule ExzeitableWeb do
+defmodule TestWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use ExzeitableWeb, :controller
-      use ExzeitableWeb, :view
+      use TestWeb, :controller
+      use TestWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,11 +19,11 @@ defmodule ExzeitableWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: ExzeitableWeb
+      use Phoenix.Controller, namespace: TestWeb
 
       import Plug.Conn
-      import ExzeitableWeb.Gettext
-      alias ExzeitableWeb.Router.Helpers, as: Routes
+      import TestWeb.Gettext
+      alias TestWeb.Router.Helpers, as: Routes
       import Phoenix.LiveView.Controller
     end
   end
@@ -32,7 +32,7 @@ defmodule ExzeitableWeb do
     quote do
       use Phoenix.View,
         root: "lib/exzeitable_web/templates",
-        namespace: ExzeitableWeb
+        namespace: TestWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
@@ -40,9 +40,9 @@ defmodule ExzeitableWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import ExzeitableWeb.ErrorHelpers
-      import ExzeitableWeb.Gettext
-      alias ExzeitableWeb.Router.Helpers, as: Routes
+      import TestWeb.ErrorHelpers
+      import TestWeb.Gettext
+      alias TestWeb.Router.Helpers, as: Routes
 
       import Phoenix.LiveView
     end
@@ -60,7 +60,7 @@ defmodule ExzeitableWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import ExzeitableWeb.Gettext
+      import TestWeb.Gettext
     end
   end
 

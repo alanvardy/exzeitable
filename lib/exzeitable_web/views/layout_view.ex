@@ -1,3 +1,3 @@
-defmodule ExzeitableWeb.LayoutView do
-  use ExzeitableWeb, :view
+defmodule TestWeb.LayoutView do
+  use TestWeb, :view
 end

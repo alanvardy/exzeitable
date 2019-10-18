@@ -1,7 +1,7 @@
-defmodule ExzeitableWeb.UserController do
-  use ExzeitableWeb, :controller
+defmodule TestWeb.UserController do
+  use TestWeb, :controller
 
-  alias ExzeitableWeb.{Query, User}
+  alias TestWeb.{Query, User}
 
   def index(conn, _params) do
     users = Query.list_users()

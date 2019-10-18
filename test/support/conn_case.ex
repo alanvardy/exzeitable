@@ -1,4 +1,4 @@
-defmodule ExzeitableWeb.ConnCase do
+defmodule TestWeb.ConnCase do
   alias Ecto.Adapters.SQL.Sandbox
   alias Exzeitable.Repo
 
@@ -22,10 +22,10 @@ defmodule ExzeitableWeb.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
-      alias ExzeitableWeb.Router.Helpers, as: Routes
+      alias TestWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
-      @endpoint ExzeitableWeb.Endpoint
+      @endpoint TestWeb.Endpoint
     end
   end
 
