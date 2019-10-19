@@ -452,85 +452,102 @@ defmodule Exzeitable.HTML do
   # New, create, show etc.
   @spec build_action_button(atom, atom, map) :: {:safe, iolist}
   defp build_action_button(:new, %{parent: nil} = assigns) do
-    %{socket: socket, routes: routes, path: path, action_buttons: action_buttons} = assigns
+    %{
+      csrf_token: csrf_token,
+      socket: socket,
+      routes: routes,
+      path: path,
+      action_buttons: action_buttons
+    } = assigns
 
     if Enum.member?(action_buttons, :new) do
       apply(routes, path, [socket, :new])
-      |> html_button(:new)
+      |> html_button(:new, csrf_token)
     else
       ""
     end
   end
 
   defp build_action_button(:new, %{parent: parent} = assigns) do
-    %{socket: socket, routes: routes, path: path, action_buttons: action_buttons} = assigns
+    %{
+      csrf_token: csrf_token,
+      socket: socket,
+      routes: routes,
+      path: path,
+      action_buttons: action_buttons
+    } = assigns
 
     if Enum.member?(action_buttons, :new) do
       apply(routes, path, [socket, :new, parent])
-      |> html_button(:new)
+      |> html_button(:new, csrf_token)
     else
       ""
     end
   end
 
   defp build_action_button(:delete, entry, %{belongs_to: nil} = assigns) do
-    %{socket: socket, routes: routes, path: path} = assigns
+    %{csrf_token: csrf_token, socket: socket, routes: routes, path: path} = assigns
 
     apply(routes, path, [socket, :delete, entry])
-    |> html_button(:delete)
+    |> html_button(:delete, csrf_token)
   end
 
   defp build_action_button(:delete, entry, assigns) do
-    %{socket: socket, routes: routes, path: path} = assigns
+    %{csrf_token: csrf_token, socket: socket, routes: routes, path: path} = assigns
 
     params = [socket, :delete, Filter.parent_for(entry, assigns), entry]
 
     apply(routes, path, params)
-    |> html_button(:delete)
+    |> html_button(:delete, csrf_token)
   end
 
   defp build_action_button(:show, entry, %{belongs_to: nil} = assigns) do
-    %{socket: socket, routes: routes, path: path} = assigns
+    %{csrf_token: csrf_token, socket: socket, routes: routes, path: path} = assigns
 
     apply(routes, path, [socket, :show, entry])
-    |> html_button(:show)
+    |> html_button(:show, csrf_token)
   end
 
   defp build_action_button(:show, entry, assigns) do
-    %{socket: socket, routes: routes, path: path} = assigns
+    %{csrf_token: csrf_token, socket: socket, routes: routes, path: path} = assigns
 
     params = [socket, :show, Filter.parent_for(entry, assigns), entry]
 
     apply(routes, path, params)
-    |> html_button(:show)
+    |> html_button(:show, csrf_token)
   end
 
   defp build_action_button(:edit, entry, %{belongs_to: nil} = assigns) do
-    %{socket: socket, routes: routes, path: path} = assigns
+    %{csrf_token: csrf_token, socket: socket, routes: routes, path: path} = assigns
 
     apply(routes, path, [socket, :edit, entry])
-    |> html_button(:edit)
+    |> html_button(:edit, csrf_token)
   end
 
   defp build_action_button(:edit, entry, assigns) do
-    %{socket: socket, routes: routes, path: path} = assigns
+    %{csrf_token: csrf_token, socket: socket, routes: routes, path: path} = assigns
     params = [socket, :edit, Filter.parent_for(entry, assigns), entry]
 
     apply(routes, path, params)
-    |> html_button(:edit)
+    |> html_button(:edit, csrf_token)
   end
 
-  @spec html_button(String.t(), atom) :: {:safe, iolist}
-  defp html_button(route, :new), do: link("New", to: route, class: "lt-action-new")
-  defp html_button(route, :show), do: link("Show", to: route, class: "lt-action-show")
-  defp html_button(route, :edit), do: link("Edit", to: route, class: "lt-action-edit")
+  @spec html_button(String.t(), atom, String.t()) :: {:safe, iolist}
+  defp html_button(route, :new, _csrf_token), do: link("New", to: route, class: "lt-action-new")
 
-  defp html_button(route, :delete) do
+  defp html_button(route, :show, _csrf_token),
+    do: link("Show", to: route, class: "lt-action-show")
+
+  defp html_button(route, :edit, _csrf_token),
+    do: link("Edit", to: route, class: "lt-action-edit")
+
+  defp html_button(route, :delete, csrf_token) do
     link("Delete",
       to: route,
       class: "lt-action-delete",
       method: :delete,
-      "data-confirm": "Are you sure?"
+      "data-confirm": "Are you sure?",
+      csrf_token: csrf_token
     )
   end
 

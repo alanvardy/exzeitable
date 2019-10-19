@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.1 (2019-10-18)
+
+* Fixed a CSRF token error on delete actions
+
 ## v0.2.0 (2019-10-12)
 
 * Rebuilt with Phoenix (originally was just a Mix project)
