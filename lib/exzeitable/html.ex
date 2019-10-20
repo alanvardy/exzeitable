@@ -29,6 +29,10 @@ defmodule Exzeitable.HTML do
     @extend .row;
   }
 
+  .exz-nothing-found {
+    @extend .text-center
+  }
+
   // #############################
   // ########### SEARCH ##########
   // #############################
