@@ -11,12 +11,12 @@ defmodule Exzeitable.HTML do
   // #############################
 
   // div around the table
-  .lt-table-wrapper {
+  .exz-table-wrapper {
     @extend .table-responsive;
   }
 
   // the table
-  .lt-table {
+  .exz-table {
     @extend .table;
 
     thead {
@@ -24,8 +24,8 @@ defmodule Exzeitable.HTML do
     }
   }
 
-  // div around lt-pagination-div and lt-search-div
-  .lt-row {
+  // div around exz-pagination-div and exz-search-div
+  .exz-row {
     @extend .row;
   }
 
@@ -34,29 +34,29 @@ defmodule Exzeitable.HTML do
   // #############################
 
   // div around the search box
-  .lt-search-wrapper {
+  .exz-search-wrapper {
     @extend .col-xl-6;
   }
 
   //The search form (I don't need this)
-  // .lt-search-form {
+  // .exz-search-form {
 
   // }
 
-  .lt-search-field {
+  .exz-search-field {
     @extend .form-control;
     @extend .mb-1;
   }
 
-  .lt-search-field-wrapper {
+  .exz-search-field-wrapper {
     @extend .input-group-append;
   }
 
-  .lt-counter-field {
+  .exz-counter-field {
     @extend .input-group-text;
   }
 
-  .lt-counter-field-wrapper {
+  .exz-counter-field-wrapper {
     @extend .input-group-append;
     @extend .mb-1;
   }
@@ -66,49 +66,49 @@ defmodule Exzeitable.HTML do
   // #############################
 
   // div around the pagination nav
-  .lt-pagination-wrapper {
+  .exz-pagination-wrapper {
     @extend .col-xl-6;
   }
 
   // nav around pagination ul
-  .lt-pagination-nav {
+  .exz-pagination-nav {
     @extend .mt-1;
     @extend .mt-xl-0;
   }
 
   // ul around pagination li
-  .lt-pagination-ul {
+  .exz-pagination-ul {
     @extend .pagination;
     @extend .pagination-sm;
   }
 
   // li around pagination links
-  .lt-pagination-li {
+  .exz-pagination-li {
     @extend .page-item;
   }
 
   // li around pagination links when active
-  .lt-pagination-li-active {
+  .exz-pagination-li-active {
     @extend .page-item;
     @extend .active;
     color: white;
   }
 
   // li around pagination links when disabled
-  .lt-pagination-li-disabled {
+  .exz-pagination-li-disabled {
     @extend .page-item;
     @extend .disabled;
   }
 
   // Base class for pagination link
-  .lt-pagination-a {
+  .exz-pagination-a {
     @extend .page-link;
     @extend .text-center;
     @extend .mt-1;
   }
 
   // Fixed width for pagination link with number
-  .lt-pagination-width {
+  .exz-pagination-width {
     width: 50px;
   }
 
@@ -118,21 +118,21 @@ defmodule Exzeitable.HTML do
 
 
   // Hide link
-  .lt-hide-link {
+  .exz-hide-link {
     @extend .mx-1;
     @extend .small;
     cursor: grabbing;
   }
 
   // Sort link
-  .lt-sort-link {
+  .exz-sort-link {
     @extend .mx-1;
     @extend .small;
     cursor: grabbing;
   }
 
   // Buttons for showing hidden columns
-  .lt-show-button {
+  .exz-show-button {
     @extend .btn;
     @extend .btn-sm;
     @extend .btn-outline-secondary;
@@ -141,7 +141,7 @@ defmodule Exzeitable.HTML do
   }
 
   // Buttons for showing hidden columns
-  .lt-info-button {
+  .exz-info-button {
     @extend .btn;
     @extend .btn-sm;
     @extend .btn-outline-info;
@@ -153,7 +153,7 @@ defmodule Exzeitable.HTML do
   // ###### Action Buttons #######
   // #############################
 
-  .lt-action-delete {
+  .exz-action-delete {
     @extend .btn;
     @extend .btn-sm;
     @extend .my-1;
@@ -161,7 +161,7 @@ defmodule Exzeitable.HTML do
     @extend .btn-outline-danger;
   }
 
-  .lt-action-new {
+  .exz-action-new {
     @extend .btn;
     @extend .btn-sm;
     @extend .my-1;
@@ -169,7 +169,7 @@ defmodule Exzeitable.HTML do
     @extend .btn-outline-primary;
   }
 
-  .lt-action-show {
+  .exz-action-show {
     @extend .btn;
     @extend .btn-sm;
     @extend .my-1;
@@ -177,7 +177,7 @@ defmodule Exzeitable.HTML do
     @extend .btn-outline-primary;
   }
 
-  .lt-action-edit {
+  .exz-action-edit {
     @extend .btn;
     @extend .btn-sm;
     @extend .my-1;
@@ -195,8 +195,9 @@ defmodule Exzeitable.HTML do
     assigns
     |> head_section()
     |> body_section(assigns)
-    |> cont(:table, class: "lt-table")
-    |> cont(:div, class: "lt-table-wrapper")
+    |> cont(:table, class: "exz-table")
+    |> maybe_nothing_found(assigns)
+    |> cont(:div, class: "exz-table-wrapper")
     |> build_outer(assigns)
   end
 
@@ -205,9 +206,16 @@ defmodule Exzeitable.HTML do
     assigns
     |> Map.get(:fields)
     |> Filter.fields_where_not(:hidden)
-    |> Kernel.++(actions: %{sort: false, search: false, order: false})
+    |> add_actions_header(assigns)
     |> Enum.map(fn column -> table_header(column, assigns) end)
     |> cont(:thead, [])
+  end
+
+  @spec add_actions_header(keyword, map) :: keyword
+  defp add_actions_header(fields, %{action_buttons: []}), do: fields
+
+  defp add_actions_header(fields, _assigns) do
+    fields ++ [actions: %{sort: false, search: false, order: false}]
   end
 
   @spec body_section({:safe, iolist | binary}, map) :: [{:safe, iolist}]
@@ -231,10 +239,10 @@ defmodule Exzeitable.HTML do
 
     top_navigation =
       [
-        [pagination, new_button, show_hide_fields] |> cont(:div, class: "lt-pagination-wrapper"),
+        [pagination, new_button, show_hide_fields] |> cont(:div, class: "exz-pagination-wrapper"),
         search_box
       ]
-      |> cont(:div, class: "lt-row")
+      |> cont(:div, class: "exz-row")
 
     bottom_buttons = [new_button, show_hide_fields] |> cont(:div, [])
 
@@ -256,28 +264,28 @@ defmodule Exzeitable.HTML do
         :search,
         "#",
         # onkeypress to disable enter key in search field
-        [phx_change: :search, class: "lt-search-form", onkeypress: "return event.keyCode != 13;"],
+        [phx_change: :search, class: "exz-search-form", onkeypress: "return event.keyCode != 13;"],
         fn f ->
           [
             text_input(f, :search,
               placeholder: "Search",
-              class: "lt-search-field",
+              class: "exz-search-field",
               phx_debounce: debounce
             ),
             counter(assigns)
           ]
-          |> cont(:div, class: "lt-search-field-wrapper")
+          |> cont(:div, class: "exz-search-field-wrapper")
         end
       )
-      |> cont(:div, class: "lt-search-wrapper")
+      |> cont(:div, class: "exz-search-wrapper")
     else
       ""
     end
   end
 
   defp counter(%{count: count}) do
-    cont(count, :span, class: "lt-counter-field")
-    |> cont(:div, class: "lt-counter-field-wrapper")
+    cont(count, :span, class: "exz-counter-field")
+    |> cont(:div, class: "exz-counter-field-wrapper")
   end
 
   @spec table_header({atom, map}, map) :: {:safe, iolist}
@@ -301,6 +309,8 @@ defmodule Exzeitable.HTML do
   end
 
   @spec build_actions(atom, map) :: {:safe, iolist}
+  defp build_actions(_entry, %{action_buttons: []}), do: ""
+
   defp build_actions(entry, assigns) do
     assigns
     |> Map.get(:action_buttons)
@@ -316,8 +326,8 @@ defmodule Exzeitable.HTML do
     ([paginate_button("Previous", page, pages)] ++
        numbered_buttons(page, pages) ++
        [paginate_button("Next", page, pages)])
-    |> cont(:ul, class: "lt-pagination-ul")
-    |> cont(:nav, class: "lt-pagination-nav")
+    |> cont(:ul, class: "exz-pagination-ul")
+    |> cont(:nav, class: "exz-pagination-nav")
   end
 
   @spec numbered_buttons(integer, integer) :: [{:safe, iolist}]
@@ -339,6 +349,17 @@ defmodule Exzeitable.HTML do
     end
   end
 
+  defp maybe_nothing_found(content, %{list: []}) do
+    nothing_found = "Nothing Found"
+    |> cont(:div, class: "exz-nothing-found")
+
+    [content, nothing_found]
+  end
+
+  defp maybe_nothing_found(content, _assigns) do
+    content
+  end
+
   # Used everywhere to make it easier to pipe HTML chunks into each other
   @spec cont(any(), atom, keyword) :: {:safe, iolist}
   defp cont(body, tag, opts), do: content_tag(tag, body, opts)
@@ -349,53 +370,53 @@ defmodule Exzeitable.HTML do
 
   @spec paginate_button(String.t() | integer, integer, integer) :: {:safe, iolist}
   defp paginate_button("Next", page, pages) when page == pages do
-    cont("Next", :a, class: "lt-pagination-a", tabindex: "-1")
-    |> cont(:li, class: "lt-pagination-li-disabled")
+    cont("Next", :a, class: "exz-pagination-a", tabindex: "-1")
+    |> cont(:li, class: "exz-pagination-li-disabled")
   end
 
   defp paginate_button("Previous", 1, _pages) do
-    cont("Previous", :a, class: "lt-pagination-a", tabindex: "-1")
-    |> cont(:li, class: "lt-pagination-li-disabled")
+    cont("Previous", :a, class: "exz-pagination-a", tabindex: "-1")
+    |> cont(:li, class: "exz-pagination-li-disabled")
   end
 
   defp paginate_button("....", _page, _pages) do
-    cont("....", :a, class: "lt-pagination-a lt-pagination-width", tabindex: "-1")
-    |> cont(:li, class: "lt-pagination-li-disabled")
+    cont("....", :a, class: "exz-pagination-a exz-pagination-width", tabindex: "-1")
+    |> cont(:li, class: "exz-pagination-li-disabled")
   end
 
   defp paginate_button("Next", page, _pages) do
     cont("Next", :a,
-      class: "lt-pagination-a",
+      class: "exz-pagination-a",
       style: "cursor: pointer",
       "phx-click": "change_page",
       "phx-value-page": page + 1
     )
-    |> cont(:li, class: "lt-pagination-li")
+    |> cont(:li, class: "exz-pagination-li")
   end
 
   defp paginate_button("Previous", page, _pages) do
     cont("Previous", :a,
-      class: "lt-pagination-a",
+      class: "exz-pagination-a",
       style: "cursor: pointer",
       "phx-click": "change_page",
       "phx-value-page": page - 1
     )
-    |> cont(:li, class: "lt-pagination-li")
+    |> cont(:li, class: "exz-pagination-li")
   end
 
   defp paginate_button(same, same, _pages) do
-    cont(same, :a, class: "lt-pagination-a lt-pagination-width")
-    |> cont(:li, class: "lt-pagination-li-active")
+    cont(same, :a, class: "exz-pagination-a exz-pagination-width")
+    |> cont(:li, class: "exz-pagination-li-active")
   end
 
   defp paginate_button(label, _page, _pages) do
     cont(label, :a,
-      class: "lt-pagination-a lt-pagination-width",
+      class: "exz-pagination-a exz-pagination-width",
       style: "cursor: pointer",
       "phx-click": "change_page",
       "phx-value-page": label
     )
-    |> cont(:li, class: "lt-pagination-li")
+    |> cont(:li, class: "exz-pagination-li")
   end
 
   @spec hide_link_for({atom, map}) :: {:safe, iolist}
@@ -403,7 +424,7 @@ defmodule Exzeitable.HTML do
 
   defp hide_link_for({key, _value}) do
     cont("hide", :a,
-      class: "lt-hide-link",
+      class: "exz-hide-link",
       "phx-click": "hide_column",
       "phx-value-column": key
     )
@@ -422,7 +443,7 @@ defmodule Exzeitable.HTML do
       end
 
     cont(label, :a,
-      class: "lt-sort-link",
+      class: "exz-sort-link",
       "phx-click": "sort_column",
       "phx-value-column": key
     )
@@ -443,7 +464,7 @@ defmodule Exzeitable.HTML do
 
     "Show #{name}"
     |> cont(:a,
-      class: "lt-show-button",
+      class: "exz-show-button",
       "phx-click": "show_column",
       "phx-value-column": key
     )
@@ -533,18 +554,18 @@ defmodule Exzeitable.HTML do
   end
 
   @spec html_button(String.t(), atom, String.t()) :: {:safe, iolist}
-  defp html_button(route, :new, _csrf_token), do: link("New", to: route, class: "lt-action-new")
+  defp html_button(route, :new, _csrf_token), do: link("New", to: route, class: "exz-action-new")
 
   defp html_button(route, :show, _csrf_token),
-    do: link("Show", to: route, class: "lt-action-show")
+    do: link("Show", to: route, class: "exz-action-show")
 
   defp html_button(route, :edit, _csrf_token),
-    do: link("Edit", to: route, class: "lt-action-edit")
+    do: link("Edit", to: route, class: "exz-action-edit")
 
   defp html_button(route, :delete, csrf_token) do
     link("Delete",
       to: route,
-      class: "lt-action-delete",
+      class: "exz-action-delete",
       method: :delete,
       "data-confirm": "Are you sure?",
       csrf_token: csrf_token
@@ -561,7 +582,7 @@ defmodule Exzeitable.HTML do
 
     name
     |> cont(:a,
-      class: "lt-info-button",
+      class: "exz-info-button",
       "phx-click": value
     )
   end

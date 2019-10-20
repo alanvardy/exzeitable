@@ -24,6 +24,8 @@ def deps do
 end
 ```
 
+Please see Phoenix Live View's installation instructions.
+
 ## Getting Started
 
 ### Migration
