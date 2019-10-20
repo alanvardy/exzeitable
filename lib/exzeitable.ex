@@ -47,6 +47,7 @@ defmodule Exzeitable do
         session =
           %{
             query: Keyword.get(opts, :query, unquote(query)),
+            assigns: Keyword.get(opts, :assigns, %{}),
             parent: Keyword.get(opts, :parent, unquote(parent)),
             routes: Keyword.get(opts, :routes, unquote(routes)),
             repo: Keyword.get(opts, :repo, unquote(repo)),
@@ -61,7 +62,8 @@ defmodule Exzeitable do
             order: nil,
             count: 0,
             search: "",
-            show_field_buttons: false
+            show_field_buttons: false,
+            csrf_token: Phoenix.Controller.get_csrf_token()
           }
           |> Validation.required_options()
           |> Validation.paired_options()

@@ -58,4 +58,10 @@ describe('Acceptance Test', function () {
     cy.contains('Sioban')
     cy.contains('Bob').should('not.exist')
   })
+
+  it('Doesnt see the action column when there are no action buttons', function () {
+    cy.visit('http://localhost:5000/posts/no_action_buttons')
+    cy.contains('Posts')
+    cy.contains('Actions').should('not.exist')
+  })
 })

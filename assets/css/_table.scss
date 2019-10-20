@@ -3,12 +3,12 @@
 // #############################
 
 // div around the table
-.lt-table-wrapper {
+.exz-table-wrapper {
   @extend .table-responsive;
 }
 
 // the table
-.lt-table {
+.exz-table {
   @extend .table;
 
   thead {
@@ -17,8 +17,12 @@
 }
 
 // div around lt-pagination-div and lt-search-div
-.lt-row {
+.exz-row {
   @extend .row;
+}
+
+.exz-nothing-found {
+  @extend .text-center
 }
 
 // #############################
@@ -26,29 +30,29 @@
 // #############################
 
 // div around the search box
-.lt-search-wrapper {
+.exz-search-wrapper {
   @extend .col-xl-6;
 }
 
 //The search form (I don't need this)
-// .lt-search-form {
+// .exz-search-form {
 
 // }
 
-.lt-search-field {
+.exz-search-field {
   @extend .form-control;
   @extend .mb-1;
 }
 
-.lt-search-field-wrapper {
+.exz-search-field-wrapper {
   @extend .input-group-append;
 }
 
-.lt-counter-field {
+.exz-counter-field {
   @extend .input-group-text;
 }
 
-.lt-counter-field-wrapper {
+.exz-counter-field-wrapper {
   @extend .input-group-append;
   @extend .mb-1;
 }
@@ -58,49 +62,49 @@
 // #############################
 
 // div around the pagination nav
-.lt-pagination-wrapper {
+.exz-pagination-wrapper {
   @extend .col-xl-6;
 }
 
 // nav around pagination ul
-.lt-pagination-nav {
+.exz-pagination-nav {
   @extend .mt-1;
   @extend .mt-xl-0;
 }
 
 // ul around pagination li
-.lt-pagination-ul {
+.exz-pagination-ul {
   @extend .pagination;
   @extend .pagination-sm;
 }
 
 // li around pagination links
-.lt-pagination-li {
+.exz-pagination-li {
   @extend .page-item;
 }
 
 // li around pagination links when active
-.lt-pagination-li-active {
+.exz-pagination-li-active {
   @extend .page-item;
   @extend .active;
   color: white;
 }
 
 // li around pagination links when disabled
-.lt-pagination-li-disabled {
+.exz-pagination-li-disabled {
   @extend .page-item;
   @extend .disabled;
 }
 
 // Base class for pagination link
-.lt-pagination-a {
+.exz-pagination-a {
   @extend .page-link;
   @extend .text-center;
   @extend .mt-1;
 }
 
 // Fixed width for pagination link with number
-.lt-pagination-width {
+.exz-pagination-width {
   width: 50px;
 }
 
@@ -110,21 +114,21 @@
 
 
 // Hide link
-.lt-hide-link {
+.exz-hide-link {
   @extend .mx-1;
   @extend .small;
   cursor: grabbing;
 }
 
 // Sort link
-.lt-sort-link {
+.exz-sort-link {
   @extend .mx-1;
   @extend .small;
   cursor: grabbing;
 }
 
 // Buttons for showing hidden columns
-.lt-show-button {
+.exz-show-button {
   @extend .btn;
   @extend .btn-sm;
   @extend .btn-outline-secondary;
@@ -133,7 +137,7 @@
 }
 
 // Buttons for showing hidden columns
-.lt-info-button {
+.exz-info-button {
   @extend .btn;
   @extend .btn-sm;
   @extend .btn-outline-info;
@@ -145,7 +149,7 @@
 // ###### Action Buttons #######
 // #############################
 
-.lt-action-delete {
+.exz-action-delete {
   @extend .btn;
   @extend .btn-sm;
   @extend .my-1;
@@ -153,7 +157,7 @@
   @extend .btn-outline-danger;
 }
 
-.lt-action-new {
+.exz-action-new {
   @extend .btn;
   @extend .btn-sm;
   @extend .my-1;
@@ -161,7 +165,7 @@
   @extend .btn-outline-primary;
 }
 
-.lt-action-show {
+.exz-action-show {
   @extend .btn;
   @extend .btn-sm;
   @extend .my-1;
@@ -169,7 +173,7 @@
   @extend .btn-outline-primary;
 }
 
-.lt-action-edit {
+.exz-action-edit {
   @extend .btn;
   @extend .btn-sm;
   @extend .my-1;

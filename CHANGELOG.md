@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.2.2 (2019-10-20)
+
+* Add support for passing assigns through to custom field functions
+* Remove actions column when no actions
+* Added a nothing found message when no content
+* Renamed CSS classes from .lt- to .exz-
+
+## v0.2.1 (2019-10-18)
+
+* Fixed a CSRF token error on delete actions
+
 ## v0.2.0 (2019-10-12)
 
 * Rebuilt with Phoenix (originally was just a Mix project)

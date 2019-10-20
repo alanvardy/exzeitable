@@ -58,4 +58,8 @@ defmodule TestWeb.PostController do
     |> put_flash(:info, "Post deleted successfully.")
     |> redirect(to: Routes.post_path(conn, :index))
   end
+
+  ########## SPECIFIC CASES ##############
+
+  def no_action_buttons(conn, _params), do: render(conn, "no_action_buttons.html")
 end
