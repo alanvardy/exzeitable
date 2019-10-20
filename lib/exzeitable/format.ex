@@ -8,9 +8,14 @@ defmodule Exzeitable.Format do
   """
 
   @spec field(map, atom, map) :: String.t() | {:safe, iolist}
-  def field(entry, key, %{socket: socket, fields: fields, module: module}) do
+  def field(entry, key, %{
+        socket: socket,
+        fields: fields,
+        module: module,
+        assigns: assigns
+      }) do
     if Kernel.get_in(fields, [key, :function]) do
-      apply(module, key, [socket, entry])
+      apply(module, key, [socket, entry, assigns])
     else
       Map.get(entry, key, nil)
     end
