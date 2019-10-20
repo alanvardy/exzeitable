@@ -268,7 +268,11 @@ defmodule Exzeitable.HTML do
         :search,
         "#",
         # onkeypress to disable enter key in search field
-        [phx_change: :search, class: "exz-search-form", onkeypress: "return event.keyCode != 13;"],
+        [
+          phx_change: :search,
+          class: "exz-search-form",
+          onkeypress: "return event.keyCode != 13;"
+        ],
         fn f ->
           [
             text_input(f, :search,
@@ -354,8 +358,9 @@ defmodule Exzeitable.HTML do
   end
 
   defp maybe_nothing_found(content, %{list: []}) do
-    nothing_found = "Nothing Found"
-    |> cont(:div, class: "exz-nothing-found")
+    nothing_found =
+      "Nothing Found"
+      |> cont(:div, class: "exz-nothing-found")
 
     [content, nothing_found]
   end
