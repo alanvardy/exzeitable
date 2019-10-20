@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.2 (2019-10-20)
+
+* Add support for passing assigns through to custom field functions
+
 ## v0.2.1 (2019-10-18)
 
 * Fixed a CSRF token error on delete actions

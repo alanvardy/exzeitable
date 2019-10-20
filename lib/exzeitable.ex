@@ -47,6 +47,7 @@ defmodule Exzeitable do
         session =
           %{
             query: Keyword.get(opts, :query, unquote(query)),
+            assigns: Keyword.get(opts, :assigns, %{}),
             parent: Keyword.get(opts, :parent, unquote(parent)),
             routes: Keyword.get(opts, :routes, unquote(routes)),
             repo: Keyword.get(opts, :repo, unquote(repo)),
