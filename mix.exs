@@ -2,7 +2,7 @@ defmodule Exzeitable.MixProject do
   @moduledoc false
   use Mix.Project
 
-  @version "0.2.2"
+  @version "0.2.3"
 
   def project do
     [
@@ -71,7 +71,8 @@ defmodule Exzeitable.MixProject do
       filter_prefix: "Exzeitable",
       extras: [
         "README.md": [filename: "README"],
-        "CHANGELOG.md": [filename: "CHANGELOG"]
+        "CHANGELOG.md": [filename: "CHANGELOG"],
+        "CSS.md": [filename: "CSS"]
       ]
     ]
   end
