@@ -13,7 +13,7 @@ defmodule TestWeb.UserTable do
 
   def render(assigns), do: ~L"<%= build_table(assigns) %>"
 
-  def name_backwards(_socket, entry, _assigns) do
+  def name_backwards(_socket, entry) do
     entry
     |> Map.get(:name)
     |> String.reverse()
