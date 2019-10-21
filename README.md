@@ -17,7 +17,7 @@ The package can be installed by adding [exzeitable](https://github.com/alanvardy
 ```elixir
 def deps do
   [
-    {:exzeitable, "~> 0.2.2"},
+    {:exzeitable, "~> 0.2.3"},
     {:phoenix_live_view, "~> 0.3.0"},
     {:floki, ">= 0.0.0", only: :test}
   ]
@@ -179,7 +179,7 @@ Call the table from your template
 
 ```elixir
 <h1> My Awesome Files </h1>
-<%= YourAppWeb.Live.File.live_table(@conn, query: @query, action_buttons: [:show, :edit]), assigns: %{user_id: @current_user.id} %>
+<%= YourAppWeb.Live.File.live_table(@conn, query: @query, action_buttons: [:show, :edit], assigns: %{user_id: @current_user.id}) %>
 ```
 
 ### CSS

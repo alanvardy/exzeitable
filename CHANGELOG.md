@@ -1,6 +1,11 @@
 # Changelog
 
+## v0.2.3 (2019-10-21)
+
+* Smush assigns and socket.assigns together and deduplicate
 * Clear order_by before ordering query
+* Correct documentation
+
 ## v0.2.2 (2019-10-20)
 
 * Add support for passing assigns through to custom field functions
@@ -16,7 +21,7 @@
 
 * Rebuilt with Phoenix (originally was just a Mix project)
 * Added dev environment
-* Added acceptance tests with cypress
+* Added acceptance tests with Cypress
 * Added additional unit tests
 
 ## v0.1.2 (2019-10-11)
