@@ -1,5 +1,6 @@
 # Changelog
 
+* Clear order_by before ordering query
 ## v0.2.2 (2019-10-20)
 
 * Add support for passing assigns through to custom field functions
