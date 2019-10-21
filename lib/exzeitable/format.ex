@@ -15,7 +15,9 @@ defmodule Exzeitable.Format do
         assigns: assigns
       }) do
     if Kernel.get_in(fields, [key, :function]) do
-      apply(module, key, [socket, entry, assigns])
+      socket = smush_assigns_together(socket, assigns)
+
+      apply(module, key, [socket, entry])
     else
       Map.get(entry, key, nil)
     end
@@ -32,5 +34,15 @@ defmodule Exzeitable.Format do
     |> Atom.to_string()
     |> String.replace("_", " ")
     |> String.capitalize()
+  end
+
+  # We want socket.assigns, but not socket.assigns.assigns
+  defp smush_assigns_together(socket, assigns) do
+    assigns =
+      socket.assigns
+      |> Map.delete(:assigns)
+      |> Map.merge(assigns)
+
+    Map.put(socket, :assigns, assigns)
   end
 end
