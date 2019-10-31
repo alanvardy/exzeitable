@@ -25,6 +25,9 @@ defmodule Exzeitable.Database do
     apply(module, :do_search, [query, search])
   end
 
+  @spec remove_order(Ecto.Query.t()) :: Ecto.Query.t()
+  defp remove_order(query), do: exclude(query, :order_by)
+
   @spec paginate_query(Ecto.Query.t(), map) :: Ecto.Query.t()
   defp paginate_query(query, %{per_page: per_page, page: page}) do
     offset =
@@ -58,6 +61,7 @@ defmodule Exzeitable.Database do
     query
     |> select_ids()
     |> search_query(assigns)
+    |> remove_order()
     |> get_query(assigns)
     |> List.first()
   end
