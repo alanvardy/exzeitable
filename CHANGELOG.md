@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.4 (2019-10-31)
+
+* Fix bug where order not removed when getting a count
+
 ## v0.2.3 (2019-10-21)
 
 * Smush assigns and socket.assigns together and deduplicate
