@@ -17,10 +17,24 @@ jobs:
           --health-retries 5
     steps:
       - uses: actions/checkout@v1.0.0
+      - uses: actions/cache@v1
+        with:
+          path: deps
+          key: ${{ runner.os }}-mix-cypress-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-cypress-
+      - uses: actions/cache@v1
+        with:
+          path: _build
+          key: ${{ runner.os }}-build-cypress-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-cypress-
       - uses: actions/setup-elixir@v1.0.0
         with:
           otp-version: 22.x
           elixir-version: 1.9.x
       - run: mix deps.get
       - run: cd assets && npm install && npm install cypress --save-dev && cd ..
+      - run: npm run deploy --prefix ./assets
+      - run: mix phx.digest
       - run: mix cypress.ci
