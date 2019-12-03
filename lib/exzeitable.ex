@@ -29,6 +29,7 @@ defmodule Exzeitable do
       use Phoenix.HTML
       import Ecto.Query
       alias Exzeitable.{Database, Filter, Format, HTML, Validation}
+      @callback render(map) :: {:ok, iolist}
 
       @doc """
       Convenience helper so LiveView doesn't have to be called directly
