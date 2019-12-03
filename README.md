@@ -18,7 +18,7 @@ The package can be installed by adding [exzeitable](https://github.com/alanvardy
 def deps do
   [
     {:exzeitable, "~> 0.2.4"},
-    {:phoenix_live_view, "~> 0.3.1"},
+    {:phoenix_live_view, "~> 0.4"},
     {:floki, ">= 0.0.0", only: :test}
   ]
 end
@@ -71,6 +71,7 @@ defmodule YourAppWeb.Live.File do
     repo: YourApp.Repo,
     routes: Routes,
     path: :file_path,
+    action_buttons: [:show, :edit, :custom_button]
     query: from(f in File)
     fields: [
       image: [virtual: true],
@@ -94,6 +95,11 @@ defmodule YourAppWeb.Live.File do
     |> link(to: Routes.file_path(socket, :show, file))
   end
   
+  # Or heck, lets make another button!
+  def super_cool_custom_action(socket, item, csrf_token) do
+    link "SUPER AWESOME", to: Routes.super_cool_path(socket, :custom_action, item), "data-confirm": "Are you sure?", csrf_token: csrf_token
+  end
+
   def filesize, do: ...
   def inserted_at, do: ...
   def updated_at, do: ...
