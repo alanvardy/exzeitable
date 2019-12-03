@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.2.5 (2019-12-3)
+
+* Added custom buttons, defined similarly to the custom fields
+* Added a behaviour for render/1 in the user defined table module
+* Broke out a Pagination and ActionButton modules from Exzeitable.HTML
+
 ## v0.2.4 (2019-10-31)
 
 * Fix bug where order not removed when getting a count
