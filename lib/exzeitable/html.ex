@@ -4,7 +4,7 @@ defmodule Exzeitable.HTML do
   """
 
   use Phoenix.HTML
-  alias Exzeitable.{Filter, Format}
+  alias Exzeitable.{ActionButton, Filter, Format, Pagination}
 
   @doc "Root function for building the HTML table"
   @spec build_table(map) :: {:safe, iolist}
@@ -49,9 +49,9 @@ defmodule Exzeitable.HTML do
   @spec build_outer({:safe, iolist}, map) :: {:safe, iolist}
   defp build_outer(contents, assigns) do
     search_box = build_search(assigns)
-    new_button = build_action_button(:new, assigns)
+    new_button = ActionButton.build(:new, assigns)
     show_buttons = show_buttons(assigns)
-    pagination = build_pagination(assigns)
+    pagination = Pagination.build(assigns)
     show_hide_fields = build_show_hide_fields_button(assigns)
 
     top_navigation =
@@ -136,38 +136,8 @@ defmodule Exzeitable.HTML do
     assigns
     |> Map.get(:action_buttons)
     |> Kernel.--([:new])
-    |> Enum.map(fn action -> build_action_button(action, entry, assigns) end)
+    |> Enum.map(fn action -> ActionButton.build(action, entry, assigns) end)
     |> cont(:td, [])
-  end
-
-  @spec build_pagination(map) :: {:safe, iolist}
-  defp build_pagination(%{page: page} = assigns) do
-    pages = page_count(assigns)
-
-    ([paginate_button("Previous", page, pages)] ++
-       numbered_buttons(page, pages) ++
-       [paginate_button("Next", page, pages)])
-    |> cont(:ul, class: "exz-pagination-ul")
-    |> cont(:nav, class: "exz-pagination-nav")
-  end
-
-  @spec numbered_buttons(integer, integer) :: [{:safe, iolist}]
-  defp numbered_buttons(_page, 0) do
-    [paginate_button(1, 1, 1)]
-  end
-
-  defp numbered_buttons(page, pages) do
-    pages
-    |> Filter.filter_pages(page)
-    |> Enum.map(fn x -> paginate_button(x, page, pages) end)
-  end
-
-  defp page_count(%{count: count, per_page: per_page}) do
-    if rem(count, per_page) > 0 do
-      div(count, per_page) + 1
-    else
-      div(count, per_page)
-    end
   end
 
   defp maybe_nothing_found(content, %{list: []}) do
@@ -189,57 +159,6 @@ defmodule Exzeitable.HTML do
   ###########################
   ######### BUTTONS #########
   ###########################
-
-  @spec paginate_button(String.t() | integer, integer, integer) :: {:safe, iolist}
-  defp paginate_button("Next", page, pages) when page == pages do
-    cont("Next", :a, class: "exz-pagination-a", tabindex: "-1")
-    |> cont(:li, class: "exz-pagination-li-disabled")
-  end
-
-  defp paginate_button("Previous", 1, _pages) do
-    cont("Previous", :a, class: "exz-pagination-a", tabindex: "-1")
-    |> cont(:li, class: "exz-pagination-li-disabled")
-  end
-
-  defp paginate_button("....", _page, _pages) do
-    cont("....", :a, class: "exz-pagination-a exz-pagination-width", tabindex: "-1")
-    |> cont(:li, class: "exz-pagination-li-disabled")
-  end
-
-  defp paginate_button("Next", page, _pages) do
-    cont("Next", :a,
-      class: "exz-pagination-a",
-      style: "cursor: pointer",
-      "phx-click": "change_page",
-      "phx-value-page": page + 1
-    )
-    |> cont(:li, class: "exz-pagination-li")
-  end
-
-  defp paginate_button("Previous", page, _pages) do
-    cont("Previous", :a,
-      class: "exz-pagination-a",
-      style: "cursor: pointer",
-      "phx-click": "change_page",
-      "phx-value-page": page - 1
-    )
-    |> cont(:li, class: "exz-pagination-li")
-  end
-
-  defp paginate_button(same, same, _pages) do
-    cont(same, :a, class: "exz-pagination-a exz-pagination-width")
-    |> cont(:li, class: "exz-pagination-li-active")
-  end
-
-  defp paginate_button(label, _page, _pages) do
-    cont(label, :a,
-      class: "exz-pagination-a exz-pagination-width",
-      style: "cursor: pointer",
-      "phx-click": "change_page",
-      "phx-value-page": label
-    )
-    |> cont(:li, class: "exz-pagination-li")
-  end
 
   @spec hide_link_for({atom, map}) :: {:safe, iolist}
   defp hide_link_for({:actions, _value}), do: ""
@@ -289,108 +208,6 @@ defmodule Exzeitable.HTML do
       class: "exz-show-button",
       "phx-click": "show_column",
       "phx-value-column": key
-    )
-  end
-
-  # New, create, show etc.
-  @spec build_action_button(atom, atom, map) :: {:safe, iolist}
-  defp build_action_button(:new, %{parent: nil} = assigns) do
-    %{
-      csrf_token: csrf_token,
-      socket: socket,
-      routes: routes,
-      path: path,
-      action_buttons: action_buttons
-    } = assigns
-
-    if Enum.member?(action_buttons, :new) do
-      apply(routes, path, [socket, :new])
-      |> html_button(:new, csrf_token)
-    else
-      ""
-    end
-  end
-
-  defp build_action_button(:new, %{parent: parent} = assigns) do
-    %{
-      csrf_token: csrf_token,
-      socket: socket,
-      routes: routes,
-      path: path,
-      action_buttons: action_buttons
-    } = assigns
-
-    if Enum.member?(action_buttons, :new) do
-      apply(routes, path, [socket, :new, parent])
-      |> html_button(:new, csrf_token)
-    else
-      ""
-    end
-  end
-
-  defp build_action_button(:delete, entry, %{belongs_to: nil} = assigns) do
-    %{csrf_token: csrf_token, socket: socket, routes: routes, path: path} = assigns
-
-    apply(routes, path, [socket, :delete, entry])
-    |> html_button(:delete, csrf_token)
-  end
-
-  defp build_action_button(:delete, entry, assigns) do
-    %{csrf_token: csrf_token, socket: socket, routes: routes, path: path} = assigns
-
-    params = [socket, :delete, Filter.parent_for(entry, assigns), entry]
-
-    apply(routes, path, params)
-    |> html_button(:delete, csrf_token)
-  end
-
-  defp build_action_button(:show, entry, %{belongs_to: nil} = assigns) do
-    %{csrf_token: csrf_token, socket: socket, routes: routes, path: path} = assigns
-
-    apply(routes, path, [socket, :show, entry])
-    |> html_button(:show, csrf_token)
-  end
-
-  defp build_action_button(:show, entry, assigns) do
-    %{csrf_token: csrf_token, socket: socket, routes: routes, path: path} = assigns
-
-    params = [socket, :show, Filter.parent_for(entry, assigns), entry]
-
-    apply(routes, path, params)
-    |> html_button(:show, csrf_token)
-  end
-
-  defp build_action_button(:edit, entry, %{belongs_to: nil} = assigns) do
-    %{csrf_token: csrf_token, socket: socket, routes: routes, path: path} = assigns
-
-    apply(routes, path, [socket, :edit, entry])
-    |> html_button(:edit, csrf_token)
-  end
-
-  defp build_action_button(:edit, entry, assigns) do
-    %{csrf_token: csrf_token, socket: socket, routes: routes, path: path} = assigns
-    params = [socket, :edit, Filter.parent_for(entry, assigns), entry]
-
-    apply(routes, path, params)
-    |> html_button(:edit, csrf_token)
-  end
-
-  @spec html_button(String.t(), atom, String.t()) :: {:safe, iolist}
-  defp html_button(route, :new, _csrf_token), do: link("New", to: route, class: "exz-action-new")
-
-  defp html_button(route, :show, _csrf_token),
-    do: link("Show", to: route, class: "exz-action-show")
-
-  defp html_button(route, :edit, _csrf_token),
-    do: link("Edit", to: route, class: "exz-action-edit")
-
-  defp html_button(route, :delete, csrf_token) do
-    link("Delete",
-      to: route,
-      class: "exz-action-delete",
-      method: :delete,
-      "data-confirm": "Are you sure?",
-      csrf_token: csrf_token
     )
   end
 
