@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.6 (2019-12-7)
+
+* Allow Phoenix LiveView 0.3 as well as 0.4
+
 ## v0.2.5 (2019-12-3)
 
 * Added custom buttons, defined similarly to the custom fields
