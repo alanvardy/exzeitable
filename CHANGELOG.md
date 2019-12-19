@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.7 (2019-12-18)
+
+* Dependency updates
+
 ## v0.2.6 (2019-12-7)
 
 * Allow Phoenix LiveView 0.3 as well as 0.4
