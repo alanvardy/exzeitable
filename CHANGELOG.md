@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.5 (2019-12-18)
+
+* Dependency updates
+
 ## v0.2.4 (2019-10-31)
 
 * Fix bug where order not removed when getting a count
