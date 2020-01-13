@@ -7,7 +7,7 @@ defmodule TestWeb.UserTable do
     repo: Exzeitable.Repo,
     routes: Routes,
     path: :user_path,
-    fields: [name: [], age: [label: "Years old"], name_backwards: [virtual: true]],
+    fields: [name: [], age: [label: "Years old", search: false], name_backwards: [virtual: true]],
     query: from(u in User),
     per_page: 5
 

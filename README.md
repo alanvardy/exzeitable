@@ -17,7 +17,7 @@ The package can be installed by adding [exzeitable](https://github.com/alanvardy
 ```elixir
 def deps do
   [
-    {:exzeitable, "~> 0.2.5"},
+    {:exzeitable, "~> 0.2.8"},
     {:phoenix_live_view, "~> 0.4.1"},
     {:floki, ">= 0.0.0", only: :test}
   ]
@@ -137,7 +137,7 @@ The following field options are available (with their defaults):
 - `order: true` Do not allow the column to be sorted (hide the sort button)
 - `virtual: false` This is shorthand for [function: true, search: false, order: false] and will override those settings. Intended for creating fields that are not database backed.
 
-**IMPORTANT NOTE**: Search uses [ts_vector](https://www.postgresql.org/docs/10/datatype-textsearch.html), which is performed by Postgres inside the database on string fields. This means that you cannot search fields that are _not_ string type (i.e. datetime, associations, virtual fields). Make sure to set `search: false` or `virtual: true` on such fields.
+**IMPORTANT NOTE**: Search uses [ts_vector](https://www.postgresql.org/docs/10/datatype-textsearch.html), which is performed by Postgres inside the database on string fields. This means that you cannot search fields that are _not_ string type (i.e. integer, datetime, associations, virtual fields). Make sure to set `search: false` or `virtual: true` on such fields.
 
 Optional... options (with defaults)
 

@@ -2559,7 +2559,7 @@ input[type="button"].btn-block {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center; }
-
+  
   .btn-group-vertical > .btn,
   .btn-group-vertical > .exz-show-button,
   .btn-group-vertical > .exz-info-button,
@@ -7725,7 +7725,7 @@ a.text-dark:hover, a.text-dark:focus {
     border: 1px solid #000; }
   .table, .exz-table {
     border-collapse: collapse !important; }
-
+    
     .table td,
     .exz-table td, .table th, .exz-table th {
       background-color: #fff !important; }

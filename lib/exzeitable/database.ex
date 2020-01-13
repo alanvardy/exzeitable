@@ -81,7 +81,7 @@ defmodule Exzeitable.Database do
     search_columns =
       fields
       |> Enum.filter(fn {_k, field} -> Keyword.fetch!(field, :search) end)
-      |> Enum.map(fn {key, _v} -> Atom.to_string(key) end)
+      |> Enum.map(fn {key, _v} -> "coalesce(#{Atom.to_string(key)}, ' ')" end)
       |> Enum.join(" || ' ' || ")
 
     "to_tsvector('english', #{search_columns}) @@ to_tsquery(?)"

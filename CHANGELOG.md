@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.8 (2019-01-13)
+
+* Use coalesce on all database columns to guard against NULL values
+
 ## v0.2.7 (2019-12-18)
 
 * Dependency updates
