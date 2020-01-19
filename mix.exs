@@ -2,7 +2,7 @@ defmodule Exzeitable.MixProject do
   @moduledoc false
   use Mix.Project
 
-  @version "0.2.8"
+  @version "0.3.0"
 
   def project do
     [
@@ -96,7 +96,7 @@ defmodule Exzeitable.MixProject do
       {:ecto_sql, "~> 3.1"},
       {:postgrex, ">= 0.0.0"},
       # Live View
-      {:phoenix_live_view, "~> 0.3 or ~> 0.4"},
+      {:phoenix_live_view, "~> 0.5"},
       {:floki, ">= 0.0.0", only: [:test, :systemtest]},
       {:timex, "~> 3.5", only: [:dev, :test, :systemtest]},
       # Tooling

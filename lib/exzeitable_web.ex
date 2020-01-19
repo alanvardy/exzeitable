@@ -44,7 +44,7 @@ defmodule TestWeb do
       import TestWeb.Gettext
       alias TestWeb.Router.Helpers, as: Routes
 
-      import Phoenix.LiveView
+      import Phoenix.LiveView.Helpers
     end
   end
 
