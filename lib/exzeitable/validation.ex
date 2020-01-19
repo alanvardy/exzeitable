@@ -5,10 +5,10 @@ defmodule Exzeitable.Validation do
   @spec required_options(map) :: map | nil
   def required_options(session) do
     %{
-      repo: repo,
-      query: query,
-      routes: routes,
-      path: path
+      "repo" => repo,
+      "query" => query,
+      "routes" => routes,
+      "path" => path
     } = session
 
     cond do
@@ -31,7 +31,7 @@ defmodule Exzeitable.Validation do
 
   @doc "If you have parent then you need belongs_to, and vice versa."
   @spec paired_options(map) :: map | nil
-  def paired_options(%{parent: parent, belongs_to: belongs_to} = session) do
+  def paired_options(%{"parent" => parent, "belongs_to" => belongs_to} = session) do
     cond do
       parent == nil && belongs_to != nil ->
         raise "[:parent] record needs to be defined if belongs_to is defined, i.e. Repo.find(site.id)"

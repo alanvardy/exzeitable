@@ -1,8 +1,28 @@
 # Changelog
 
-## v0.2.5 (2019-12-18)
+## v0.3.0 (2019-01-18)
+
+* BREAKING CHANGES
+* Update to support Phoenix LiveView 0.5.x (breaking compatibility with previous versions)
+* Make sure to check the Phoenix LiveView [CHANGELOG](https://github.com/phoenixframework/phoenix_live_view/blob/master/CHANGELOG.md)
+  
+## v0.2.8 (2019-01-13)
+
+* Use coalesce on all database columns to guard against NULL values
+
+## v0.2.7 (2019-12-18)
 
 * Dependency updates
+
+## v0.2.6 (2019-12-7)
+
+* Allow Phoenix LiveView 0.3 as well as 0.4
+
+## v0.2.5 (2019-12-3)
+
+* Added custom buttons, defined similarly to the custom fields
+* Added a behaviour for render/1 in the user defined table module
+* Broke out a Pagination and ActionButton modules from Exzeitable.HTML
 
 ## v0.2.4 (2019-10-31)
 

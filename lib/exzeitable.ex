@@ -28,7 +28,9 @@ defmodule Exzeitable do
       use Phoenix.LiveView
       use Phoenix.HTML
       import Ecto.Query
+      alias Phoenix.LiveView.Helpers
       alias Exzeitable.{Database, Filter, Format, HTML, Validation}
+      @callback render(map) :: {:ok, iolist}
 
       @doc """
       Convenience helper so LiveView doesn't have to be called directly
@@ -46,29 +48,29 @@ defmodule Exzeitable do
       def live_table(conn, opts \\ []) do
         session =
           %{
-            query: Keyword.get(opts, :query, unquote(query)),
-            assigns: Keyword.get(opts, :assigns, %{}),
-            parent: Keyword.get(opts, :parent, unquote(parent)),
-            routes: Keyword.get(opts, :routes, unquote(routes)),
-            repo: Keyword.get(opts, :repo, unquote(repo)),
-            path: Keyword.get(opts, :path, unquote(path)),
-            debounce: unquote(debounce),
-            fields: unquote(fields) |> Enum.map(fn {k, f} -> {k, Enum.into(f, %{})} end),
-            action_buttons: Keyword.get(opts, :action_buttons, unquote(action_buttons)),
-            belongs_to: Keyword.get(opts, :belongs_to, unquote(belongs_to)),
-            per_page: Keyword.get(opts, :per_page, unquote(per_page)),
-            module: __MODULE__,
-            page: 1,
-            order: nil,
-            count: 0,
-            search: "",
-            show_field_buttons: false,
-            csrf_token: Phoenix.Controller.get_csrf_token()
+            "query" => Keyword.get(opts, :query, unquote(query)),
+            "assigns" => Keyword.get(opts, :assigns, %{}),
+            "parent" => Keyword.get(opts, :parent, unquote(parent)),
+            "routes" => Keyword.get(opts, :routes, unquote(routes)),
+            "repo" => Keyword.get(opts, :repo, unquote(repo)),
+            "path" => Keyword.get(opts, :path, unquote(path)),
+            "debounce" => unquote(debounce),
+            "fields" => unquote(fields) |> Enum.map(fn {k, f} -> {k, Enum.into(f, %{})} end),
+            "action_buttons" => Keyword.get(opts, :action_buttons, unquote(action_buttons)),
+            "belongs_to" => Keyword.get(opts, :belongs_to, unquote(belongs_to)),
+            "per_page" => Keyword.get(opts, :per_page, unquote(per_page)),
+            "module" => __MODULE__,
+            "page" => 1,
+            "order" => nil,
+            "count" => 0,
+            "search" => "",
+            "show_field_buttons" => false,
+            "csrf_token" => Phoenix.Controller.get_csrf_token()
           }
           |> Validation.required_options()
           |> Validation.paired_options()
 
-        Phoenix.LiveView.live_render(conn, __MODULE__, session: session)
+        Helpers.live_render(conn, __MODULE__, session: session)
       end
 
       ###########################
@@ -78,6 +80,8 @@ defmodule Exzeitable do
       @doc "Initial setup on page load"
       @spec mount(map, Phoenix.LiveView.Socket.t()) :: {:ok, Phoenix.LiveView.Socket.t()}
       def mount(assigns, socket) do
+        assigns = Map.new(assigns, fn {k, v} -> {String.to_atom(k), v} end)
+
         socket =
           socket
           |> assign(assigns)

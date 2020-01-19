@@ -102,7 +102,9 @@ defmodule Exzeitable.DatabaseTest do
       [id: [search: true], name: [search: true], boogers: [search: false]]
       |> Database.tsvector_string()
 
-    expected = "to_tsvector('english', id || ' ' || name) @@ to_tsquery(?)"
+    expected =
+      "to_tsvector('english', coalesce(id, ' ') || ' ' || coalesce(name, ' ')) @@ to_tsquery(?)"
+
     assert generated == expected
   end
 
