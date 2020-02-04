@@ -78,8 +78,8 @@ defmodule Exzeitable do
       ###########################
 
       @doc "Initial setup on page load"
-      @spec mount(map, Phoenix.LiveView.Socket.t()) :: {:ok, Phoenix.LiveView.Socket.t()}
-      def mount(assigns, socket) do
+      @spec mount(atom, map, Phoenix.LiveView.Socket.t()) :: {:ok, Phoenix.LiveView.Socket.t()}
+      def mount(:not_mounted_at_router, assigns, socket) do
         assigns = Map.new(assigns, fn {k, v} -> {String.to_atom(k), v} end)
 
         socket =

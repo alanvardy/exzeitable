@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.1 (2019-2-04)
+
+* Update to support Phoenix LiveView 0.6.0, removing the deprecated `mount/2` in favour of `mount/3`.
+
 ## v0.3.0 (2019-01-18)
 
 * BREAKING CHANGES
