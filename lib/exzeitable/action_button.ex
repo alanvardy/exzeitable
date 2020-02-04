@@ -23,6 +23,7 @@ defmodule Exzeitable.ActionButton do
   alias Exzeitable.Filter
 
   # New, create, show etc.
+  @spec build(:new, map) :: {:safe, iolist}
   @spec build(atom, atom, map) :: {:safe, iolist}
   def build(:new, %{parent: nil} = assigns) do
     %{
