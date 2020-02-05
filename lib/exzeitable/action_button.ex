@@ -22,7 +22,7 @@ defmodule Exzeitable.ActionButton do
   use Phoenix.HTML
   alias Exzeitable.Filter
 
-  # New, create, show etc.
+  @doc "Builds an individual button, takes an atom representing the action, and the assigns map"
   @spec build(:new, map) :: {:safe, iolist}
   @spec build(atom, atom, map) :: {:safe, iolist}
   def build(:new, %{parent: nil} = assigns) do
@@ -106,7 +106,7 @@ defmodule Exzeitable.ActionButton do
     |> html(:edit, csrf_token)
   end
 
-  # For custom actions
+  # For custom actions such as archive
   def build(custom_action, entry, %{module: module, socket: socket, csrf_token: csrf_token}) do
     apply(module, custom_action, [socket, entry, csrf_token])
   end

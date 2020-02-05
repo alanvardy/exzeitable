@@ -5,6 +5,7 @@ defmodule Exzeitable.Pagination do
   use Phoenix.HTML
   alias Exzeitable.Filter
 
+  @doc "Builds the pagination selector with page numbers, next and back etc."
   @spec build(map) :: {:safe, iolist}
   def build(%{page: page} = assigns) do
     pages = page_count(assigns)
@@ -16,6 +17,7 @@ defmodule Exzeitable.Pagination do
     |> cont(:nav, class: "exz-pagination-nav")
   end
 
+  # Handle the case where there is only a single page, just gives us some disabled buttons
   @spec numbered_buttons(integer, integer) :: [{:safe, iolist}]
   defp numbered_buttons(_page, 0) do
     [paginate_button(1, 1, 1)]
@@ -27,6 +29,7 @@ defmodule Exzeitable.Pagination do
     |> Enum.map(fn x -> paginate_button(x, page, pages) end)
   end
 
+  # A partial page is still a page.
   defp page_count(%{count: count, per_page: per_page}) do
     if rem(count, per_page) > 0 do
       div(count, per_page) + 1
