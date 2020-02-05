@@ -6,7 +6,6 @@ defmodule Exzeitable.Format do
   Else just output the field
   This function is tested but coveralls will not register it.
   """
-
   @spec field(map, atom, map) :: String.t() | {:safe, iolist}
   def field(entry, key, %{
         socket: socket,

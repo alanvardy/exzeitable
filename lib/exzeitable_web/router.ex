@@ -1,4 +1,5 @@
 defmodule TestWeb.Router do
+  @moduledoc false
   use TestWeb, :router
 
   pipeline :browser do
