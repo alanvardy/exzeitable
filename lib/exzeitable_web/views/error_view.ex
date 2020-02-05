@@ -1,4 +1,5 @@
 defmodule TestWeb.ErrorView do
+  @moduledoc false
   use TestWeb, :view
 
   # If you want to customize a particular status code
