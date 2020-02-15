@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.3.2 (2019-2-04)
+
+* Update Elixir and Javascript dependencies.
+* Add a route for tests.
+
 ## v0.3.1 (2019-2-04)
 
 * Update to support Phoenix LiveView 0.6.0, removing the deprecated `mount/2` in favour of `mount/3`.

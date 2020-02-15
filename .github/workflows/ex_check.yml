@@ -8,7 +8,7 @@ jobs:
 
     services:
       db:
-        image: postgres:11
+        image: postgres:11.6
         ports: ['5432:5432']
         options: >-
           --health-cmd pg_isready
@@ -32,7 +32,7 @@ jobs:
             ${{ runner.os }}-build-ex_check-
       - uses: actions/setup-elixir@v1.0.0
         with:
-          otp-version: 22.x
-          elixir-version: 1.9.x
+          otp-version: 22.1.8
+          elixir-version: 1.9.4
       - run: mix deps.get
       - run: MIX_ENV=dev mix check --except ex_unit --except cypress --except dialyzer
