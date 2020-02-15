@@ -26,4 +26,4 @@ exzeitable-*.tar
 assets/node_modules
 cypress/videos
 cypress/screenshots
-cypress/videos/acceptance_test.js.mp4
+*.mp4
