@@ -18,6 +18,7 @@ defmodule TestWeb.Router do
   scope "/", TestWeb do
     pipe_through(:browser)
 
+    get("/", PostController, :index)
     resources("/users", UserController)
     get("/posts/no_action_buttons", PostController, :no_action_buttons)
     resources("/posts", PostController)

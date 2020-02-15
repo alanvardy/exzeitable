@@ -8,7 +8,7 @@ jobs:
 
     services:
       db:
-        image: postgres:11
+        image: postgres:11.6
         ports: ['5432:5432']
         options: >-
           --health-cmd pg_isready
@@ -31,8 +31,8 @@ jobs:
             ${{ runner.os }}-build-cypress-
       - uses: actions/setup-elixir@v1.0.0
         with:
-          otp-version: 22.x
-          elixir-version: 1.9.x
+          otp-version: 22.1.8
+          elixir-version: 1.9.4
       - run: mix deps.get
       - run: cd assets && npm install && npm install cypress --save-dev && cd ..
       - run: npm run deploy --prefix ./assets
