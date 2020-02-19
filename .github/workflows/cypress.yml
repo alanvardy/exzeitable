@@ -1,4 +1,4 @@
-name: Elixir - Cypress Acceptance Tests
+name: Cypress
 
 on: push
 

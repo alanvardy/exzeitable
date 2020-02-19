@@ -1,4 +1,4 @@
-name: Elixir ex_check
+name: Unit Tests
 
 on: push
 
