@@ -194,7 +194,7 @@ Call the table from your template
 
 Almost no CSS styling is included out of the box. I have added generic classes elements in the table in the hopes of making the table as CSS framwork agnostic as possible.
 
-I have included a Bootstrap SASS example in the [HTML Module](Exzeitable.HTML.html)
+I have included a Bootstrap SASS example in the [CSS Module](https://github.com/alanvardy/exzeitable/blob/develop/CSS.md)
 
 ## Contributing
 
