@@ -20,6 +20,8 @@ defmodule Exzeitable do
     per_page = Keyword.get(opts, :per_page, 20)
     parent = Keyword.get(opts, :parent)
     debounce = Keyword.get(opts, :debounce, 300)
+    # Live component ID
+    id = Keyword.get(opts, :id, 1)
     fields = Filter.set_fields(opts)
     search_string = Database.tsvector_string(fields)
     # coveralls-ignore-stop
@@ -70,7 +72,7 @@ defmodule Exzeitable do
           |> Validation.required_options()
           |> Validation.paired_options()
 
-        Helpers.live_render(conn, __MODULE__, session: session)
+        Helpers.live_render(conn, __MODULE__, id: Keyword.get(opts, :id, unquote(id)), session: session)
       end
 
       ###########################
