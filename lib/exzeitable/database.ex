@@ -69,7 +69,10 @@ defmodule Exzeitable.Database do
   @doc "We only want letters to avoid SQL injection attacks"
   @spec prefix_search(String.t()) :: String.t()
   def prefix_search(term) do
-    String.replace(term, ~r/\W|_/u, "") <> ":*"
+    term
+      |> String.split()
+      |> Enum.map(&("#{String.replace(&1, ~r/\W|_/u, "")}:*"))
+      |> Enum.join(" & ")
   end
 
   @doc """
@@ -78,12 +81,22 @@ defmodule Exzeitable.Database do
   """
   @spec tsvector_string([keyword]) :: String.t()
   def tsvector_string(fields) do
+    deep_search_fields = fields
+      |> Enum.filter(fn {_f, fopts} -> Keyword.has_key?(fopts, :deep_search) end)
+      |> Enum.map(fn {_f, fopts} ->
+        Keyword.fetch!(fopts, :deep_search)
+        |> Enum.map(&("coalesce(#{&1}, ' ')"))
+        |> Enum.join(" || ' ' || ")
+      end)
+
     search_columns =
       fields
-      |> Enum.filter(fn {_k, field} -> Keyword.fetch!(field, :search) end)
+      |> Enum.filter(fn {_k, fopts} -> Keyword.fetch!(fopts, :search) end)
       |> Enum.map(fn {key, _v} -> "coalesce(#{Atom.to_string(key)}, ' ')" end)
+      |> Enum.concat(deep_search_fields)
       |> Enum.join(" || ' ' || ")
 
     "to_tsvector('english', #{search_columns}) @@ to_tsquery(?)"
   end
+
 end

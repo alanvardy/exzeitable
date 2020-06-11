@@ -95,16 +95,19 @@ defmodule Exzeitable.DatabaseTest do
     assert Database.prefix_search("baNANas") == "baNANas:*"
     assert Database.prefix_search("ba@NAN%as") == "baNANas:*"
     assert Database.prefix_search("ba_@nan%as") == "bananas:*"
+    assert Database.prefix_search("foo bar") == "foo:* & bar:*"
   end
 
   test "tsvector_string/1 turns a keyword list with field metadata into a string" do
     generated =
-      [id: [search: true], name: [search: true], boogers: [search: false]]
+      [id: [search: true],
+       name: [search: true],
+       boogers: [search: false],
+       child: [search: false, deep_search: ["s1.name", "s1.value"]]]
       |> Database.tsvector_string()
 
     expected =
-      "to_tsvector('english', coalesce(id, ' ') || ' ' || coalesce(name, ' ')) @@ to_tsquery(?)"
-
+      "to_tsvector('english', coalesce(id, ' ') || ' ' || coalesce(name, ' ') || ' ' || coalesce(s1.name, ' ') || ' ' || coalesce(s1.value, ' ')) @@ to_tsquery(?)"
     assert generated == expected
   end
 
