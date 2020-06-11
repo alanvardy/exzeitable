@@ -138,8 +138,9 @@ The following field options are available (with their defaults):
 - `search: true` Whether to include the column in search results. 
 - `order: true` Do not allow the column to be sorted (hide the sort button)
 - `virtual: false` This is shorthand for [function: true, search: false, order: false] and will override those settings. Intended for creating fields that are not database backed.
+- `deep_search: ["alias.field1", "alias.field2", ...] Add this to perform full-text search on nested associations. Your query must match the aliases used.
 
-**IMPORTANT NOTE**: Search uses [ts_vector](https://www.postgresql.org/docs/10/datatype-textsearch.html), which is performed by Postgres inside the database on string fields. This means that you cannot search fields that are _not_ string type (i.e. integer, datetime, associations, virtual fields). Make sure to set `search: false` or `virtual: true` on such fields.
+*IMPORTANT NOTE**: Search uses [ts_vector](https://www.postgresql.org/docs/10/datatype-textsearch.html), which is performed by Postgres inside the database on string fields. This means that you cannot search fields that are _not_ string type (i.e. integer, datetime, virtual fields). Make sure to set `search: false` or `virtual: true` on such fields.
 
 Optional... options (with defaults)
 
