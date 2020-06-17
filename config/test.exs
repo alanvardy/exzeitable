@@ -18,7 +18,7 @@ config :exzeitable, TestWeb.Endpoint,
   http: [port: 4002],
   url: [host: "localhost"],
   server: false,
-  pubsub: [name: Exzeitable.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub_server: Exzeitable.PubSub
 
 config :exzeitable, TestWeb.Endpoint,
   live_view: [
