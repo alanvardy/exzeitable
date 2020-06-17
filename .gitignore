@@ -24,3 +24,4 @@ exzeitable-*.tar
 
 .elixir_ls
 assets/node_modules
+*.mp4
