@@ -24,6 +24,3 @@ exzeitable-*.tar
 
 .elixir_ls
 assets/node_modules
-cypress/videos
-cypress/screenshots
-*.mp4
