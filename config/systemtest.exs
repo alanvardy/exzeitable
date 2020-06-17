@@ -20,7 +20,7 @@ config :exzeitable, TestWeb.Endpoint,
   live_view: [
     signing_salt: "`mix phx.gen.secret 32`"
   ],
-  pubsub: [name: Exzeitable.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub_server: Exzeitable.PubSub
 
 # Configures Elixir's Logger
 config :logger, :console,

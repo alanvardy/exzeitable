@@ -22,7 +22,7 @@ config :exzeitable, TestWeb.Endpoint,
   code_reloader: true,
   check_origin: false,
   server: true,
-  pubsub: [name: Exzeitable.PubSub, adapter: Phoenix.PubSub.PG2],
+  pubsub_server: Exzeitable.PubSub,
   watchers: [
     node: [
       "node_modules/webpack/bin/webpack.js",
