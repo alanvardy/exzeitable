@@ -54,7 +54,7 @@ describe('Acceptance Test', function () {
     cy.visit('http://localhost:5000/users')
     cy.contains('Bob')
     cy.contains('Sioban').should('not.exist')
-    cy.contains('2').first().click()
+    cy.get('nav.exz-pagination-nav').contains('2').first().click()
     cy.contains('Sioban')
     cy.contains('Bob').should('not.exist')
   })

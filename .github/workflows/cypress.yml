@@ -37,4 +37,4 @@ jobs:
       - run: cd assets && npm ci && cd ..
       - run: npm run deploy --prefix ./assets
       - run: mix phx.digest
-      - run: mix cypress.ci
+      - run: mix cypress.run
