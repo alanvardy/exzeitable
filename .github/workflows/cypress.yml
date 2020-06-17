@@ -20,21 +20,21 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: deps
-          key: ${{ runner.os }}-mix-cypress-${{ hashFiles('**/mix.lock') }}
+          key: ${{ runner.os }}-mix-cypress2-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
             ${{ runner.os }}-mix-cypress-
       - uses: actions/cache@v1
         with:
           path: _build
-          key: ${{ runner.os }}-build-cypress-${{ hashFiles('**/mix.lock') }}
+          key: ${{ runner.os }}-build-cypress2-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
-            ${{ runner.os }}-build-cypress-
+            ${{ runner.os }}-build-cypress2-
       - uses: actions/setup-elixir@v1.0.0
         with:
           otp-version: 22.1.8
           elixir-version: 1.9.4
       - run: mix deps.get
-      - run: cd assets && npm install && npm install cypress --save-dev && cd ..
+      - run: cd assets && npm ci && cd ..
       - run: npm run deploy --prefix ./assets
       - run: mix phx.digest
       - run: mix cypress.ci
