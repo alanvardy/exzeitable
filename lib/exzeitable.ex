@@ -33,6 +33,7 @@ defmodule Exzeitable do
       alias Phoenix.LiveView.Helpers
       alias Exzeitable.{Database, Filter, Format, HTML, Validation}
       @callback render(map) :: {:ok, iolist}
+      @type socket :: Phoenix.LiveView.Socket.t()
 
       @doc """
       Convenience helper so LiveView doesn't have to be called directly
@@ -83,22 +84,21 @@ defmodule Exzeitable do
       ###########################
 
       @doc "Initial setup on page load"
-      @spec mount(atom, map, Phoenix.LiveView.Socket.t()) :: {:ok, Phoenix.LiveView.Socket.t()}
+      @spec mount(atom, map, socket) :: {:ok, socket}
       def mount(:not_mounted_at_router, assigns, socket) do
         assigns = Map.new(assigns, fn {k, v} -> {String.to_atom(k), v} end)
 
         socket =
           socket
           |> assign(assigns)
-          |> assign(:list, Database.get_records(assigns))
-          |> assign(:count, Database.get_record_count(assigns))
+          |> maybe_get_records()
+          |> maybe_set_refresh()
 
         {:ok, socket}
       end
 
       @doc "Clicking the hide button hides the column"
-      @spec handle_event(String.t(), map, Phoenix.LiveView.Socket.t()) ::
-              {:noreply, Phoenix.LiveView.Socket.t()}
+      @spec handle_event(String.t(), map, socket) :: {:noreply, socket}
       def handle_event("hide_column", %{"column" => column}, socket) do
         %{assigns: %{fields: fields}} = socket
         fields = Kernel.put_in(fields, [String.to_existing_atom(column), :hidden], true)
@@ -156,17 +156,41 @@ defmodule Exzeitable do
 
       @doc "Typing into the search box... searches. Crazy, right?"
       def handle_event("search", %{"search" => %{"search" => search}}, socket) do
-        %{assigns: assigns} = socket
-
-        new_params = %{search: search, page: 1}
-
         socket =
           socket
-          |> assign(new_params)
-          |> assign(:list, Database.get_records(Map.merge(assigns, new_params)))
-          |> assign(:count, Database.get_record_count(Map.merge(assigns, new_params)))
+          |> assign(%{search: search, page: 1})
+          |> maybe_get_records()
 
         {:noreply, socket}
+      end
+
+      @doc "Refresh periodically grabs new records from the database"
+      def handle_info(:refresh, socket) do
+        {:noreply, maybe_get_records(socket)}
+      end
+
+      defp maybe_get_records(socket) do
+        %{assigns: assigns} = socket
+
+        if connected?(socket) do
+          socket
+          |> assign(:list, Database.get_records(assigns))
+          |> assign(:count, Database.get_record_count(assigns))
+        else
+          socket
+          |> assign(:list, [])
+          |> assign(:count, 0)
+        end
+      end
+
+      defp maybe_set_refresh(socket) do
+        refresh_rate = socket.assigns[:refresh]
+
+        if connected?(socket) && is_integer(refresh_rate) do
+          :timer.send_interval(refresh_rate, self(), :refresh)
+        end
+
+        socket
       end
 
       # Need to unquote the search string because string interpolation is not allowed.
