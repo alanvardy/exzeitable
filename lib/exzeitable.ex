@@ -7,23 +7,11 @@ defmodule Exzeitable do
   defmacro __using__(opts) do
     alias Exzeitable.{Database, Filter}
 
-    # coveralls-ignore-start
-    # Required for basic functionality
-    repo = Keyword.get(opts, :repo)
-    routes = Keyword.get(opts, :routes)
-    path = Keyword.get(opts, :path)
-    query = Keyword.get(opts, :query)
+    search_string =
+      opts
+      |> Filter.set_fields()
+      |> Database.tsvector_string()
 
-    # Optional
-    action_buttons = Keyword.get(opts, :action_buttons, [:new, :show, :edit, :delete])
-    belongs_to = Keyword.get(opts, :belongs_to)
-    per_page = Keyword.get(opts, :per_page, 20)
-    parent = Keyword.get(opts, :parent)
-    debounce = Keyword.get(opts, :debounce, 300)
-    # Live component ID
-    id = Keyword.get(opts, :id, 1)
-    fields = Filter.set_fields(opts)
-    search_string = Database.tsvector_string(fields)
     # coveralls-ignore-stop
 
     quote do
@@ -31,7 +19,7 @@ defmodule Exzeitable do
       use Phoenix.HTML
       import Ecto.Query
       alias Phoenix.LiveView.Helpers
-      alias Exzeitable.{Database, Filter, Format, HTML, Validation}
+      alias Exzeitable.{Database, Filter, Format, HTML, Parameters, Validation}
       @callback render(map) :: {:ok, iolist}
       @type socket :: Phoenix.LiveView.Socket.t()
 
@@ -49,33 +37,10 @@ defmodule Exzeitable do
 
       @spec live_table(Plug.Conn.t(), keyword) :: {:safe, iolist}
       def live_table(conn, opts \\ []) do
-        session =
-          %{
-            "query" => Keyword.get(opts, :query, unquote(query)),
-            "assigns" => Keyword.get(opts, :assigns, %{}),
-            "parent" => Keyword.get(opts, :parent, unquote(parent)),
-            "routes" => Keyword.get(opts, :routes, unquote(routes)),
-            "repo" => Keyword.get(opts, :repo, unquote(repo)),
-            "path" => Keyword.get(opts, :path, unquote(path)),
-            "debounce" => unquote(debounce),
-            "fields" => unquote(fields) |> Enum.map(fn {k, f} -> {k, Enum.into(f, %{})} end),
-            "action_buttons" => Keyword.get(opts, :action_buttons, unquote(action_buttons)),
-            "belongs_to" => Keyword.get(opts, :belongs_to, unquote(belongs_to)),
-            "per_page" => Keyword.get(opts, :per_page, unquote(per_page)),
-            "module" => __MODULE__,
-            "page" => 1,
-            "order" => nil,
-            "count" => 0,
-            "search" => "",
-            "show_field_buttons" => false,
-            "csrf_token" => Phoenix.Controller.get_csrf_token()
-          }
-          |> Validation.required_options()
-          |> Validation.paired_options()
-
         Helpers.live_render(conn, __MODULE__,
-          id: Keyword.get(opts, :id, unquote(id)),
-          session: session
+          # Live component ID
+          id: Keyword.get(unquote(opts), :id, 1),
+          session: Parameters.process(opts, unquote(opts), __MODULE__)
         )
       end
 
