@@ -1,21 +1,31 @@
 # Changelog
 
-## v0.3.2 (2019-2-04)
+## v0.3.3 (2020-6-19)
+
+* No breaking changes to API, only to dependency requirements.
+* Feature: Add a refresh rate for requerying database periodically
+* Update Elixir and Javascript dependencies.
+* Update Elixir to 1.10.3
+* Update Erlang to 22.3.4
+* Add MIT licence
+* Did some coarse level refactoring around function locations
+
+## v0.3.2 (2020-2-04)
 
 * Update Elixir and Javascript dependencies.
 * Add a route for tests.
 
-## v0.3.1 (2019-2-04)
+## v0.3.1 (2020-2-04)
 
 * Update to support Phoenix LiveView 0.6.0, removing the deprecated `mount/2` in favour of `mount/3`.
 
-## v0.3.0 (2019-01-18)
+## v0.3.0 (2020-01-18)
 
 * BREAKING CHANGES
 * Update to support Phoenix LiveView 0.5.x (breaking compatibility with previous versions)
 * Make sure to check the Phoenix LiveView [CHANGELOG](https://github.com/phoenixframework/phoenix_live_view/blob/master/CHANGELOG.md)
   
-## v0.2.8 (2019-01-13)
+## v0.2.8 (2020-01-13)
 
 * Use coalesce on all database columns to guard against NULL values
 
