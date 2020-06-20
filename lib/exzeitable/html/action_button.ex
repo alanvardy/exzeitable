@@ -1,4 +1,4 @@
-defmodule Exzeitable.ActionButton do
+defmodule Exzeitable.HTML.ActionButton do
   @moduledoc """
   For the actions buttons such as :new, :edit etc, as well as custom buttons.
 
@@ -20,7 +20,7 @@ defmodule Exzeitable.ActionButton do
   ```
   """
   use Phoenix.HTML
-  alias Exzeitable.Filter
+  alias Exzeitable.HTML.Filter
 
   @doc "Builds an individual button, takes an atom representing the action, and the assigns map"
   @spec build(:new, map) :: {:safe, iolist}

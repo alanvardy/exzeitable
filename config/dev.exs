@@ -1,7 +1,7 @@
 use Mix.Config
 
 # Configure your database
-config :exzeitable, Exzeitable.Repo,
+config :exzeitable, TestWeb.Repo,
   username: "postgres",
   password: "postgres",
   database: "exzeitable_dev",
@@ -9,7 +9,7 @@ config :exzeitable, Exzeitable.Repo,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
-config :exzeitable, ecto_repos: [Exzeitable.Repo]
+config :exzeitable, ecto_repos: [TestWeb.Repo]
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.

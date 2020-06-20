@@ -1,9 +1,9 @@
-defmodule Exzeitable.Pagination do
+defmodule Exzeitable.HTML.Pagination do
   @moduledoc """
    For building out the pagination buttons above and below the table
   """
   use Phoenix.HTML
-  alias Exzeitable.Filter
+  alias Exzeitable.HTML.Filter
 
   @doc "Builds the pagination selector with page numbers, next and back etc."
   @spec build(map) :: {:safe, iolist}

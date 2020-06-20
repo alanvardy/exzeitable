@@ -4,7 +4,7 @@ defmodule TestWeb.UserTable do
   alias TestWeb.User
 
   use Exzeitable,
-    repo: Exzeitable.Repo,
+    repo: TestWeb.Repo,
     routes: Routes,
     path: :user_path,
     fields: [name: [], age: [label: "Years old", search: false], name_backwards: [virtual: true]],

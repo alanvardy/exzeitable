@@ -1,6 +1,6 @@
 defmodule TestWeb.ConnCase do
   alias Ecto.Adapters.SQL.Sandbox
-  alias Exzeitable.Repo
+  alias TestWeb.Repo
 
   @moduledoc """
   This module defines the test case to be used by

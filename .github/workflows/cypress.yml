@@ -31,8 +31,8 @@ jobs:
             ${{ runner.os }}-build-cypress2-
       - uses: actions/setup-elixir@v1.0.0
         with:
-          otp-version: 22.1.8
-          elixir-version: 1.9.4
+          otp-version: 22.3.4
+          elixir-version: 1.10.3
       - run: mix deps.get
       - run: cd assets && npm ci && cd ..
       - run: npm run deploy --prefix ./assets

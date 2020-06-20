@@ -32,7 +32,7 @@ jobs:
             ${{ runner.os }}-build-dialyzer-
       - uses: actions/setup-elixir@v1.0.0
         with:
-          otp-version: 22.1.8
-          elixir-version: 1.9.4
+          otp-version: 22.3.4
+          elixir-version: 1.10.3
       - run: mix deps.get
       - run: MIX_ENV=dev mix check --only dialyzer

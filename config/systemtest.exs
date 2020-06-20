@@ -1,13 +1,13 @@
 use Mix.Config
 
-config :exzeitable, Exzeitable.Repo,
+config :exzeitable, TestWeb.Repo,
   database: "exzeitable_system_test",
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
   port: "5432"
 
-config :exzeitable, ecto_repos: [Exzeitable.Repo]
+config :exzeitable, ecto_repos: [TestWeb.Repo]
 
 config :exzeitable, env: :systemtest
 

@@ -1,4 +1,4 @@
-defmodule Exzeitable.Format do
+defmodule Exzeitable.HTML.Format do
   @moduledoc "Formatting text"
 
   @doc """

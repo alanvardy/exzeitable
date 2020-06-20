@@ -1,19 +1,5 @@
-defmodule Exzeitable.Filter do
+defmodule Exzeitable.HTML.Filter do
   @moduledoc "Filtering data"
-
-  @default_fields [
-    label: nil,
-    function: false,
-    hidden: false,
-    search: true,
-    order: true
-  ]
-
-  @virtual_fields [
-    function: true,
-    search: false,
-    order: false
-  ]
 
   @doc "Gets the parent that the nested resource belongs to"
   @spec parent_for(map, map) :: map | nil
@@ -56,25 +42,5 @@ defmodule Exzeitable.Filter do
   def fields_where_not(fields, attribute) do
     fields
     |> Enum.reject(fn {_k, field} -> Map.get(field, attribute) end)
-  end
-
-  @doc "Gets fields from options and merges it into the defaults"
-  @spec set_fields(keyword) :: [any]
-  def set_fields(opts) do
-    opts
-    |> Keyword.get(:fields, [])
-    |> Enum.map(fn {key, field} -> {key, merge_fields(field)} end)
-  end
-
-  # If virtual: true, a number of other options have to be overridden
-  @spec merge_fields(keyword) :: keyword
-  defp merge_fields(field) do
-    if Keyword.get(field, :virtual) do
-      @default_fields
-      |> Keyword.merge(field)
-      |> Keyword.merge(@virtual_fields)
-    else
-      Keyword.merge(@default_fields, field)
-    end
   end
 end
