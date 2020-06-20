@@ -1,14 +1,14 @@
 use Mix.Config
 
 # Configure your database
-config :exzeitable, Exzeitable.Repo,
+config :exzeitable, TestWeb.Repo,
   username: "postgres",
   password: "postgres",
   database: "exzeitable_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
-config :exzeitable, ecto_repos: [Exzeitable.Repo]
+config :exzeitable, ecto_repos: [TestWeb.Repo]
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
@@ -18,7 +18,7 @@ config :exzeitable, TestWeb.Endpoint,
   http: [port: 4002],
   url: [host: "localhost"],
   server: false,
-  pubsub: [name: Exzeitable.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub_server: Exzeitable.PubSub
 
 config :exzeitable, TestWeb.Endpoint,
   live_view: [

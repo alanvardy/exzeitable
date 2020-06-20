@@ -1,6 +1,6 @@
 defmodule TestWeb.ConnCase do
   alias Ecto.Adapters.SQL.Sandbox
-  alias Exzeitable.Repo
+  alias TestWeb.Repo
 
   @moduledoc """
   This module defines the test case to be used by
@@ -21,7 +21,8 @@ defmodule TestWeb.ConnCase do
   using do
     quote do
       # Import conveniences for testing with connections
-      use Phoenix.ConnTest
+      import Plug.Conn
+      import Phoenix.ConnTest
       alias TestWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing

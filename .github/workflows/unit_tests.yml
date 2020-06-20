@@ -1,6 +1,6 @@
-name: Elixir Dialyxir
+name: Unit Tests
 
-on: push
+on: [push, pull_request]
 
 jobs:
   test:
@@ -21,18 +21,18 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: deps
-          key: ${{ runner.os }}-mix-dialyzer-${{ hashFiles('**/mix.lock') }}
+          key: ${{ runner.os }}-mix-ex_check-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
-            ${{ runner.os }}-mix-dialyzer-
+            ${{ runner.os }}-mix-ex_check-
       - uses: actions/cache@v1
         with:
           path: _build
-          key: ${{ runner.os }}-build-dialyzer-${{ hashFiles('**/mix.lock') }}
+          key: ${{ runner.os }}-build-ex_check-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
-            ${{ runner.os }}-build-dialyzer-
+            ${{ runner.os }}-build-ex_check-
       - uses: actions/setup-elixir@v1.0.0
         with:
-          otp-version: 22.1.8
-          elixir-version: 1.9.4
+          otp-version: 22.3.4
+          elixir-version: 1.10.3
       - run: mix deps.get
-      - run: MIX_ENV=dev mix check --only dialyzer
+      - run: MIX_ENV=dev mix check --except ex_unit --except cypress --except dialyzer

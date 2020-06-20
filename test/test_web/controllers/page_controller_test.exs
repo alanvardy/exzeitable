@@ -1,7 +1,7 @@
 defmodule TestWeb.PageControllerTest do
   @moduledoc false
   use TestWeb.ConnCase, async: true
-  alias Exzeitable.Repo
+  alias TestWeb.Repo
   alias TestWeb.User
 
   describe "Pages" do

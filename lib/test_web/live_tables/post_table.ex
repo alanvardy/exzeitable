@@ -4,11 +4,12 @@ defmodule TestWeb.PostTable do
   alias TestWeb.Router.Helpers, as: Routes
 
   use Exzeitable,
-    repo: Exzeitable.Repo,
+    repo: TestWeb.Repo,
     routes: Routes,
     path: :post_path,
     fields: [title: [], content: []],
-    query: from(p in Post)
+    query: from(p in Post),
+    refresh: 5000
 
   def render(assigns), do: ~L"<%= build_table(assigns) %>"
 end

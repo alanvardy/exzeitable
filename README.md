@@ -1,6 +1,6 @@
 # Exzeitable
 
-[![Build Status](https://github.com/alanvardy/exzeitable/workflows/Elixir%20ex_check/badge.svg)](https://github.com/alanvardy/exzeitable) [![hex.pm](http://img.shields.io/hexpm/v/exzeitable.svg?style=flat)](https://hex.pm/packages/exzeitable)
+[![Build Status](https://github.com/alanvardy/exzeitable/workflows/Unit%20Tests/badge.svg)](https://github.com/alanvardy/exzeitable) [![Build Status](https://github.com/alanvardy/exzeitable/workflows/Dialyzer/badge.svg)](https://github.com/alanvardy/exzeitable) [![Build Status](https://github.com/alanvardy/exzeitable/workflows/Cypress/badge.svg)](https://github.com/alanvardy/exzeitable) [![hex.pm](http://img.shields.io/hexpm/v/exzeitable.svg?style=flat)](https://hex.pm/packages/exzeitable)
 
 Dynamic searchable, sortable datatable that takes a database query and a module, and makes the magic happen. Uses Phoenix Liveview and Postgres. Bootstrap friendly and easily configured for other CSS frameworks.
 
@@ -19,8 +19,8 @@ The package can be installed by adding [exzeitable](https://github.com/alanvardy
 ```elixir
 def deps do
   [
-    {:exzeitable, "~> 0.3.2"},
-    {:phoenix_live_view, "~> 0.7"},
+    {:exzeitable, "~> 0.3.3"},
+    {:phoenix_live_view, "~> 0.13"},
     {:floki, ">= 0.0.0", only: :test}
   ]
 end
@@ -146,6 +146,7 @@ Optional... options (with defaults)
   - `action_buttons: [:new, :edit, :show, :delete]` A list of atoms representing action buttons avaliable for the user to use. This does not do authorization, the routes will still be available.
   - `per_page: 20` Integer representing number of entries per page.
   - `debounce: 300` Sets how many miliseconds between responding to user input on the search field. Set in module only
+  - `refresh: false` Requeries the database every x milliseconds, defaults to false (disabled). Set in module only.
   - `assigns: %{}` Passes additional assigns to socket.assigns. Can only be passed through the template, keep your payload small!
 
 #### Options for nested routes
@@ -194,7 +195,7 @@ Call the table from your template
 
 Almost no CSS styling is included out of the box. I have added generic classes elements in the table in the hopes of making the table as CSS framwork agnostic as possible.
 
-I have included a Bootstrap SASS example in the [HTML Module](Exzeitable.HTML.html)
+I have included a Bootstrap SASS example in the [CSS Module](https://github.com/alanvardy/exzeitable/blob/develop/CSS.md)
 
 ## Contributing
 

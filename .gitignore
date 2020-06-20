@@ -22,8 +22,7 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 exzeitable-*.tar
 
+priv/
 .elixir_ls
 assets/node_modules
-cypress/videos
-cypress/screenshots
 *.mp4

@@ -1,6 +1,6 @@
 defmodule TestWeb.DataCase do
   alias Ecto.Adapters.SQL.Sandbox
-  alias Exzeitable.Repo
+  alias TestWeb.Repo
 
   @moduledoc """
   This module defines the setup for tests requiring
@@ -19,7 +19,7 @@ defmodule TestWeb.DataCase do
 
   using do
     quote do
-      alias Exzeitable.Repo
+      alias TestWeb.Repo
 
       import Ecto
       import Ecto.Changeset

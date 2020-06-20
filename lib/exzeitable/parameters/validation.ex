@@ -1,4 +1,4 @@
-defmodule Exzeitable.Validation do
+defmodule Exzeitable.Parameters.Validation do
   @moduledoc "Using these instead of Keyword.fetch! to provide nice easily resolvable errors."
 
   @doc "The required options"
