@@ -31,7 +31,7 @@ defmodule TestWeb do
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/exzeitable_web/templates",
+        root: "lib/test_web/templates",
         namespace: TestWeb
 
       # Import convenience functions from controllers

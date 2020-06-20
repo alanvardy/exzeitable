@@ -10,7 +10,7 @@ defmodule Exzeitable.Application do
     children = [
       {Phoenix.PubSub, [name: Exzeitable.PubSub, adapter: Phoenix.PubSub.PG2]},
       # Start the Ecto repository
-      Exzeitable.Repo,
+      TestWeb.Repo,
       # Start the endpoint when the application starts
       TestWeb.Endpoint
       # Starts a worker by calling: Exzeitable.Worker.start_link(arg)

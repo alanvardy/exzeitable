@@ -1,14 +1,14 @@
-defmodule Exzeitable.FilterTest do
+defmodule Exzeitable.HTML.FilterTest do
   @moduledoc false
   use TestWeb.DataCase, async: true
-  alias Exzeitable.{Database, Filter}
+  alias Exzeitable.{Database, HTML.Filter}
   alias TestWeb.{Post, User}
 
   @assigns %{
     query: from(p in Post, preload: [:user]),
     parent: nil,
     routes: TestWeb.Router.Helpers,
-    repo: Exzeitable.Repo,
+    repo: TestWeb.Repo,
     path: :post_path,
     fields: [title: [], content: []],
     action_buttons: [],
@@ -116,40 +116,5 @@ defmodule Exzeitable.FilterTest do
     ]
 
     assert Filter.fields_where_not(list, :boogers) == resulting_list
-  end
-
-  test "set_fields/2 merges fields over the defaults" do
-    opts = [
-      fields: [
-        first: [label: "something"]
-      ]
-    ]
-
-    after_merge = [
-      first: [function: false, hidden: false, search: true, order: true, label: "something"]
-    ]
-
-    assert Filter.set_fields(opts) == after_merge
-  end
-
-  test "set_fields/2 overwrites other options when virtual: true is set" do
-    opts = [
-      fields: [
-        first: [label: "something", virtual: true]
-      ]
-    ]
-
-    after_merge = [
-      first: [
-        hidden: false,
-        label: "something",
-        virtual: true,
-        function: true,
-        search: false,
-        order: false
-      ]
-    ]
-
-    assert Filter.set_fields(opts) == after_merge
   end
 end

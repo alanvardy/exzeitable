@@ -8,7 +8,7 @@ defmodule Exzeitable.DatabaseTest do
     query: from(u in User),
     parent: nil,
     routes: TestWeb.Router.Helpers,
-    repo: Exzeitable.Repo,
+    repo: TestWeb.Repo,
     path: :user_path,
     fields: [name: [], age: []],
     action_buttons: [],

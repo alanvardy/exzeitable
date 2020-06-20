@@ -4,7 +4,41 @@ defmodule Exzeitable.Parameters do
 
   Validates that parameters are valid.
   """
-  alias Exzeitable.{Filter, Parameters.Validation}
+  alias Exzeitable.Parameters.Validation
+
+  @default_fields [
+    label: nil,
+    function: false,
+    hidden: false,
+    search: true,
+    order: true
+  ]
+
+  @virtual_fields [
+    function: true,
+    search: false,
+    order: false
+  ]
+
+  @doc "Gets fields from options and merges it into the defaults"
+  @spec set_fields(keyword) :: [any]
+  def set_fields(opts) do
+    opts
+    |> Keyword.get(:fields, [])
+    |> Enum.map(fn {key, field} -> {key, merge_fields(field)} end)
+  end
+
+  # If virtual: true, a number of other options have to be overridden
+  @spec merge_fields(keyword) :: keyword
+  defp merge_fields(field) do
+    if Keyword.get(field, :virtual) do
+      @default_fields
+      |> Keyword.merge(field)
+      |> Keyword.merge(@virtual_fields)
+    else
+      Keyword.merge(@default_fields, field)
+    end
+  end
 
   @spec process(keyword, keyword, atom) :: map
   def process(function_opts, module_opts, calling_module) do
@@ -14,7 +48,7 @@ defmodule Exzeitable.Parameters do
     repo = Keyword.get(module_opts, :repo)
     routes = Keyword.get(module_opts, :routes)
     path = Keyword.get(module_opts, :path)
-    fields = Filter.set_fields(module_opts)
+    fields = set_fields(module_opts)
 
     # Optional
     action_buttons = Keyword.get(module_opts, :action_buttons, [:new, :show, :edit, :delete])

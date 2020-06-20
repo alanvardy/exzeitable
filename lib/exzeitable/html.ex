@@ -4,7 +4,7 @@ defmodule Exzeitable.HTML do
   """
 
   use Phoenix.HTML
-  alias Exzeitable.{ActionButton, Filter, Format, Pagination}
+  alias Exzeitable.HTML.{ActionButton, Filter, Format, Pagination}
 
   @doc "Root function for building the HTML table"
   @spec build_table(map) :: {:safe, iolist}

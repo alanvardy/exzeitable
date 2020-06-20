@@ -5,11 +5,11 @@ defmodule Exzeitable do
 
   @doc "Expands into the gigantic monstrosity that is Exzeitable"
   defmacro __using__(opts) do
-    alias Exzeitable.{Database, Filter}
+    alias Exzeitable.{Database, Parameters}
 
     search_string =
       opts
-      |> Filter.set_fields()
+      |> Parameters.set_fields()
       |> Database.tsvector_string()
 
     # coveralls-ignore-stop

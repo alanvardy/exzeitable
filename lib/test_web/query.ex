@@ -2,7 +2,7 @@ defmodule TestWeb.Query do
   @moduledoc false
 
   import Ecto.Query, warn: false
-  alias Exzeitable.Repo
+  alias TestWeb.Repo
 
   alias TestWeb.{Post, User}
 

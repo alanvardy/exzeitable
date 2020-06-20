@@ -1,4 +1,4 @@
-defmodule Exzeitable.Repo do
+defmodule TestWeb.Repo do
   @moduledoc false
 
   @doc false

@@ -4,7 +4,7 @@ defmodule TestWeb.PostTable do
   alias TestWeb.Router.Helpers, as: Routes
 
   use Exzeitable,
-    repo: Exzeitable.Repo,
+    repo: TestWeb.Repo,
     routes: Routes,
     path: :post_path,
     fields: [title: [], content: []],
