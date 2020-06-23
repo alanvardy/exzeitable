@@ -19,8 +19,7 @@ defmodule Exzeitable.HTML.ActionButton do
     end
   ```
   """
-  use Phoenix.HTML
-  alias Exzeitable.HTML.Filter
+  use Exzeitable.HTML.Helpers
 
   @doc "Builds an individual button, takes an atom representing the action, and the assigns map"
   @spec build(:new, map) :: {:safe, iolist}
@@ -69,7 +68,7 @@ defmodule Exzeitable.HTML.ActionButton do
   def build(:delete, entry, assigns) do
     %{csrf_token: csrf_token, socket: socket, routes: routes, path: path} = assigns
 
-    params = [socket, :delete, Filter.parent_for(entry, assigns), entry]
+    params = [socket, :delete, parent_for(entry, assigns), entry]
 
     apply(routes, path, params)
     |> html(:delete, csrf_token)
@@ -85,7 +84,7 @@ defmodule Exzeitable.HTML.ActionButton do
   def build(:show, entry, assigns) do
     %{csrf_token: csrf_token, socket: socket, routes: routes, path: path} = assigns
 
-    params = [socket, :show, Filter.parent_for(entry, assigns), entry]
+    params = [socket, :show, parent_for(entry, assigns), entry]
 
     apply(routes, path, params)
     |> html(:show, csrf_token)
@@ -100,7 +99,7 @@ defmodule Exzeitable.HTML.ActionButton do
 
   def build(:edit, entry, assigns) do
     %{csrf_token: csrf_token, socket: socket, routes: routes, path: path} = assigns
-    params = [socket, :edit, Filter.parent_for(entry, assigns), entry]
+    params = [socket, :edit, parent_for(entry, assigns), entry]
 
     apply(routes, path, params)
     |> html(:edit, csrf_token)
@@ -128,5 +127,13 @@ defmodule Exzeitable.HTML.ActionButton do
       "data-confirm": "Are you sure?",
       csrf_token: csrf_token
     )
+  end
+
+  # Gets the parent that the nested resource belongs to
+  def parent_for(entry, %{belongs_to: belongs_to}) do
+    case Map.get(entry, belongs_to) do
+      nil -> raise "You need to select the association in :belongs_to"
+      result -> result
+    end
   end
 end
