@@ -33,7 +33,7 @@ defmodule Exzeitable do
       ```
 
       """
-      defdelegate build_table(assigns), to: HTML
+      defdelegate build_table(assigns), to: HTML, as: :build
 
       @spec live_table(Plug.Conn.t(), keyword) :: {:safe, iolist}
       def live_table(conn, opts \\ []) do

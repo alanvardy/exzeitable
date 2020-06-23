@@ -2,8 +2,7 @@ defmodule Exzeitable.HTML.Pagination do
   @moduledoc """
    For building out the pagination buttons above and below the table
   """
-  use Phoenix.HTML
-  alias Exzeitable.HTML.Filter
+  use Exzeitable.HTML.Helpers
 
   @doc "Builds the pagination selector with page numbers, next and back etc."
   @spec build(map) :: {:safe, iolist}
@@ -25,7 +24,7 @@ defmodule Exzeitable.HTML.Pagination do
 
   defp numbered_buttons(page, pages) do
     pages
-    |> Filter.filter_pages(page)
+    |> filter_pages(page)
     |> Enum.map(fn x -> paginate_button(x, page, pages) end)
   end
 
@@ -89,7 +88,14 @@ defmodule Exzeitable.HTML.Pagination do
     |> cont(:li, class: "exz-pagination-li")
   end
 
-  # Used everywhere to make it easier to pipe HTML chunks into each other
-  @spec cont(any(), atom, keyword) :: {:safe, iolist}
-  defp cont(body, tag, opts), do: content_tag(tag, body, opts)
+  # Selects the page buttons we need for pagination
+  def filter_pages(pages, _page) when pages <= 7, do: 1..pages
+
+  def filter_pages(pages, page) when page in [1, 2, 3, pages - 2, pages - 1, pages] do
+    [1, 2, 3, "....", pages - 2, pages - 1, pages]
+  end
+
+  def filter_pages(pages, page) do
+    [1, "...."] ++ [page - 1, page, page + 1] ++ ["....", pages]
+  end
 end

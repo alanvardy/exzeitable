@@ -1,0 +1,41 @@
+defmodule Exzeitable.HTML.ShowButton do
+  @moduledoc "Show buttons and the buttons that toggle their visibility"
+  use Exzeitable.HTML.Helpers
+
+  alias Exzeitable.HTML.{Filter, Format}
+
+  @spec show_buttons(map) :: [any()]
+  def show_buttons(%{show_field_buttons: false}), do: ""
+
+  def show_buttons(assigns) do
+    assigns
+    |> Map.get(:fields)
+    |> Filter.fields_where(:hidden)
+    |> Enum.map(fn field -> build_show_button(field) end)
+  end
+
+  def build_show_button({key, _value} = field) do
+    name = Format.header(field)
+
+    content_tag(:a, "Show #{name}",
+      class: "exz-show-button",
+      "phx-click": "show_column",
+      "phx-value-column": key
+    )
+  end
+
+  @spec build_show_hide_fields_button(map) :: {:safe, iolist}
+  def build_show_hide_fields_button(%{show_field_buttons: true}) do
+    content_tag(:a, "Hide Field Buttons",
+      class: "exz-info-button",
+      "phx-click": "hide_buttons"
+    )
+  end
+
+  def build_show_hide_fields_button(_) do
+    content_tag(:a, "Show Field Buttons",
+      class: "exz-info-button",
+      "phx-click": "show_buttons"
+    )
+  end
+end
