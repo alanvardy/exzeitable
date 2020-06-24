@@ -63,4 +63,5 @@ defmodule TestWeb.PostController do
 
   def no_action_buttons(conn, _params), do: render(conn, "no_action_buttons.html")
   def disable_hide(conn, _params), do: render(conn, "disable_hide.html")
+  def no_pagination(conn, _params), do: render(conn, "no_pagination.html")
 end

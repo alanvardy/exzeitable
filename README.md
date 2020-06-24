@@ -145,10 +145,11 @@ Optional... options (with defaults)
 
   - `action_buttons: [:new, :edit, :show, :delete]` A list of atoms representing action buttons avaliable for the user to use. This does not do authorization, the routes will still be available.
   - `per_page: 20` Integer representing number of entries per page.
-  - `debounce: 300` Sets how many miliseconds between responding to user input on the search field. Set in module only
-  - `refresh: false` Requeries the database every x milliseconds, defaults to false (disabled). Set in module only.
+  - `debounce: 300` Sets how many miliseconds between responding to user input on the search field.
+  - `refresh: false` Requeries the database every x milliseconds, defaults to false (disabled).
   - `disable_hide: false` Disable hide and show functionality for columns, including not showing the buttons.
-  - `assigns: %{}` Passes additional assigns to socket.assigns. Can only be passed through the template, keep your payload small!
+  - `pagination: [:top, :bottom]` Whether to show the pagination above and below
+  - `assigns: %{}` Passes additional assigns to socket.assigns. Keep your payload small!
 
 #### Options for nested routes
 
