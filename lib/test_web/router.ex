@@ -21,6 +21,7 @@ defmodule TestWeb.Router do
     resources("/users", UserController)
     get("/posts/no_action_buttons", PostController, :no_action_buttons)
     get("/posts/disable_hide", PostController, :disable_hide)
+    get("/posts/no_pagination", PostController, :no_pagination)
     resources("/posts", PostController)
   end
 

@@ -62,13 +62,24 @@ describe('Acceptance Test', function () {
   it('Doesnt see the action column when there are no action buttons', function () {
     cy.visit('http://localhost:5000/posts/no_action_buttons')
     cy.contains('Posts')
+    cy.contains('Show Field Buttons')
     cy.contains('Actions').should('not.exist')
   })
 
   it('Cannot see hide functionality when it is disabled', function () {
     cy.visit('http://localhost:5000/posts/disable_hide')
     cy.contains('Posts')
+    cy.contains('Actions')
+    cy.contains('Next')
     cy.contains('Show Field Buttons').should('not.exist')
     cy.contains('Hide').should('not.exist')
+  })
+
+  it('Cannot pagination when it is disabled', function () {
+    cy.visit('http://localhost:5000/posts/no_pagination')
+    cy.contains('Posts')
+    cy.contains('Actions')
+    cy.contains('Show Field Buttons')
+    cy.contains('Nex').should('not.exist')
   })
 })

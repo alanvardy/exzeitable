@@ -14,6 +14,8 @@ defmodule Exzeitable.HTML do
     new_button = ActionButton.build(:new, assigns)
     show_buttons = ShowButton.show_buttons(assigns)
     pagination = Pagination.build(assigns)
+    top_pagination = maybe_render_pagination(:top, assigns, pagination)
+    bottom_pagination = maybe_render_pagination(:bottom, assigns, pagination)
     show_hide_fields = ShowButton.build_show_hide_fields_button(assigns)
     table = Table.build(assigns)
     bottom_buttons = div_wrap([new_button, show_hide_fields])
@@ -21,7 +23,7 @@ defmodule Exzeitable.HTML do
     top_navigation =
       div_wrap(
         [
-          div_wrap([pagination, new_button, show_hide_fields], "exz-pagination-wrapper"),
+          div_wrap([top_pagination, new_button, show_hide_fields], "exz-pagination-wrapper"),
           search_box
         ],
         "exz-row"
@@ -35,7 +37,7 @@ defmodule Exzeitable.HTML do
         table,
         show_buttons,
         bottom_buttons,
-        pagination
+        bottom_pagination
       ],
       class: "outer-wrapper",
       onclick: ""
@@ -44,5 +46,13 @@ defmodule Exzeitable.HTML do
 
   defp div_wrap(content, class \\ "") do
     content_tag(:div, content, class: class)
+  end
+
+  defp maybe_render_pagination(position, %{pagination: positions}, pagination) do
+    if position in positions do
+      pagination
+    else
+      ""
+    end
   end
 end
