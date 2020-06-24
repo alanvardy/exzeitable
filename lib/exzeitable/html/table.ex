@@ -33,7 +33,7 @@ defmodule Exzeitable.HTML.Table do
 
   @spec table_header({atom, map}, map) :: {:safe, iolist}
   defp table_header(field, assigns) do
-    [Format.header(field), hide_link_for(field), sort_link_for(field, assigns)]
+    [Format.header(field), hide_link_for(field, assigns), sort_link_for(field, assigns)]
     |> cont(:th, [])
   end
 
@@ -61,10 +61,11 @@ defmodule Exzeitable.HTML.Table do
     |> cont(:td, [])
   end
 
-  @spec hide_link_for({atom, map}) :: {:safe, iolist}
-  defp hide_link_for({:actions, _value}), do: ""
+  @spec hide_link_for({atom, map}, map) :: {:safe, iolist} | String.t()
+  defp hide_link_for({:actions, _value}, _assigns), do: ""
+  defp hide_link_for(_, %{disable_hide: true}), do: ""
 
-  defp hide_link_for({key, _value}) do
+  defp hide_link_for({key, _value}, _assigns) do
     content_tag(:a, "hide",
       class: "exz-hide-link",
       "phx-click": "hide_column",

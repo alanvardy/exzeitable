@@ -62,4 +62,5 @@ defmodule TestWeb.PostController do
   ########## SPECIFIC CASES ##############
 
   def no_action_buttons(conn, _params), do: render(conn, "no_action_buttons.html")
+  def disable_hide(conn, _params), do: render(conn, "disable_hide.html")
 end

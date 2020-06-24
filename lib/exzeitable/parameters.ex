@@ -16,6 +16,7 @@ defmodule Exzeitable.Parameters do
     per_page: %{default: 20},
     debounce: %{default: 300},
     refresh: %{default: false},
+    disable_hide: %{default: false},
     parent: %{default: nil},
     assigns: %{default: %{}}
   }

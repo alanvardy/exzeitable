@@ -4,7 +4,8 @@ defmodule Exzeitable.HTML.ShowButton do
 
   alias Exzeitable.HTML.{Filter, Format}
 
-  @spec show_buttons(map) :: [any()]
+  @spec show_buttons(map) :: [any()] | String.t()
+  def show_buttons(%{disable_hide: true}), do: ""
   def show_buttons(%{show_field_buttons: false}), do: ""
 
   def show_buttons(assigns) do
@@ -24,7 +25,9 @@ defmodule Exzeitable.HTML.ShowButton do
     )
   end
 
-  @spec build_show_hide_fields_button(map) :: {:safe, iolist}
+  @spec build_show_hide_fields_button(map) :: {:safe, iolist} | String.t()
+  def build_show_hide_fields_button(%{disable_hide: true}), do: ""
+
   def build_show_hide_fields_button(%{show_field_buttons: true}) do
     content_tag(:a, "Hide Field Buttons",
       class: "exz-info-button",

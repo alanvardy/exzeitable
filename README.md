@@ -147,6 +147,7 @@ Optional... options (with defaults)
   - `per_page: 20` Integer representing number of entries per page.
   - `debounce: 300` Sets how many miliseconds between responding to user input on the search field. Set in module only
   - `refresh: false` Requeries the database every x milliseconds, defaults to false (disabled). Set in module only.
+  - `disable_hide: false` Disable hide and show functionality for columns, including not showing the buttons.
   - `assigns: %{}` Passes additional assigns to socket.assigns. Can only be passed through the template, keep your payload small!
 
 #### Options for nested routes
