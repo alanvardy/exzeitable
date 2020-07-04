@@ -19,7 +19,8 @@ defmodule Exzeitable.Parameters do
     disable_hide: %{default: false},
     pagination: %{default: [:top, :bottom]},
     parent: %{default: nil},
-    assigns: %{default: %{}}
+    assigns: %{default: %{}},
+    text: %{default: Exzeitable.Text.Default}
   }
 
   @default_fields [

@@ -6,6 +6,7 @@ defmodule Exzeitable.HTML.Helpers do
       import Phoenix.HTML.Tag, only: [content_tag: 3]
       import Phoenix.HTML.Link, only: [link: 2]
       import Phoenix.HTML.Form, only: [form_for: 4, text_input: 3]
+      import Exzeitable.Text, only: [text: 2, text: 3]
 
       # Used everywhere to make it easier to pipe HTML chunks into each other
       @spec cont(any(), atom, keyword) :: {:safe, iolist}

@@ -65,8 +65,10 @@ defmodule Exzeitable.HTML.Table do
   defp hide_link_for({:actions, _value}, _assigns), do: ""
   defp hide_link_for(_, %{disable_hide: true}), do: ""
 
-  defp hide_link_for({key, _value}, _assigns) do
-    content_tag(:a, "hide",
+  defp hide_link_for({key, _value}, assigns) do
+    assigns
+    |> text(:hide)
+    |> cont(:a,
       class: "exz-hide-link",
       "phx-click": "hide_column",
       "phx-value-column": key
@@ -77,12 +79,14 @@ defmodule Exzeitable.HTML.Table do
   defp sort_link_for({:actions, _v}, _), do: ""
   defp sort_link_for({_key, %{order: false}}, _), do: ""
 
-  defp sort_link_for({key, _v}, %{order: order}) do
+  defp sort_link_for({key, _v}, %{order: order} = assigns) do
+    sort = text(assigns, :sort)
+
     label =
       case order do
-        [desc: ^key] -> "sort ▲"
-        [asc: ^key] -> "sort ▼"
-        _ -> "sort  "
+        [desc: ^key] -> "#{sort} ▲"
+        [asc: ^key] -> "#{sort} ▼"
+        _ -> "#{sort}  "
       end
 
     content_tag(:a, label,
@@ -92,8 +96,11 @@ defmodule Exzeitable.HTML.Table do
     )
   end
 
-  defp maybe_nothing_found(content, %{list: []}) do
-    nothing_found = content_tag(:div, "Nothing Found", class: "exz-nothing-found")
+  defp maybe_nothing_found(content, %{list: []} = assigns) do
+    nothing_found =
+      assigns
+      |> text(:nothing_found)
+      |> cont(:div, class: "exz-nothing-found")
 
     [content, nothing_found]
   end

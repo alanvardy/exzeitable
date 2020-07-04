@@ -26,7 +26,6 @@ defmodule Exzeitable.HTML.ActionButton do
   @spec build(atom, atom, map) :: {:safe, iolist}
   def build(:new, %{parent: nil} = assigns) do
     %{
-      csrf_token: csrf_token,
       socket: socket,
       routes: routes,
       path: path,
@@ -35,7 +34,7 @@ defmodule Exzeitable.HTML.ActionButton do
 
     if Enum.member?(action_buttons, :new) do
       apply(routes, path, [socket, :new])
-      |> html(:new, csrf_token)
+      |> html(:new, assigns)
     else
       ""
     end
@@ -43,7 +42,6 @@ defmodule Exzeitable.HTML.ActionButton do
 
   def build(:new, %{parent: parent} = assigns) do
     %{
-      csrf_token: csrf_token,
       socket: socket,
       routes: routes,
       path: path,
@@ -52,57 +50,57 @@ defmodule Exzeitable.HTML.ActionButton do
 
     if Enum.member?(action_buttons, :new) do
       apply(routes, path, [socket, :new, parent])
-      |> html(:new, csrf_token)
+      |> html(:new, assigns)
     else
       ""
     end
   end
 
   def build(:delete, entry, %{belongs_to: nil} = assigns) do
-    %{csrf_token: csrf_token, socket: socket, routes: routes, path: path} = assigns
+    %{socket: socket, routes: routes, path: path} = assigns
 
     apply(routes, path, [socket, :delete, entry])
-    |> html(:delete, csrf_token)
+    |> html(:delete, assigns)
   end
 
   def build(:delete, entry, assigns) do
-    %{csrf_token: csrf_token, socket: socket, routes: routes, path: path} = assigns
+    %{socket: socket, routes: routes, path: path} = assigns
 
     params = [socket, :delete, parent_for(entry, assigns), entry]
 
     apply(routes, path, params)
-    |> html(:delete, csrf_token)
+    |> html(:delete, assigns)
   end
 
   def build(:show, entry, %{belongs_to: nil} = assigns) do
-    %{csrf_token: csrf_token, socket: socket, routes: routes, path: path} = assigns
+    %{socket: socket, routes: routes, path: path} = assigns
 
     apply(routes, path, [socket, :show, entry])
-    |> html(:show, csrf_token)
+    |> html(:show, assigns)
   end
 
   def build(:show, entry, assigns) do
-    %{csrf_token: csrf_token, socket: socket, routes: routes, path: path} = assigns
+    %{socket: socket, routes: routes, path: path} = assigns
 
     params = [socket, :show, parent_for(entry, assigns), entry]
 
     apply(routes, path, params)
-    |> html(:show, csrf_token)
+    |> html(:show, assigns)
   end
 
   def build(:edit, entry, %{belongs_to: nil} = assigns) do
-    %{csrf_token: csrf_token, socket: socket, routes: routes, path: path} = assigns
+    %{socket: socket, routes: routes, path: path} = assigns
 
     apply(routes, path, [socket, :edit, entry])
-    |> html(:edit, csrf_token)
+    |> html(:edit, assigns)
   end
 
   def build(:edit, entry, assigns) do
-    %{csrf_token: csrf_token, socket: socket, routes: routes, path: path} = assigns
+    %{socket: socket, routes: routes, path: path} = assigns
     params = [socket, :edit, parent_for(entry, assigns), entry]
 
     apply(routes, path, params)
-    |> html(:edit, csrf_token)
+    |> html(:edit, assigns)
   end
 
   # For custom actions such as archive
@@ -110,21 +108,33 @@ defmodule Exzeitable.HTML.ActionButton do
     apply(module, custom_action, [socket, entry, csrf_token])
   end
 
-  @spec html(String.t(), atom, String.t()) :: {:safe, iolist}
-  defp html(route, :new, _csrf_token), do: link("New", to: route, class: "exz-action-new")
+  @spec html(String.t(), atom, map) :: {:safe, iolist}
+  defp html(route, :new, assigns) do
+    assigns
+    |> text(:new)
+    |> link(to: route, class: "exz-action-new")
+  end
 
-  defp html(route, :show, _csrf_token),
-    do: link("Show", to: route, class: "exz-action-show")
+  defp html(route, :show, assigns) do
+    assigns
+    |> text(:show)
+    |> link(to: route, class: "exz-action-show")
+  end
 
-  defp html(route, :edit, _csrf_token),
-    do: link("Edit", to: route, class: "exz-action-edit")
+  defp html(route, :edit, assigns) do
+    assigns
+    |> text(:edit)
+    |> link(to: route, class: "exz-action-edit")
+  end
 
-  defp html(route, :delete, csrf_token) do
-    link("Delete",
+  defp html(route, :delete, %{csrf_token: csrf_token} = assigns) do
+    assigns
+    |> text(:delete)
+    |> link(
       to: route,
       class: "exz-action-delete",
       method: :delete,
-      "data-confirm": "Are you sure?",
+      "data-confirm": text(assigns, :confirm_action),
       csrf_token: csrf_token
     )
   end

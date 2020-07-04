@@ -18,7 +18,7 @@ defmodule Exzeitable.HTML.Search do
         fn f ->
           [
             text_input(f, :search,
-              placeholder: "Search",
+              placeholder: text(assigns, :search),
               class: "exz-search-field",
               phx_debounce: debounce
             ),
