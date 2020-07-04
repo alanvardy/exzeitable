@@ -10,6 +10,20 @@ Documentation can be found at [https://hexdocs.pm/exzeitable](https://hexdocs.pm
 
 [![Watch the video](https://img.youtube.com/vi/GI1ryv0fcfs/0.jpg)](https://www.youtube.com/watch?v=GI1ryv0fcfs)
 
+- [Exzeitable](#exzeitable)
+  - [Video](#video)
+  - [Installation](#installation)
+  - [Getting Started](#getting-started)
+    - [Migration](#migration)
+    - [Module](#module)
+      - [Required options](#required-options)
+      - [Defining your fields](#defining-your-fields)
+      - [Options for nested routes](#options-for-nested-routes)
+    - [Controller](#controller)
+    - [Template](#template)
+    - [CSS](#css)
+  - [Contributing](#contributing)
+
 ## Installation
 
 This package requires a Postgres database and Phoenix.
@@ -149,6 +163,7 @@ Optional... options (with defaults)
   - `refresh: false` Requeries the database every x milliseconds, defaults to false (disabled).
   - `disable_hide: false` Disable hide and show functionality for columns, including not showing the buttons.
   - `pagination: [:top, :bottom]` Whether to show the pagination above and below
+  - `text: Exzeitable.Text.Default` The text that appears on the table, you can replace this with your own custom module.
   - `assigns: %{}` Passes additional assigns to socket.assigns. Keep your payload small!
 
 #### Options for nested routes
