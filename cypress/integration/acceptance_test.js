@@ -75,11 +75,21 @@ describe('Acceptance Test', function () {
     cy.contains('Hide').should('not.exist')
   })
 
-  it('Cannot pagination when it is disabled', function () {
+  it('Cannot see pagination when it is disabled', function () {
     cy.visit('http://localhost:5000/posts/no_pagination')
     cy.contains('Posts')
     cy.contains('Actions')
     cy.contains('Show Field Buttons')
     cy.contains('Nex').should('not.exist')
+  })
+
+  it('Can use custom text', function () {
+    cy.visit('http://localhost:5000/beitrage')
+    cy.contains('Beiträge auflisten')
+    cy.contains('ausblenden')
+    cy.contains('Sortieren')
+    cy.contains('Nächster')
+    cy.contains('Bearbeiten')
+    cy.contains('Löschen')
   })
 })

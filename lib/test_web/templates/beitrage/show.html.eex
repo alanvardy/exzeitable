@@ -1,0 +1,18 @@
+<h1>Beitrag anzeigen</h1>
+
+<ul>
+
+  <li>
+    <strong>Titel:</strong>
+    <%= @post.title %>
+  </li>
+
+  <li>
+    <strong>Inhalt:</strong>
+    <%= @post.content %>
+  </li>
+
+</ul>
+
+<span><%= link "Bearbeiten", to: Routes.post_path(@conn, :edit, @post) %></span>
+<span><%= link "Zurück", to: Routes.post_path(@conn, :index) %></span>
