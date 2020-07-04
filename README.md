@@ -33,7 +33,7 @@ The package can be installed by adding [exzeitable](https://github.com/alanvardy
 ```elixir
 def deps do
   [
-    {:exzeitable, "~> 0.3.3"},
+    {:exzeitable, "~> 0.4.0"},
     {:phoenix_live_view, "~> 0.13"},
     {:floki, ">= 0.0.0", only: :test}
   ]
