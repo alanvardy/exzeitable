@@ -12,13 +12,15 @@ defmodule Exzeitable.HTML.ShowButton do
     assigns
     |> Map.get(:fields)
     |> Filter.fields_where(:hidden)
-    |> Enum.map(fn field -> build_show_button(field) end)
+    |> Enum.map(fn field -> build_show_button(assigns, field) end)
   end
 
-  def build_show_button({key, _value} = field) do
+  def build_show_button(assigns, {key, _value} = field) do
     name = Format.header(field)
 
-    content_tag(:a, "Show #{name}",
+    assigns
+    |> text(:show_field, name)
+    |> cont(:a,
       class: "exz-show-button",
       "phx-click": "show_column",
       "phx-value-column": key
@@ -28,15 +30,19 @@ defmodule Exzeitable.HTML.ShowButton do
   @spec build_show_hide_fields_button(map) :: {:safe, iolist} | String.t()
   def build_show_hide_fields_button(%{disable_hide: true}), do: ""
 
-  def build_show_hide_fields_button(%{show_field_buttons: true}) do
-    content_tag(:a, "Hide Field Buttons",
+  def build_show_hide_fields_button(%{show_field_buttons: true} = assigns) do
+    assigns
+    |> text(:hide_field_buttons)
+    |> cont(:a,
       class: "exz-info-button",
       "phx-click": "hide_buttons"
     )
   end
 
-  def build_show_hide_fields_button(_) do
-    content_tag(:a, "Show Field Buttons",
+  def build_show_hide_fields_button(assigns) do
+    assigns
+    |> text(:show_field_buttons)
+    |> cont(:a,
       class: "exz-info-button",
       "phx-click": "show_buttons"
     )

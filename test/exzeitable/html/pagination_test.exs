@@ -16,7 +16,7 @@ defmodule Exzeitable.HTML.PaginationTest do
 
     test "returns the first, and last numbers, and the numbers surrounding the current page" do
       buttons = Pagination.filter_pages(12, 8)
-      expected_result = [1, "....", 7, 8, 9, "....", 12]
+      expected_result = [1, :dots, 7, 8, 9, :dots, 12]
       assert buttons == expected_result
     end
   end
