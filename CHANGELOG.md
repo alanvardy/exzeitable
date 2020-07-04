@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.0 (2020-7-04)
+
+* No breaking changes to API
+* Feature: Added custom text functionality via the :text keyword
+* Feature: Added ability disable hide functionality
+* Feature: Added ability to hide pagination
+* Various dependency updates
+* Refactored a bunch of things that were bugging me
+
 ## v0.3.3 (2020-6-19)
 
 * No breaking changes to API, only to dependency requirements.
@@ -33,11 +42,11 @@
 
 * Dependency updates
 
-## v0.2.6 (2019-12-7)
+## v0.2.6 (2019-12-07)
 
 * Allow Phoenix LiveView 0.3 as well as 0.4
 
-## v0.2.5 (2019-12-3)
+## v0.2.5 (2019-12-03)
 
 * Added custom buttons, defined similarly to the custom fields
 * Added a behaviour for render/1 in the user defined table module
