@@ -16,13 +16,16 @@
     # {:my_mix_check, command: "mix release", env: %{"MIX_ENV" => "prod"}},
     # {:my_arbitrary_check, command: "npm test", cd: "assets"},
 
-    {:cypress, command: "mix cypress.run"},
+    {:cypress, command: "mix cypress.run", deps: [{:credo, status: :ok}]},
+    {:dialyzer, deps: [{:credo, status: :ok}]},
+    {:ex_doc, deps: [{:credo, status: :ok}]},
+    {:npm_test, false},
     {:ex_coveralls,
      command: "mix coveralls.html",
      require_files: ["test/test_helper.exs"],
-     env: %{"MIX_ENV" => "test"}},
+     env: %{"MIX_ENV" => "test"}, deps: [{:credo, status: :ok}]},
     {:credo, command: "mix credo --strict"},
-    {:ex_unit, command: "mix test", env: %{"MIX_ENV" => "test"}}
+    {:ex_unit, command: "mix test", env: %{"MIX_ENV" => "test"}, deps: [{:credo, status: :ok}]}
 
     # {:my_arbitrary_script, command: ["my_script", "argument with spaces"], cd: "scripts"}
   ]
