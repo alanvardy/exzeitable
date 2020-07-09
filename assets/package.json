@@ -28,7 +28,7 @@
     "sass-loader": "^8.0.2",
     "serialize-javascript": ">=3.0.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "4.42.0",
+    "webpack": "4.43.0",
     "webpack-cli": "^3.3.11"
   }
 }
