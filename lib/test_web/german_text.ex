@@ -4,6 +4,7 @@ defmodule TestWeb.GermanText do
 
   # Action buttons
 
+  def actions(_assigns), do: "Aktionen"
   def new(_assigns), do: "Neu"
   def show(_assigns), do: "Show"
   def edit(_assigns), do: "Bearbeiten"

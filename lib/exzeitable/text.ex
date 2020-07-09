@@ -4,6 +4,7 @@ defmodule Exzeitable.Text do
 
   Default text is in Exzeitable.Text.Default
   """
+  @callback actions(map) :: String.t()
   @callback new(map) :: String.t()
   @callback show(map) :: String.t()
   @callback edit(map) :: String.t()

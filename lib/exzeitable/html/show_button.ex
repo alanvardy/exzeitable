@@ -16,7 +16,7 @@ defmodule Exzeitable.HTML.ShowButton do
   end
 
   def build_show_button(assigns, {key, _value} = field) do
-    name = Format.header(field)
+    name = Format.header(assigns, field)
 
     assigns
     |> text(:show_field, name)

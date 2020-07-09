@@ -33,7 +33,7 @@ defmodule Exzeitable.HTML.Table do
 
   @spec table_header({atom, map}, map) :: {:safe, iolist}
   defp table_header(field, assigns) do
-    [Format.header(field), hide_link_for(field, assigns), sort_link_for(field, assigns)]
+    [Format.header(assigns, field), hide_link_for(field, assigns), sort_link_for(field, assigns)]
     |> cont(:th, [])
   end
 

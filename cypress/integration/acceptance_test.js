@@ -91,5 +91,6 @@ describe('Acceptance Test', function () {
     cy.contains('Nächster')
     cy.contains('Bearbeiten')
     cy.contains('Löschen')
+    cy.contains('Aktionen')
   })
 })

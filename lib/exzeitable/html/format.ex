@@ -1,5 +1,6 @@
 defmodule Exzeitable.HTML.Format do
   @moduledoc "Formatting text"
+  use Exzeitable.HTML.Helpers
 
   @doc """
   If function: true, will pass the entry to the function of the same name as the entry
@@ -25,10 +26,12 @@ defmodule Exzeitable.HTML.Format do
   # coveralls-ignore-stop
 
   @doc "Will output the user supplied label or fall back on the atom"
-  @spec header({atom, map}) :: String.t()
-  def header({_key, %{label: label}}) when is_binary(label), do: label
+  @spec header(map, {atom, map}) :: String.t()
+  def header(_assigns, {_key, %{label: label}}) when is_binary(label), do: label
 
-  def header({key, _map}) do
+  def header(assigns, {:actions, _map}), do: text(assigns, :actions)
+
+  def header(_assigns, {key, _map}) do
     key
     |> Atom.to_string()
     |> String.replace("_", " ")

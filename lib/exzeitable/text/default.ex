@@ -4,6 +4,7 @@ defmodule Exzeitable.Text.Default do
 
   # Action buttons
 
+  def actions(_assigns), do: "Actions"
   def new(_assigns), do: "New"
   def show(_assigns), do: "Show"
   def edit(_assigns), do: "Edit"
