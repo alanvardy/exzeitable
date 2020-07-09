@@ -155,11 +155,13 @@ Optional... options (with defaults)
 
 #### Options for nested routes
 
-If you dont know what this is then you likely don't need to worry about it. You can look at [The official docs](https://hexdocs.pm/phoenix/routing.html#nested-resources) if you would like to learn more.
+Needed to build links where more than one struct is needed, i.e. `link("Show Post", to: Routes.user_post_path(@conn, :show, @user, @post))`
+
+ [The official docs](https://hexdocs.pm/phoenix/routing.html#nested-resources) if you would like to learn more.
 
 If you define one of the below options you then need to define the other.
 
-For this example we will be using the boring example of users and posts
+Continuing the example of users and posts:
 
 ```elixir
 resources "/users", UserController do
