@@ -93,10 +93,6 @@ defmodule YourAppWeb.Live.File do
       image: [virtual: true],
       title: [hidden: true],
       description: [hidden: true],
-      category: [hidden: true],
-      filesize: [hidden: true, function: true, search: false],
-      inserted_at: [hidden: true, function: true, label: "Created"],
-      updated_at: [hidden: true, function: true, label: "Updated"]
     ],
     
     # Optional
@@ -110,16 +106,6 @@ defmodule YourAppWeb.Live.File do
     img_tag(file.url, class: "w-100")
     |> link(to: Routes.file_path(socket, :show, file))
   end
-  
-  # Or heck, lets make another button!
-  def super_cool_custom_action(socket, item, csrf_token) do
-    link "SUPER AWESOME", to: Routes.super_cool_path(socket, :custom_action, item), "data-confirm": "Are you sure?", csrf_token: csrf_token
-  end
-
-  def filesize, do: ...
-  def inserted_at, do: ...
-  def updated_at, do: ...
-
 ```
 
 Options can be added to either your module (as seen above), or in the template (As seen below) or both.
@@ -130,6 +116,7 @@ If an option is defined in both the template option will replace the module opti
   - `repo` The module for your repository. Example: `YourApp.Repo`
   - `routes` Your route module. Example: `YourAppWeb.Router.Helpers`
   - `path` The base path for your resource. Example: `:site_path`
+  - `fields` A keyword list where the atom is the ecto field and the value is a keyword list of options. Example: `metadata: [label: "Additional Information"]`
   - `query` A Ecto.Query struct, the part before you give it to the Repo. Example: `from(s in Site, preload: [:users`
 
 #### Defining your fields
