@@ -117,7 +117,7 @@ If an option is defined in both the template option will replace the module opti
   - `routes` Your route module. Example: `YourAppWeb.Router.Helpers`
   - `path` The base path for your resource. Example: `:site_path`
   - `fields` A keyword list where the atom is the ecto field and the value is a keyword list of options. Example: `metadata: [label: "Additional Information"]`
-  - `query` A Ecto.Query struct, the part before you give it to the Repo. Example: `from(s in Site, preload: [:users`
+  - `query` A Ecto.Query struct, the part before you give it to the Repo. Example: `from(s in Site, preload: [:users])`
 
 #### Defining your fields
 
