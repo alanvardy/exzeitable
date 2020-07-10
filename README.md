@@ -2,7 +2,15 @@
 
 [![Build Status](https://github.com/alanvardy/exzeitable/workflows/Unit%20Tests/badge.svg)](https://github.com/alanvardy/exzeitable) [![Build Status](https://github.com/alanvardy/exzeitable/workflows/Dialyzer/badge.svg)](https://github.com/alanvardy/exzeitable) [![Build Status](https://github.com/alanvardy/exzeitable/workflows/Cypress/badge.svg)](https://github.com/alanvardy/exzeitable) [![hex.pm](http://img.shields.io/hexpm/v/exzeitable.svg?style=flat)](https://hex.pm/packages/exzeitable)
 
-Dynamic searchable, sortable datatable that takes a database query and a module, and makes the magic happen. Uses Phoenix Liveview and Postgres. Bootstrap friendly and easily configured for other CSS frameworks.
+Dynamic, live updating datatables that takes a database query and a module, and make the magic happen. Ideal for quickly adding CRUD interfaces on an admin backend.
+
+Features:
+- Full text search
+- Sorting
+- Periodic refresh
+- Bootstrap friendly and easily configured for other CSS frameworks.
+- Customizable everything (and if something isn't, open an issue!)
+- Powered by Phoenix LiveView and Postgres. 
 
 Documentation can be found at [https://hexdocs.pm/exzeitable](https://hexdocs.pm/exzeitable).
 
@@ -12,21 +20,27 @@ Documentation can be found at [https://hexdocs.pm/exzeitable](https://hexdocs.pm
 
 - [Exzeitable](#exzeitable)
   - [Video](#video)
-  - [Installation](#installation)
   - [Getting Started](#getting-started)
+    - [Dependencies](#dependencies)
     - [Migration](#migration)
     - [Module](#module)
-      - [Required options](#required-options)
-      - [Defining your fields](#defining-your-fields)
-      - [Options for nested routes](#options-for-nested-routes)
     - [Controller](#controller)
     - [Template](#template)
+  - [Customizing your table](#customizing-your-table)
+    - [Required module/template options](#required-moduletemplate-options)
+    - [Optional module/template options](#optional-moduletemplate-options)
+    - [Field options](#field-options)
+    - [Module/template options for nested routes](#moduletemplate-options-for-nested-routes)
     - [CSS](#css)
   - [Contributing](#contributing)
+    - [Opening Issues and Pull Requests](#opening-issues-and-pull-requests)
+    - [Getting set up](#getting-set-up)
 
-## Installation
+## Getting Started
 
-This package requires a Postgres database and Phoenix.
+### Dependencies
+
+This package requires a Postgres database, Phoenix, and Phoenix LiveView.
 
 The package can be installed by adding [exzeitable](https://github.com/alanvardy/exzeitable) and [Phoenix Live View](https://github.com/phoenixframework/phoenix_live_view) to your list of dependencies in `mix.exs`:
 
@@ -40,9 +54,7 @@ def deps do
 end
 ```
 
-Please see Phoenix Live View's installation instructions.
-
-## Getting Started
+Please see Phoenix Live View's installation instructions if it was not already installed.
 
 ### Migration
 
@@ -111,17 +123,49 @@ defmodule YourAppWeb.Live.File do
 Options can be added to either your module (as seen above), or in the template (As seen below) or both.
 If an option is defined in both the template option will replace the module option. The only exception is `:fields` which must be specified in the module.
 
-#### Required options
+### Controller
 
-  - `repo` The module for your repository. Example: `YourApp.Repo`
-  - `routes` Your route module. Example: `YourAppWeb.Router.Helpers`
-  - `path` The base path for your resource. Example: `:site_path`
-  - `fields` A keyword list where the atom is the ecto field and the value is a keyword list of options. Example: `metadata: [label: "Additional Information"]`
-  - `query` A Ecto.Query struct, the part before you give it to the Repo. Example: `from(s in Site, preload: [:users])`
+This is where you can specify the query that forms the default data of the table.
+Everything the table does is with a subset of this data.
 
-#### Defining your fields
+```elixir
+query = from(f in Files)
+render(conn, "index.html", query: query)
+```
 
-Under the fields key, you can define a keyword list of atoms with keyword values. The map holds the options for that field.
+### Template
+
+Call the table from your template
+
+```elixir
+<h1> My Awesome Files </h1>
+<%= YourAppWeb.Live.File.live_table(@conn, query: @query, action_buttons: [:show, :edit], assigns: %{user_id: @current_user.id}) %>
+```
+
+## Customizing your table
+
+### Required module/template options
+
+  - `:repo` The module for your repository. Example: `YourApp.Repo`
+  - `:routes` Your route module. Example: `YourAppWeb.Router.Helpers`
+  - `:path` The base path for your resource. Example: `:site_path`
+  - `:fields` A keyword list where the atom is the ecto field and the value is a keyword list of options. Example: `metadata: [label: "Additional Information"]`
+  - `:query` A Ecto.Query struct, the part before you give it to the Repo. Example: `from(s in Site, preload: [:users])`
+
+### Optional module/template options
+
+  - `action_buttons: [:new, :edit, :show, :delete]` A list of atoms representing action buttons avaliable for the user to use. This does not do authorization, the routes will still be available.
+  - `per_page: 20` Integer representing number of entries per page.
+  - `debounce: 300` Sets how many miliseconds between responding to user input on the search field.
+  - `refresh: false` Requeries the database every x milliseconds, defaults to false (disabled).
+  - `disable_hide: false` Disable hide and show functionality for columns, including not showing the buttons.
+  - `pagination: [:top, :bottom]` Whether to show the pagination above and below
+  - `text: Exzeitable.Text.Default` The text that appears on the table, you can replace this with your own custom module.
+  - `assigns: %{}` Passes additional assigns to socket.assigns. Keep your payload small!
+
+### Field options
+
+Under the fields key, you can define a keyword list of atoms with keyword values. The map holds the options for that field. All of these options are optional.
 
 ```elixir
 fields: [
@@ -136,24 +180,14 @@ The following field options are available (with their defaults):
 - `label: nil` Set a custom string value for the column heading
 - `function: false` Pass (socket, entry) to a function with the same name as the field
 - `hidden: false` Hide the column by default (user can click show button to reveal)
-- `search: true` Whether to include the column in search results. 
+- `search: true` Whether to include the column in search results. See the important note below.
 - `order: true` Do not allow the column to be sorted (hide the sort button)
 - `virtual: false` This is shorthand for [function: true, search: false, order: false] and will override those settings. Intended for creating fields that are not database backed.
 
 **IMPORTANT NOTE**: Search uses [ts_vector](https://www.postgresql.org/docs/10/datatype-textsearch.html), which is performed by Postgres inside the database on string fields. This means that you cannot search fields that are _not_ string type (i.e. integer, datetime, associations, virtual fields). Make sure to set `search: false` or `virtual: true` on such fields.
 
-Optional... options (with defaults)
 
-  - `action_buttons: [:new, :edit, :show, :delete]` A list of atoms representing action buttons avaliable for the user to use. This does not do authorization, the routes will still be available.
-  - `per_page: 20` Integer representing number of entries per page.
-  - `debounce: 300` Sets how many miliseconds between responding to user input on the search field.
-  - `refresh: false` Requeries the database every x milliseconds, defaults to false (disabled).
-  - `disable_hide: false` Disable hide and show functionality for columns, including not showing the buttons.
-  - `pagination: [:top, :bottom]` Whether to show the pagination above and below
-  - `text: Exzeitable.Text.Default` The text that appears on the table, you can replace this with your own custom module.
-  - `assigns: %{}` Passes additional assigns to socket.assigns. Keep your payload small!
-
-#### Options for nested routes
+### Module/template options for nested routes
 
 Needed to build links where more than one struct is needed, i.e. `link("Show Post", to: Routes.user_post_path(@conn, :show, @user, @post))`
 
@@ -178,24 +212,6 @@ Make sure that you include the :user_id in your query.
 
 You will need to pass the parent option in from the template.
 
-### Controller
-
-This is where you can specify the query that forms the default data of the table.
-Everything the table does is with a subset of this data.
-
-```elixir
-query = from(f in Files)
-render(conn, "index.html", query: query)
-```
-
-### Template
-
-Call the table from your template
-
-```elixir
-<h1> My Awesome Files </h1>
-<%= YourAppWeb.Live.File.live_table(@conn, query: @query, action_buttons: [:show, :edit], assigns: %{user_id: @current_user.id}) %>
-```
 
 ### CSS
 
@@ -205,4 +221,19 @@ I have included a Bootstrap SASS example in the [CSS Module](https://github.com/
 
 ## Contributing
 
-Contributions are very welcome! Open an issue or a pull request, the code, tests and documentation can always be improved and I welcome the help :)
+### Opening Issues and Pull Requests
+
+Suggestions, bug reports and contributions are very welcome! Please open an issue before starting on a pull request however as I would hate to have any of your efforts be in vain.
+
+### Getting set up
+
+This project uses the `asdf` version manager.
+
+```
+git clone git@github.com:alanvardy/exzeitable.git
+cd exzeitable
+asdf install
+mix deps.get
+npm install --prefix assets
+mix check # Run the test suite
+```
