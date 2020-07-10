@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.4.1 (2020-7-10)
+
+* Bugfix: Added custom text for "Actions" (was missed in last release)
+* Improved test suite so that `mix check` runs `credo` before the other tests
+* Improve the README
+  
 ## v0.4.0 (2020-7-04)
 
 * No breaking changes to API
