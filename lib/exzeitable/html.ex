@@ -163,6 +163,8 @@ defmodule Exzeitable.HTML do
   @spec hide_link_for({atom, map}) :: {:safe, iolist}
   defp hide_link_for({:actions, _value}), do: ""
 
+  defp hide_link_for({_key, %{hide_button: false}}), do: ""
+
   defp hide_link_for({key, _value}) do
     cont("hide", :a,
       class: "exz-hide-link",
