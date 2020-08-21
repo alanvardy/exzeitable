@@ -111,7 +111,7 @@ defmodule Exzeitable.HTML do
 
   @spec table_header({atom, map}, map) :: {:safe, iolist}
   defp table_header(field, assigns) do
-    [Format.header(field), hide_link_for(field), sort_link_for(field, assigns)]
+    [Format.header(field), [hide_link_for(field), sort_link_for(field, assigns)] |> cont(:div, class: "exz-hide-show-wrapper")]
     |> cont(:th, [])
   end
 
