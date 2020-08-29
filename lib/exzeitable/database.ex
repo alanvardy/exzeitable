@@ -68,8 +68,13 @@ defmodule Exzeitable.Database do
 
   @doc "We only want letters to avoid SQL injection attacks"
   @spec prefix_search(String.t()) :: String.t()
-  def prefix_search(term) do
-    String.replace(term, ~r/\W|_/u, "") <> ":*"
+  def prefix_search(terms) do
+    terms
+    |> String.split()
+    |> Enum.map(fn term ->
+      String.replace(term, ~r/\W|_/u, "") <> ":*"
+    end)
+    |> Enum.join(" & ")
   end
 
   @doc """

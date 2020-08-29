@@ -108,5 +108,12 @@ defmodule Exzeitable.DatabaseTest do
     assert generated == expected
   end
 
+  test "prefix_string/1 handles multiple search terms separated by space" do
+    assert Database.prefix_search("bananas apples") == "bananas:* & apples:*"
+    assert Database.prefix_search("baNANas ApPlEs") == "baNANas:* & ApPlEs:*"
+    assert Database.prefix_search("ba@NAN%as @appLeS$") == "baNANas:* & appLeS:*"
+    assert Database.prefix_search("   ba_@nan%as    a_@pple$s1   ") == "bananas:* & apples1:*"
+  end
+
   def names(users), do: users |> Enum.map(fn u -> Map.get(u, :name) end)
 end
