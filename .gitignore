@@ -27,3 +27,4 @@ priv/
 assets/node_modules
 *.mp4
 cypress/screenshots/*
+native/searchparameters/target

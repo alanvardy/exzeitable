@@ -245,3 +245,4 @@ docker-compose up -d # Start postgres
 # Run the test suite
 mix check
 ```
+

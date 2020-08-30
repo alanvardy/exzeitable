@@ -10,7 +10,8 @@ defmodule Exzeitable.MixProject do
       version: @version,
       elixir: "~> 1.10",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      compilers: [:phoenix, :gettext, :rustler] ++ Mix.compilers(),
+      rustler_crates: [searchparameters: []],
       start_permanent: Mix.env() == :prod,
       build_embedded: Mix.env() == :prod,
       aliases: aliases(),
@@ -99,6 +100,7 @@ defmodule Exzeitable.MixProject do
       {:phoenix_live_view, "~> 0.13"},
       {:floki, ">= 0.0.0", only: [:test, :systemtest]},
       {:timex, "~> 3.5", only: [:dev, :test, :systemtest]},
+      {:rustler, "~> 0.21.1"},
       # Tooling
       {:ex_check, "~>0.12", only: :dev, runtime: false},
       {:credo, "~> 1.4.0", only: [:dev, :test], runtime: false},
