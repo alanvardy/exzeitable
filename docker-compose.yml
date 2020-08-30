@@ -1,0 +1,21 @@
+
+version: '3'
+services:
+  dbserver:
+    image: postgres:12.4
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5432:5432
+    command:
+      - "postgres"
+      - "-c"
+      - "max_connections=1000"
+      - "-c"
+      # default is 32MB;
+      - "shared_buffers=128MB"
+    volumes:
+      - dbserver_data:/var/lib/postgresql/data
+volumes:
+  dbserver_data:

@@ -229,11 +229,19 @@ Suggestions, bug reports and contributions are very welcome! Please open an issu
 
 This project uses the `asdf` version manager.
 
+
+
 ```
+# Set up the project
 git clone git@github.com:alanvardy/exzeitable.git
 cd exzeitable
 asdf install
 mix deps.get
 npm install --prefix assets
-mix check # Run the test suite
+npm run deploy --prefix ./assets
+mix phx.digest
+docker-compose up -d # Start postgres
+
+# Run the test suite
+mix check
 ```

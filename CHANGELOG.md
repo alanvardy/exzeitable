@@ -3,6 +3,9 @@
 ## v0.4.2 (UNRELEASED)
 
 * Remove cypress-ci as it's custom functionality is not being used on CI
+* Update JavaScript assets
+* Improve install instructions
+* Provide docker-compose.yml for Postgres
 
 ## v0.4.1 (2020-7-10)
 
