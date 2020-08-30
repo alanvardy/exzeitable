@@ -93,4 +93,10 @@ describe('Acceptance Test', function () {
     cy.contains('Löschen')
     cy.contains('Aktionen')
   })
+
+  it('Can search across multiple columns', function () {
+    cy.get('input#search_search').type('1 CONTENT')
+    cy.contains('Post number 1')
+    cy.contains('Post number 2').should('not.exist')
+  })
 })
