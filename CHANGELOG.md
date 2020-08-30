@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.4.2 (UNRELEASED)
+
+* Remove cypress-ci as it's custom functionality is not being used on CI
+
 ## v0.4.1 (2020-7-10)
 
 * Bugfix: Added custom text for "Actions" (was missed in last release)

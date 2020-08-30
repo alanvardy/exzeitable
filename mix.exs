@@ -2,7 +2,7 @@ defmodule Exzeitable.MixProject do
   @moduledoc false
   use Mix.Project
 
-  @version "0.4.1"
+  @version "0.4.2"
 
   def project do
     [
@@ -121,7 +121,6 @@ defmodule Exzeitable.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"],
       "cypress.open": ["cmd ./cypress-open.sh"],
-      "cypress.ci": ["cmd ./cypress-ci.sh"],
       "cypress.run": ["cmd ./cypress-run.sh"]
     ]
   end
