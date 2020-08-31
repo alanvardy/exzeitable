@@ -67,8 +67,7 @@ defmodule Exzeitable do
             "count" => 0,
             "search" => "",
             "show_field_buttons" => false,
-            "csrf_token" => Phoenix.Controller.get_csrf_token(),
-            "query_alias" => Keyword.get(opts,:query_alias, nil)
+            "csrf_token" => Phoenix.Controller.get_csrf_token()
             }, get_query_alias_opt(opts))
           |> Validation.required_options()
           |> Validation.paired_options()
