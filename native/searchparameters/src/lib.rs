@@ -22,21 +22,21 @@ rustler::rustler_export_nifs! {
 }
 
 fn convert<'a>(env: Env<'a>, args: &[Term<'a>]) -> Result<Term<'a>, Error> {
-    let string: String = args[0].decode()?;
+    let mut string: String = args[0].decode()?;
 
-    let word_characters = remove_special_characters(&string);
-    let result = build_query(&word_characters);
+    remove_special_characters(&mut string);
+    build_query(&mut string);
 
-    Ok((atoms::ok(), result).encode(env))
+    Ok((atoms::ok(), string).encode(env))
 }
 
-fn remove_special_characters(s: &str) -> String {
+fn remove_special_characters(s: &mut String) -> String {
     let non_word_characters = Regex::new(r"[^A-Za-z0-9\s]").unwrap();
 
-    non_word_characters.replace_all(s, "").to_string()
+    non_word_characters.replace_all(&s, "").to_string()
 }
 
-fn build_query(s: &str) -> String {
+fn build_query(s: &mut String) -> String {
     let string_list: Vec<&str> = s.split_whitespace().collect();
     let mut counter = 0;
     let length = string_list.len();
