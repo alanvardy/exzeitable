@@ -70,11 +70,10 @@ defmodule Exzeitable.Database do
   @spec prefix_search(String.t()) :: String.t()
   def prefix_search(terms) do
     terms
-    |> String.split()
-    |> Enum.map(fn term ->
-      String.replace(term, ~r/\W|_/u, "") <> ":*"
-    end)
-    |> Enum.join(" & ")
+    |> String.trim()
+    |> String.replace(~r/[^\w\s]|_/u, "")
+    |> String.replace(~r/\s+/u, ":* & ")
+    |> Kernel.<>(":*")
   end
 
   @doc """

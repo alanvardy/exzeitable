@@ -1,20 +1,21 @@
 # Changelog
 
-## v0.4.2 (UNRELEASED)
+## v0.4.2 (2020-08-31)
 
 * Support searching across multiple columns (thank you `@greg-rychlewski`)
+* Use regex for slightly improved search speed (thank you again `@greg-rychlewski`)
 * Remove cypress-ci as it's custom functionality is not being used on CI
 * Update JavaScript assets
 * Improve install instructions
 * Provide docker-compose.yml for Postgres
 
-## v0.4.1 (2020-7-10)
+## v0.4.1 (2020-07-10)
 
 * Bugfix: Added custom text for "Actions" (was missed in last release)
 * Improved test suite so that `mix check` runs `credo` before the other tests
 * Improve the README
   
-## v0.4.0 (2020-7-04)
+## v0.4.0 (2020-07-04)
 
 * No breaking changes to API
 * Feature: Added custom text functionality via the :text keyword
@@ -23,7 +24,7 @@
 * Various dependency updates
 * Refactored a bunch of things that were bugging me
 
-## v0.3.3 (2020-6-19)
+## v0.3.3 (2020-06-19)
 
 * No breaking changes to API, only to dependency requirements.
 * Feature: Add a refresh rate for requerying database periodically
@@ -33,12 +34,12 @@
 * Add MIT licence
 * Did some coarse level refactoring around function locations
 
-## v0.3.2 (2020-2-04)
+## v0.3.2 (2020-02-04)
 
 * Update Elixir and Javascript dependencies.
 * Add a route for tests.
 
-## v0.3.1 (2020-2-04)
+## v0.3.1 (2020-02-04)
 
 * Update to support Phoenix LiveView 0.6.0, removing the deprecated `mount/2` in favour of `mount/3`.
 
