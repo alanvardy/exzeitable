@@ -101,6 +101,7 @@ defmodule Exzeitable.MixProject do
       {:floki, ">= 0.0.0", only: [:test, :systemtest]},
       {:timex, "~> 3.5", only: [:dev, :test, :systemtest]},
       {:rustler, "~> 0.21.1"},
+      {:benchee, "~> 1.0", only: :dev},
       # Tooling
       {:ex_check, "~>0.12", only: :dev, runtime: false},
       {:credo, "~> 1.4.0", only: [:dev, :test], runtime: false},
