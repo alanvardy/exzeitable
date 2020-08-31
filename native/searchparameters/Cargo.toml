@@ -13,3 +13,4 @@ crate-type = ["dylib"]
 rustler = "0.21.1"
 lazy_static = "1.0"
 regex = "1"
+reduce = "0.1"
