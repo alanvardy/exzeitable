@@ -49,7 +49,7 @@ defmodule Exzeitable do
       @spec live_table(Plug.Conn.t(), keyword) :: {:safe, iolist}
       def live_table(conn, opts \\ []) do
         session =
-          %{
+          Map.merge(%{
             "query" => Keyword.get(opts, :query, unquote(query)),
             "assigns" => Keyword.get(opts, :assigns, %{}),
             "parent" => Keyword.get(opts, :parent, unquote(parent)),
@@ -67,12 +67,21 @@ defmodule Exzeitable do
             "count" => 0,
             "search" => "",
             "show_field_buttons" => false,
-            "csrf_token" => Phoenix.Controller.get_csrf_token()
-          }
+            "csrf_token" => Phoenix.Controller.get_csrf_token(),
+            "query_alias" => Keyword.get(opts,:query_alias, nil)
+            }, get_query_alias_opt(opts))
           |> Validation.required_options()
           |> Validation.paired_options()
 
         Helpers.live_render(conn, __MODULE__, id: Keyword.get(opts, :id, unquote(id)), session: session)
+      end
+
+      defp get_query_alias_opt(opts) do
+        if Keyword.has_key?(opts, :query_alias) do
+          %{"query_alias" => Keyword.get(opts,:query_alias)}
+        else
+          %{}
+        end
       end
 
       ###########################
