@@ -53,6 +53,7 @@ defmodule Exzeitable.Database do
 
   # Repo.all
   @spec get_query(Ecto.Query.t(), map) :: [map]
+  defp get_query(query, %{repo: repo, query_alias: query_alias}), do: apply(repo, :all, [query, [telemetry_options: query_alias]])
   defp get_query(query, %{repo: repo}), do: apply(repo, :all, [query])
 
   @doc "I want to just do a select: count(c.id)"
@@ -62,9 +63,16 @@ defmodule Exzeitable.Database do
     |> select_ids()
     |> search_query(assigns)
     |> remove_order()
-    |> get_query(assigns)
+    |> get_query( count_query_alias(assigns))
     |> List.first()
   end
+
+  defp count_query_alias(%{query_alias: query_alias} = assigns) do
+    Map.merge(assigns, %{
+      query_alias: "count_#{query_alias}"
+    })
+  end
+  defp count_query_alias(assigns), do: assigns
 
   @doc "We only want letters to avoid SQL injection attacks"
   @spec prefix_search(String.t()) :: String.t()
