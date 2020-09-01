@@ -28,8 +28,16 @@ defmodule Exzeitable.Filter do
   @spec filter_pages(integer, integer) :: [String.t() | Integer]
   def filter_pages(pages, _page) when pages <= 7, do: 1..pages
 
-  def filter_pages(pages, page) when page in [1, 2, 3, pages - 2, pages - 1, pages] do
+  def filter_pages(pages, page) when page in [1, 2, pages - 1, pages] do
     [1, 2, 3, "....", pages - 2, pages - 1, pages]
+  end
+
+  def filter_pages(pages, 3) do
+    [1, 2, 3, 4, "....", pages-1, pages]
+  end
+
+  def filter_pages(pages, page) when page==pages-2 do
+    [1, 2, "....", pages-3, pages-2, pages-1, pages]
   end
 
   def filter_pages(pages, page) do
