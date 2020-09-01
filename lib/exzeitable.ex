@@ -20,6 +20,8 @@ defmodule Exzeitable do
     per_page = Keyword.get(opts, :per_page, 20)
     parent = Keyword.get(opts, :parent)
     debounce = Keyword.get(opts, :debounce, 300)
+    order_suffix = Keyword.get(opts, :order_suffix)
+
     # Live component ID
     id = Keyword.get(opts, :id, 1)
     fields = Filter.set_fields(opts)
@@ -64,6 +66,7 @@ defmodule Exzeitable do
             "module" => __MODULE__,
             "page" => 1,
             "order" => nil,
+            "order_suffix" => Keyword.get(opts, :order_suffix, unquote(order_suffix)),
             "count" => 0,
             "search" => "",
             "show_field_buttons" => false,

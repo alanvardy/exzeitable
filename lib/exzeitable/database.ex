@@ -15,6 +15,11 @@ defmodule Exzeitable.Database do
   @spec order_query(Ecto.Query.t(), map) :: Ecto.Query.t()
   defp order_query(query, %{order: nil}), do: query
 
+  defp order_query(query, %{order: order, order_suffix: order_suffix}) when not is_nil(order_suffix) do
+    neworder = order ++ [{order|>List.first()|>elem(0), order_suffix}]
+    order_query(query, %{order: neworder})
+  end
+
   defp order_query(query, %{order: order}),
     do: from(q in exclude(query, :order_by), order_by: ^order)
 
