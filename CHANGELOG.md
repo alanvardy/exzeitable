@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.4.3 (2020-10-15)
+
+* Removed dependabot due to general noise
+* Updated dependencies
+
 ## v0.4.2 (2020-08-31)
 
 * Support searching across multiple columns (thank you `@greg-rychlewski`)
