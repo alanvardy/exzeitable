@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.4.3 (2021-01-16)
+
+* Update dependencies
+
+
 ## v0.4.2 (2020-08-31)
 
 * Support searching across multiple columns (thank you `@greg-rychlewski`)
