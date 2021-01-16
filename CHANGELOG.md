@@ -5,7 +5,6 @@
 * Update dependencies
 * Switched out UglifyJS for TerserJS
 
-
 ## v0.4.2 (2020-08-31)
 
 * Support searching across multiple columns (thank you `@greg-rychlewski`)
