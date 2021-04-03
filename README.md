@@ -99,8 +99,8 @@ defmodule YourAppWeb.Live.File do
     repo: YourApp.Repo,
     routes: Routes,
     path: :file_path,
-    action_buttons: [:show, :edit, :custom_button]
-    query: from(f in File)
+    action_buttons: [:show, :edit, :custom_button],
+    query: from(f in File),
     fields: [
       image: [virtual: true],
       title: [hidden: true],
@@ -118,6 +118,7 @@ defmodule YourAppWeb.Live.File do
     img_tag(file.url, class: "w-100")
     |> link(to: Routes.file_path(socket, :show, file))
   end
+end
 ```
 
 Options can be added to either your module (as seen above), or in the template (As seen below) or both.
