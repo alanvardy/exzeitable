@@ -30,13 +30,7 @@ defmodule Exzeitable.Database do
 
   @spec paginate_query(Ecto.Query.t(), map) :: Ecto.Query.t()
   defp paginate_query(query, %{per_page: per_page, page: page}) do
-    offset =
-      if page == 1 do
-        0
-      else
-        (page - 1) * per_page
-      end
-
+    offset = if page == 1, do: 0, else: (page - 1) * per_page
     from(q in query, limit: ^per_page, offset: ^offset)
   end
 
