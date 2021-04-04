@@ -15,8 +15,9 @@ defmodule Exzeitable.Database do
   @spec order_query(Ecto.Query.t(), map) :: Ecto.Query.t()
   defp order_query(query, %{order: nil}), do: query
 
-  defp order_query(query, %{order: order}),
-    do: from(q in exclude(query, :order_by), order_by: ^order)
+  defp order_query(query, %{order: order}) do
+    from(q in exclude(query, :order_by), order_by: ^order)
+  end
 
   @spec search_query(Ecto.Query.t(), map) :: Ecto.Query.t()
   defp search_query(query, %{search: ""}), do: query
