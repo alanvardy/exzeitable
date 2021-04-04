@@ -5,6 +5,7 @@
   # parallel: true,
 
   ## list of tools (see `mix check` docs for defaults)
+  retry: false,
   tools: [
     ## curated tools may be disabled (e.g. the check for compilation warnings)
     # {:compiler, false},
