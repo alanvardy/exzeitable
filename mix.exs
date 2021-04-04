@@ -29,7 +29,6 @@ defmodule Exzeitable.MixProject do
           :no_return,
           :no_undefined_callbacks,
           :no_unused,
-          # :underspecs,
           :unknown,
           :unmatched_returns
         ]
