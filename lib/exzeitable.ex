@@ -148,13 +148,17 @@ defmodule Exzeitable do
         end
       end
 
-      defp maybe_set_refresh(socket) do
-        refresh_rate = socket.assigns[:refresh]
-
-        if connected?(socket) && is_integer(refresh_rate) do
-          :timer.send_interval(refresh_rate, self(), :refresh)
+      defp maybe_set_refresh(%{socket: %{assigns: %{refresh: refresh}}} = socket)
+           when is_integer(refresh) do
+        with true <- connected?(socket),
+             {:ok, _tref} <- :timer.send_interval(refresh, self(), :refresh) do
+          socket
+        else
+          _ -> socket
         end
+      end
 
+      defp maybe_set_refresh(socket) do
         socket
       end
 
