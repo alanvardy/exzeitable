@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.4.5 (2021-04-04)
+
+* Update dependencies
+* Fix typos in moduledocs (Thank you `@clayscode`)
+
 ## v0.4.4 (2021-01-16)
 
 * Update dependencies
