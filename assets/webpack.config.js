@@ -9,9 +9,7 @@ module.exports = (env, options) => ({
   optimization: {
     minimizer: [
       new TerserPlugin({
-        cache: true,
         parallel: true,
-        sourceMap: true,
         terserOptions: {
           ecma: 6,
           mangle: true,
@@ -47,6 +45,6 @@ module.exports = (env, options) => ({
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: '../css/app.css' }),
-    new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
+    new CopyWebpackPlugin({ patterns: [{ from: 'static/', to: '../' }] })
   ]
 });

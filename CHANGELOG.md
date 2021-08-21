@@ -5,6 +5,7 @@
 - Update CI configuration
 - Tighten up typespecs
 - Update Elixir dependencies
+- Update JavaScript dependencies
 
 
 ## v0.4.5 (2021-04-04)
