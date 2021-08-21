@@ -47,8 +47,8 @@ The package can be installed by adding [exzeitable](https://github.com/alanvardy
 ```elixir
 def deps do
   [
-    {:exzeitable, "~> 0.4.2"},
-    {:phoenix_live_view, "~> 0.13"},
+    {:exzeitable, "~> 0.4.6"},
+    {:phoenix_live_view, "~> 0.15"},
     {:floki, ">= 0.0.0", only: :test}
   ]
 end
@@ -233,15 +233,17 @@ This project uses the `asdf` version manager.
 
 
 ```
-# Set up the project
+# Clone the project from GitHub
 git clone git@github.com:alanvardy/exzeitable.git
 cd exzeitable
+
+# Install dependencies
 asdf install
 mix deps.get
 npm install --prefix assets
-npm run deploy --prefix ./assets
-mix phx.digest
-docker-compose up -d # Start postgres
+
+# Start postgres with docker
+docker-compose up -d 
 
 # Run the test suite
 mix check
