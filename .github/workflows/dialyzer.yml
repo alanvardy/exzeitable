@@ -1,11 +1,9 @@
 name: Dialyzer
-
 on: [push, pull_request]
 
 jobs:
   test:
-    runs-on: ubuntu-16.04
-
+    runs-on: ubuntu-latest
     services:
       db:
         image: postgres:11.6
@@ -15,24 +13,24 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
     steps:
-      - uses: actions/checkout@v1.0.0
+      - uses: actions/checkout@v2
       - uses: actions/cache@v1
         with:
           path: deps
-          key: ${{ runner.os }}-mix-dialyzer-${{ hashFiles('**/mix.lock') }}
+          key: ${{ runner.os }}-mix-ex_check_dialyzer-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
-            ${{ runner.os }}-mix-dialyzer-
-      - uses: actions/cache@v1
-        with:
-          path: _build
-          key: ${{ runner.os }}-build-dialyzer-${{ hashFiles('**/mix.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-dialyzer-
-      - uses: actions/setup-elixir@v1.0.0
+            ${{ runner.os }}-mix-ex_check_dialyzer-
+      - uses: erlef/setup-beam@v1
         with:
           otp-version: 22.3.4
           elixir-version: 1.10.3
       - run: mix deps.get
       - run: MIX_ENV=dev mix check --only dialyzer
+      - uses: actions/cache@v1
+        with:
+          path: _build
+          key: ${{ runner.os }}-build-ex_check_dialyzer-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-ex_check_dialyzer-
+
