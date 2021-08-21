@@ -1,7 +1,9 @@
 [
   retry: false,
   tools: [
-    {:cypress, command: "mix cypress.run"},
+    {:npm_deploy, command: "npm run deploy --prefix ./assets"},
+    {:phx_digest, command: "mix phx.digest", deps: [{:npm_deploy, status: :ok}]},
+    {:cypress, command: "mix cypress.run", deps: [{:phx_digest, status: :ok}]},
     {:npm_test, false},
     {:ex_coveralls,
      command: "mix coveralls.html",
