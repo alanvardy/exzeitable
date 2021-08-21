@@ -1,11 +1,9 @@
 name: Cypress
-
 on: [push, pull_request]
 
 jobs:
   test:
-    runs-on: ubuntu-16.04
-
+    runs-on: ubuntu-latest
     services:
       db:
         image: postgres:11.6
@@ -16,20 +14,14 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-      - uses: actions/checkout@v1.0.0
+      - uses: actions/checkout@v2
       - uses: actions/cache@v1
         with:
           path: deps
-          key: ${{ runner.os }}-mix-cypress2-${{ hashFiles('**/mix.lock') }}
+          key: ${{ runner.os }}-mix-ex_check_cypress-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
-            ${{ runner.os }}-mix-cypress-
-      - uses: actions/cache@v1
-        with:
-          path: _build
-          key: ${{ runner.os }}-build-cypress2-${{ hashFiles('**/mix.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-cypress2-
-      - uses: actions/setup-elixir@v1.0.0
+            ${{ runner.os }}-mix-ex_check_cypress-
+      - uses: erlef/setup-beam@v1
         with:
           otp-version: 22.3.4
           elixir-version: 1.10.3
@@ -38,3 +30,10 @@ jobs:
       - run: npm run deploy --prefix ./assets
       - run: mix phx.digest
       - run: mix cypress.run
+      - uses: actions/cache@v1
+        with:
+          path: _build
+          key: ${{ runner.os }}-build-ex_check_cypress-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-ex_check_cypress-
+
