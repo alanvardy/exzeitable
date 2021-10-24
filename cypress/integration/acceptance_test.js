@@ -86,7 +86,7 @@ describe('Acceptance Test', function () {
   it('Can use custom text', function () {
     cy.visit('http://localhost:5000/beitrage')
     cy.contains('Beiträge auflisten')
-    cy.contains('ausblenden')
+    cy.contains('Ausblenden')
     cy.contains('Sortieren')
     cy.contains('Nächster')
     cy.contains('Bearbeiten')

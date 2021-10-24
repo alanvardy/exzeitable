@@ -2,6 +2,7 @@
 
 ## Unreleased
 - Update Elixir and Erlang versions
+- Capitalize word
 ## v0.4.6 (2021-08-21)
 
 - Update CI configuration
