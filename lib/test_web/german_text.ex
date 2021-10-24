@@ -26,6 +26,6 @@ defmodule TestWeb.GermanText do
   def show_field_buttons(_assigns), do: "Feldschaltflächen anzeigen"
   def hide_field_buttons(_assigns), do: "Feldschaltflächen ausblenden"
   def show_field(_assigns, field), do: "Zeigen Sie #{field}"
-  def hide(_assigns), do: "ausblenden"
+  def hide(_assigns), do: "Ausblenden"
   def sort(_assigns), do: "Sortieren"
 end
