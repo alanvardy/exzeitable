@@ -1,6 +1,6 @@
 # Exzeitable
 
-[![Build Status](https://github.com/alanvardy/exzeitable/workflows/Unit%20Tests/badge.svg)](https://github.com/alanvardy/exzeitable) [![Build Status](https://github.com/alanvardy/exzeitable/workflows/Dialyzer/badge.svg)](https://github.com/alanvardy/exzeitable) [![Build Status](https://github.com/alanvardy/exzeitable/workflows/Cypress/badge.svg)](https://github.com/alanvardy/exzeitable) [![hex.pm](http://img.shields.io/hexpm/v/exzeitable.svg?style=flat)](https://hex.pm/packages/exzeitable)
+[![Build Status](https://github.com/alanvardy/exzeitable/workflows/Coveralls/badge.svg)](https://github.com/alanvardy/exzeitable) [![Build Status](https://github.com/alanvardy/exzeitable/workflows/Dialyzer/badge.svg)](https://github.com/alanvardy/exzeitable) [![Build Status](https://github.com/alanvardy/exzeitable/workflows/Cypress/badge.svg)](https://github.com/alanvardy/exzeitable) [![Build Status](https://github.com/alanvardy/exzeitable/workflows/Credo/badge.svg)](https://github.com/alanvardy/exzeitable) [![hex.pm](http://img.shields.io/hexpm/v/exzeitable.svg?style=flat)](https://hex.pm/packages/exzeitable)
 
 Dynamic, live updating datatables that takes a database query and a module, and make the magic happen. Ideal for quickly adding CRUD interfaces on an admin backend.
 
@@ -48,7 +48,7 @@ The package can be installed by adding [exzeitable](https://github.com/alanvardy
 def deps do
   [
     {:exzeitable, "~> 0.4.6"},
-    {:phoenix_live_view, "~> 0.15"},
+    {:phoenix_live_view, "~> 0.16"},
     {:floki, ">= 0.0.0", only: :test}
   ]
 end
@@ -235,10 +235,13 @@ This project uses the `asdf` version manager and `docker-compose`
 git clone git@github.com:alanvardy/exzeitable.git
 cd exzeitable
 
+# Start postgres
+docker-compose up -d
+
 # Install dependencies
 asdf install
 mix deps.get
 
-# Docker compose, build assets, and run the test suite
+# Build assets, and run the test suite
 mix check
 ```
