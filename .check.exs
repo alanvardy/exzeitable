@@ -1,12 +1,11 @@
 [
   retry: false,
   tools: [
-    {:docker_up, command: "docker-compose up -d"},
-    {:deploy_assets, command: "mix assets.deploy", deps: [{:docker_up, status: :ok}]},
+    {:deploy_assets, command: "mix assets.deploy"},
     {:install_cypress,
      command: "npm install cypress --save-dev --prefix assets",
      deps: [{:deploy_assets, status: :ok}]},
-    {:cypress, command: "mix cypress.run", deps: [{:docker_up, status: :ok}]},
+    {:cypress, command: "mix cypress.run"},
     {:npm_test, false},
     {:ex_coveralls,
      command: "mix coveralls.lcov",
