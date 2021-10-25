@@ -12,5 +12,5 @@ defmodule TestWeb.BeitrageTable do
     text: TestWeb.GermanText,
     refresh: 5000
 
-  def render(assigns), do: ~L"<%= build_table(assigns) %>"
+  def render(assigns), do: ~H"<%= build_table(assigns) %>"
 end

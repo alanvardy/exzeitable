@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Update to Phoenix 1.6 and Phoenix LiveView 0.16
 - Update Elixir and Erlang versions
 - Capitalize word
 - Update JavaScript dependencies

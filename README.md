@@ -111,7 +111,7 @@ defmodule YourAppWeb.Live.File do
     debounce: 300
 
   # The callback that renders your table
-  def render(assigns), do: ~L"<%= build_table(assigns) %>"
+  def render(assigns), do: ~H"<%= build_table(assigns) %>"
 
   # Field functions, called when virtual: true or function: true
   def image(socket, file) do
@@ -228,9 +228,7 @@ Suggestions, bug reports and contributions are very welcome! Please open an issu
 
 ### Getting set up
 
-This project uses the `asdf` version manager.
-
-
+This project uses the `asdf` version manager and `docker-compose`
 
 ```
 # Clone the project from GitHub
@@ -240,11 +238,7 @@ cd exzeitable
 # Install dependencies
 asdf install
 mix deps.get
-npm install --prefix assets
 
-# Start postgres with docker
-docker-compose up -d 
-
-# Run the test suite
+# Docker compose, build assets, and run the test suite
 mix check
 ```
