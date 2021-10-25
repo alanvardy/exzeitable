@@ -27,7 +27,6 @@ jobs:
           elixir-version: 1.12.3
       - run: mix deps.get
       - run: mix assets.deploy
-      - run: npm install cypress --save-dev --prefix assets
       - run: mix cypress.run
       - uses: actions/cache@v1
         with:
