@@ -1,4 +1,4 @@
-name: Unit Tests
+name: Credo
 on: [push, pull_request]
 
 jobs:
@@ -26,7 +26,7 @@ jobs:
           otp-version: 24.1
           elixir-version: 1.12.3
       - run: mix deps.get
-      - run: MIX_ENV=dev mix check --except ex_unit --except cypress --except npm_deploy --except phx_digest --except dialyzer
+      - run: MIX_ENV=test mix credo --strict
       - uses: actions/cache@v1
         with:
           path: _build
