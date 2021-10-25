@@ -47,14 +47,10 @@ The package can be installed by adding [exzeitable](https://github.com/alanvardy
 ```elixir
 def deps do
   [
-    {:exzeitable, "~> 0.4.6"},
-    {:phoenix_live_view, "~> 0.16"},
-    {:floki, ">= 0.0.0", only: :test}
+    {:exzeitable, "~> 0.5.0"},
   ]
 end
 ```
-
-Please see Phoenix Live View's installation instructions if it was not already installed.
 
 ### Migration
 

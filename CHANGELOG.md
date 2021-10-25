@@ -1,11 +1,12 @@
 # Changelog
 
 ## Unreleased
+
+## v0.5.0 (2021-10-25)
 - Update to Phoenix 1.6 and Phoenix LiveView 0.16
 - Update Elixir and Erlang versions
+- Rip out Webpack and fire it into the sun
 - Capitalize word
-- Update JavaScript dependencies
-
 ## v0.4.6 (2021-08-21)
 
 - Update CI configuration
