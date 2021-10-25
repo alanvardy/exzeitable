@@ -2,7 +2,16 @@ defmodule TestWeb.Endpoint do
   @moduledoc false
   use Phoenix.Endpoint, otp_app: :exzeitable
 
-  socket("/live", Phoenix.LiveView.Socket)
+  # The session will be stored in the cookie and signed,
+  # this means its contents can be read but not tampered with.
+  # Set :encryption_salt if you would also like to encrypt it.
+  @session_options [
+    store: :cookie,
+    key: "_exzeitable_key",
+    signing_salt: "c40ZJXwf"
+  ]
+
+  socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 
   socket("/socket", TestWeb.UserSocket,
     websocket: true,
@@ -15,9 +24,8 @@ defmodule TestWeb.Endpoint do
   # when deploying your static files in production.
   plug(Plug.Static,
     at: "/",
-    from: :exzeitable,
-    gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    from: "priv/static",
+    gzip: false
   )
 
   # Code reloading can be explicitly enabled under the
@@ -43,11 +51,6 @@ defmodule TestWeb.Endpoint do
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
-  plug(Plug.Session,
-    store: :cookie,
-    key: "_exzeitable_key",
-    signing_salt: "1RnbZzkx"
-  )
-
-  plug(TestWeb.Router)
+  plug Plug.Session, @session_options
+  plug TestWeb.Router
 end
