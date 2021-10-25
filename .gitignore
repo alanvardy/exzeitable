@@ -35,3 +35,4 @@ priv/
 .elixir_ls
 *.mp4
 cypress/screenshots/*
+package-lock.json
