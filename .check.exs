@@ -14,7 +14,6 @@
      env: %{"MIX_ENV" => "test"},
      deps: [{:install_cypress, status: :ok}]},
     {:credo, command: "mix credo --strict"},
-    {:ex_unit,
-     command: "mix test", env: %{"MIX_ENV" => "test"}, deps: [{:docker_up, status: :ok}]}
+    {:ex_unit, enabled: false}
   ]
 ]
