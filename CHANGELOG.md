@@ -2,6 +2,7 @@
 
 ## Unreleased
 - Re-add dependabot
+- Add publish checklist
 
 ## v0.5.0 (2021-10-25)
 - Update to Phoenix 1.6 and Phoenix LiveView 0.16
