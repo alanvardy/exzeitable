@@ -27,6 +27,8 @@ jobs:
           elixir-version: 1.12.3
       - run: mix deps.get
       - run: MIX_ENV=test mix coveralls.json
+      - name: Upload to codecov.io
+        uses: codecov/codecov-action@v1
       - uses: actions/cache@v1
         with:
           path: _build

@@ -1,6 +1,6 @@
 # Exzeitable
 
-[![Build Status](https://github.com/alanvardy/exzeitable/workflows/Coveralls/badge.svg)](https://github.com/alanvardy/exzeitable) [![Build Status](https://github.com/alanvardy/exzeitable/workflows/Dialyzer/badge.svg)](https://github.com/alanvardy/exzeitable) [![Build Status](https://github.com/alanvardy/exzeitable/workflows/Cypress/badge.svg)](https://github.com/alanvardy/exzeitable) [![Build Status](https://github.com/alanvardy/exzeitable/workflows/Credo/badge.svg)](https://github.com/alanvardy/exzeitable) [![hex.pm](http://img.shields.io/hexpm/v/exzeitable.svg?style=flat)](https://hex.pm/packages/exzeitable)
+[![Build Status](https://github.com/alanvardy/exzeitable/workflows/Coveralls/badge.svg)](https://github.com/alanvardy/exzeitable) [![Build Status](https://github.com/alanvardy/exzeitable/workflows/Dialyzer/badge.svg)](https://github.com/alanvardy/exzeitable) [![Build Status](https://github.com/alanvardy/exzeitable/workflows/Cypress/badge.svg)](https://github.com/alanvardy/exzeitable) [![Build Status](https://github.com/alanvardy/exzeitable/workflows/Credo/badge.svg)](https://github.com/alanvardy/exzeitable) [![codecov](https://codecov.io/gh/alanvardy/exzeitable/branch/master/graph/badge.svg?token=P3O42SF7VJ)](https://codecov.io/gh/alanvardy/exzeitable) [![hex.pm](http://img.shields.io/hexpm/v/exzeitable.svg?style=flat)](https://hex.pm/packages/exzeitable)
 
 Dynamic, live updating datatables that takes a database query and a module, and make the magic happen. Ideal for quickly adding CRUD interfaces on an admin backend.
 
