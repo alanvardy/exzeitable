@@ -1,7 +1,10 @@
 # Changelog
 
 ## Unreleased
+
+## v0.5.1 (2021-11-14)
 - Re-add dependabot
+- Update Elixir dependencies
 - Add publish checklist
 - Change `eex` templates to `heex`
 - Add CodeCov
