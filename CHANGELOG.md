@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Update Credo and resolve Credo warnings
 
 ## v0.5.1 (2021-11-14)
 - Re-add dependabot

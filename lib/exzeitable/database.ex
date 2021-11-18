@@ -23,7 +23,7 @@ defmodule Exzeitable.Database do
   defp search_query(query, %{search: ""}), do: query
 
   defp search_query(query, %{search: search, module: module}) do
-    apply(module, :do_search, [query, search])
+    module.do_search(query, search)
   end
 
   @spec remove_order(Ecto.Query.t()) :: Ecto.Query.t()
@@ -48,7 +48,7 @@ defmodule Exzeitable.Database do
 
   # Repo.all
   @spec get_query(Ecto.Query.t(), map) :: [map]
-  defp get_query(query, %{repo: repo}), do: apply(repo, :all, [query])
+  defp get_query(query, %{repo: repo}), do: repo.all(query)
 
   @doc "I want to just do a select: count(c.id)"
   @spec get_record_count(map) :: integer
@@ -79,9 +79,8 @@ defmodule Exzeitable.Database do
   def tsvector_string(fields) do
     search_columns =
       fields
-      |> Enum.filter(fn {_k, field} -> Keyword.fetch!(field, :search) end)
-      |> Enum.map(fn {key, _v} -> "coalesce(#{Atom.to_string(key)}, ' ')" end)
-      |> Enum.join(" || ' ' || ")
+      |> Stream.filter(fn {_k, field} -> Keyword.fetch!(field, :search) end)
+      |> Enum.map_join(" || ' ' || ", fn {key, _v} -> "coalesce(#{Atom.to_string(key)}, ' ')" end)
 
     "to_tsvector('english', #{search_columns}) @@ to_tsquery(?)"
   end
