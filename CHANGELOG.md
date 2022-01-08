@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+
+## v0.5.2 (2022-01-08)
+- Update dependencies
 - Update Credo and resolve Credo warnings
 
 ## v0.5.1 (2021-11-14)
