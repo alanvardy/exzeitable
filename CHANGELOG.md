@@ -3,6 +3,7 @@
 ## Unreleased
 - Update Erlang to 24.2
 - Update Elixir to 1.13.3
+- Add link to ElixirCasts video in Readme
 
 ## v0.5.2 (2022-01-08)
 - Update dependencies
