@@ -23,7 +23,7 @@ jobs:
             ${{ runner.os }}-mix-ex_check_tests-
       - uses: erlef/setup-beam@v1
         with:
-          otp-version: 24.1
+          otp-version: 24.2
           elixir-version: 1.12.3
       - run: mix deps.get
       - run: MIX_ENV=test mix coveralls.json
