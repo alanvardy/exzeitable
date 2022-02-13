@@ -38,6 +38,8 @@ Documentation can be found at [https://hexdocs.pm/exzeitable](https://hexdocs.pm
 
 ## Getting Started
 
+See the [Exzeitable video on ElixirCasts](https://elixircasts.io/exzeitable) for a walkthrough.
+
 ### Dependencies
 
 This package requires a Postgres database, Phoenix, and Phoenix LiveView.
