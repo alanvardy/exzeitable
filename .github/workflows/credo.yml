@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       db:
-        image: postgres:11.6
+        image: postgres:latest
         ports: ['5432:5432']
         options: >-
           --health-cmd pg_isready
