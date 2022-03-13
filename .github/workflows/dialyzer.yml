@@ -22,6 +22,7 @@ jobs:
           path: |
             deps
             _build
+            dialyzer
           key: ${{ runner.os }}-dialyzer-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
             ${{ runner.os }}-dialyzer-

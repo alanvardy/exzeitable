@@ -31,6 +31,14 @@ exzeitable-*.tar
 # In case you use Node.js/npm, you want to ignore these.
 npm-debug.log
 priv/
+
+# Language Server
 .elixir_ls
+
+# Cypress
 *.mp4
 cypress/screenshots/*
+
+# Dialyzer
+*.plt
+*.plt.hash

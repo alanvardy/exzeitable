@@ -16,6 +16,10 @@ defmodule Exzeitable.MixProject do
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
       dialyzer: [
+        plt_add_apps: [:ex_unit, :mix],
+        list_unused_filters: true,
+        plt_local_path: "dialyzer",
+        plt_core_path: "dialyzer",
         flags: [
           :no_behaviours,
           :no_contracts,
