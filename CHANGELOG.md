@@ -1,15 +1,19 @@
 # Changelog
 
 ## Unreleased
+
 - Update Erlang to 24.2
 - Update Elixir to 1.13.3
 - Add link to ElixirCasts video in Readme
+- Update postgres to 14.2
 
 ## v0.5.2 (2022-01-08)
+
 - Update dependencies
 - Update Credo and resolve Credo warnings
 
 ## v0.5.1 (2021-11-14)
+
 - Re-add dependabot
 - Update Elixir dependencies
 - Add publish checklist
@@ -17,10 +21,12 @@
 - Add CodeCov
 
 ## v0.5.0 (2021-10-25)
+
 - Update to Phoenix 1.6 and Phoenix LiveView 0.16
 - Update Elixir and Erlang versions
 - Rip out Webpack and fire it into the sun
 - Capitalize word
+
 ## v0.4.6 (2021-08-21)
 
 - Update CI configuration
@@ -150,7 +156,6 @@
 - Fix iOS touch issues
 - Add inch_ex
 - Minor documentation improvements
-
 
 ## v0.1.0 (2019-10-03)
 
