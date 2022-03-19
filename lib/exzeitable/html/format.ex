@@ -40,11 +40,10 @@ defmodule Exzeitable.HTML.Format do
 
   # We want socket.assigns, but not socket.assigns.assigns
   defp smush_assigns_together(socket, assigns) do
-    assigns =
-      socket.assigns
-      |> Map.delete(:assigns)
-      |> Map.merge(assigns)
-
-    Map.put(socket, :assigns, assigns)
+    socket
+    |> Map.fetch!(:assigns)
+    |> Map.delete(:assigns)
+    |> Map.merge(assigns)
+    |> then(&Map.put(socket, :assigns, &1))
   end
 end

@@ -6,6 +6,7 @@
 - Update Elixir to 1.13.3
 - Add link to ElixirCasts video in Readme
 - Update postgres to 14.2
+- General refactoring
 
 ## v0.5.2 (2022-01-08)
 

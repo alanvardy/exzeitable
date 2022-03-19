@@ -15,26 +15,17 @@ defmodule Exzeitable.MixProject do
       aliases: aliases(),
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        dialyzer: :test,
+        credo: :test,
+        "coveralls.html": :test
+      ],
       dialyzer: [
         plt_add_apps: [:ex_unit, :mix],
         list_unused_filters: true,
         plt_local_path: "dialyzer",
         plt_core_path: "dialyzer",
-        flags: [
-          :no_behaviours,
-          :no_contracts,
-          :no_fail_call,
-          :no_fun_app,
-          :no_improper_lists,
-          :no_match,
-          :no_missing_calls,
-          :no_opaque,
-          :no_return,
-          :no_undefined_callbacks,
-          :no_unused,
-          :unknown,
-          :unmatched_returns
-        ]
+        flags: [:unmatched_returns, :no_improper_lists]
       ],
 
       # Hex

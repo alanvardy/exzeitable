@@ -21,9 +21,11 @@ defmodule Exzeitable.HTML.ActionButton do
   """
   use Exzeitable.HTML.Helpers
 
+  @type action :: :new | :delete | :show | :edit
+
   @doc "Builds an individual button, takes an atom representing the action, and the assigns map"
   @spec build(:new, map) :: {:safe, iolist}
-  @spec build(atom, atom, map) :: {:safe, iolist}
+  @spec build(action, atom, map) :: {:safe, iolist}
   def build(:new, %{parent: nil} = assigns) do
     %{
       socket: socket,
@@ -108,7 +110,7 @@ defmodule Exzeitable.HTML.ActionButton do
     apply(module, custom_action, [socket, entry, csrf_token])
   end
 
-  @spec html(String.t(), atom, map) :: {:safe, iolist}
+  @spec html(String.t(), action, map) :: {:safe, iolist}
   defp html(route, :new, assigns) do
     assigns
     |> text(:new)

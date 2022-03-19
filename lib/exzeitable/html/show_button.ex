@@ -10,7 +10,7 @@ defmodule Exzeitable.HTML.ShowButton do
 
   def show_buttons(assigns) do
     assigns
-    |> Map.get(:fields)
+    |> Map.fetch!(:fields)
     |> Filter.fields_where(:hidden)
     |> Enum.map(fn field -> build_show_button(assigns, field) end)
   end

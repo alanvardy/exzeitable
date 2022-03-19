@@ -30,8 +30,12 @@ defmodule Exzeitable.Database do
   defp remove_order(query), do: exclude(query, :order_by)
 
   @spec paginate_query(Ecto.Query.t(), map) :: Ecto.Query.t()
+  defp paginate_query(query, %{per_page: per_page, page: 1}) do
+    from(q in query, limit: ^per_page)
+  end
+
   defp paginate_query(query, %{per_page: per_page, page: page}) do
-    offset = if page == 1, do: 0, else: (page - 1) * per_page
+    offset = (page - 1) * per_page
     from(q in query, limit: ^per_page, offset: ^offset)
   end
 
@@ -73,15 +77,14 @@ defmodule Exzeitable.Database do
 
   @doc """
     Generates the magic SQL fragment that performs search dynamically.
+    Searches across columns that are searchable. Replaces nulls with a space.
     Created outside macro to bypass ecto restrictions
   """
   @spec tsvector_string([keyword]) :: String.t()
   def tsvector_string(fields) do
-    search_columns =
-      fields
-      |> Stream.filter(fn {_k, field} -> Keyword.fetch!(field, :search) end)
-      |> Enum.map_join(" || ' ' || ", fn {key, _v} -> "coalesce(#{Atom.to_string(key)}, ' ')" end)
-
-    "to_tsvector('english', #{search_columns}) @@ to_tsquery(?)"
+    fields
+    |> Stream.filter(fn {_k, field} -> Keyword.fetch!(field, :search) end)
+    |> Enum.map_join(" || ' ' || ", fn {key, _v} -> "coalesce(#{Atom.to_string(key)}, ' ')" end)
+    |> then(&"to_tsvector('english', #{&1}) @@ to_tsquery(?)")
   end
 end

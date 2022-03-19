@@ -9,7 +9,7 @@ defmodule Exzeitable.HTML.Helpers do
       import Exzeitable.Text, only: [text: 2, text: 3]
 
       # Used everywhere to make it easier to pipe HTML chunks into each other
-      @spec cont(any(), atom, keyword) :: {:safe, iolist}
+      @spec cont(any, atom, keyword) :: {:safe, iolist}
       defp cont(body, tag, opts), do: content_tag(tag, body, opts)
 
       # Used to build lists

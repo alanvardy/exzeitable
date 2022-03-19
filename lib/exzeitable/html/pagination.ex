@@ -4,40 +4,46 @@ defmodule Exzeitable.HTML.Pagination do
   """
   use Exzeitable.HTML.Helpers
 
+  @type name :: String.t() | atom | integer
+  @type params :: %{
+          :page => pos_integer,
+          :count => non_neg_integer,
+          :per_page => pos_integer,
+          optional(atom) => any()
+        }
+
   @doc "Builds the pagination selector with page numbers, next and back etc."
-  @spec build(map) :: {:safe, iolist}
+  @spec build(params) :: {:safe, iolist}
   def build(%{page: page} = assigns) do
     pages = page_count(assigns)
+    previous_button = paginate_button(assigns, :previous, page, pages)
+    numbered_buttons = numbered_buttons(assigns, page, pages)
+    next_button = paginate_button(assigns, :next, page, pages)
 
-    ([paginate_button(assigns, :previous, page, pages)] ++
-       numbered_buttons(assigns, page, pages) ++
-       [paginate_button(assigns, :next, page, pages)])
+    ([previous_button] ++ numbered_buttons ++ [next_button])
     |> cont(:ul, class: "exz-pagination-ul")
     |> cont(:nav, class: "exz-pagination-nav")
   end
 
   # Handle the case where there is only a single page, just gives us some disabled buttons
-  @spec numbered_buttons(map, integer, integer) :: [{:safe, iolist}]
-  defp numbered_buttons(assigns, _page, 0) do
-    [paginate_button(assigns, 1, 1, 1)]
-  end
-
+  @spec numbered_buttons(params, pos_integer, non_neg_integer) :: [{:safe, iolist}]
   defp numbered_buttons(assigns, page, pages) do
     pages
     |> filter_pages(page)
-    |> Enum.map(fn x -> paginate_button(assigns, x, page, pages) end)
+    |> Enum.map(&paginate_button(assigns, &1, page, pages))
   end
 
-  # A partial page is still a page.
-  defp page_count(%{count: count, per_page: per_page}) do
+  @doc "A partial page is still a page."
+  @spec page_count(params) :: pos_integer
+  def page_count(%{count: count, per_page: per_page}) do
     if rem(count, per_page) > 0 do
       div(count, per_page) + 1
     else
-      div(count, per_page)
+      count |> div(per_page) |> max(1)
     end
   end
 
-  @spec paginate_button(map, String.t() | atom | integer, integer, integer) :: {:safe, iolist}
+  @spec paginate_button(params, name, pos_integer, pos_integer) :: {:safe, iolist}
   defp paginate_button(assigns, :next, page, pages) when page == pages do
     assigns
     |> text(:next)
@@ -96,7 +102,7 @@ defmodule Exzeitable.HTML.Pagination do
     |> cont(:li, class: "exz-pagination-li")
   end
 
-  # Selects the page buttons we need for pagination
+  @doc "Selects the page buttons we need for pagination"
   def filter_pages(pages, _page) when pages <= 7, do: 1..pages
 
   def filter_pages(pages, page) when page in [1, 2, 3, pages - 2, pages - 1, pages] do
