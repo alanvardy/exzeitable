@@ -5,12 +5,13 @@
 Dynamic, live updating datatables that takes a database query and a module, and make the magic happen. Ideal for quickly adding CRUD interfaces on an admin backend.
 
 Features:
+
 - Full text search
 - Sorting
 - Periodic refresh
 - Bootstrap friendly and easily configured for other CSS frameworks.
 - Customizable everything (and if something isn't, open an issue!)
-- Powered by Phoenix LiveView and Postgres. 
+- Powered by Phoenix LiveView and Postgres.
 
 Documentation can be found at [https://hexdocs.pm/exzeitable](https://hexdocs.pm/exzeitable).
 
@@ -145,22 +146,22 @@ Call the table from your template
 
 ### Required module/template options
 
-  - `:repo` The module for your repository. Example: `YourApp.Repo`
-  - `:routes` Your route module. Example: `YourAppWeb.Router.Helpers`
-  - `:path` The base path for your resource. Example: `:site_path`
-  - `:fields` A keyword list where the atom is the ecto field and the value is a keyword list of options. Example: `metadata: [label: "Additional Information"]`
-  - `:query` A Ecto.Query struct, the part before you give it to the Repo. Example: `from(s in Site, preload: [:users])`
+- `:repo` The module for your repository. Example: `YourApp.Repo`
+- `:routes` Your route module. Example: `YourAppWeb.Router.Helpers`
+- `:path` The base path for your resource. Example: `:site_path`
+- `:fields` A keyword list where the atom is the ecto field and the value is a keyword list of options. Example: `metadata: [label: "Additional Information"]`
+- `:query` A Ecto.Query struct, the part before you give it to the Repo. Example: `from(s in Site, preload: [:users])`
 
 ### Optional module/template options
 
-  - `action_buttons: [:new, :edit, :show, :delete]` A list of atoms representing action buttons avaliable for the user to use. This does not do authorization, the routes will still be available.
-  - `per_page: 20` Integer representing number of entries per page.
-  - `debounce: 300` Sets how many miliseconds between responding to user input on the search field.
-  - `refresh: false` Requeries the database every x milliseconds, defaults to false (disabled).
-  - `disable_hide: false` Disable hide and show functionality for columns, including not showing the buttons.
-  - `pagination: [:top, :bottom]` Whether to show the pagination above and below
-  - `text: Exzeitable.Text.Default` The text that appears on the table, you can replace this with your own custom module.
-  - `assigns: %{}` Passes additional assigns to socket.assigns. Keep your payload small!
+- `action_buttons: [:new, :edit, :show, :delete]` A list of atoms representing action buttons available for the user to use. This does not do authorization, the routes will still be available.
+- `per_page: 20` Integer representing number of entries per page.
+- `debounce: 300` Sets how many milliseconds between responding to user input on the search field.
+- `refresh: false` Re-queries the database every x milliseconds, defaults to false (disabled).
+- `disable_hide: false` Disable hide and show functionality for columns, including not showing the buttons.
+- `pagination: [:top, :bottom]` Whether to show the pagination above and below
+- `text: Exzeitable.Text.Default` The text that appears on the table, you can replace this with your own custom module.
+- `assigns: %{}` Passes additional assigns to socket.assigns. Keep your payload small!
 
 ### Field options
 
@@ -184,7 +185,6 @@ The following field options are available (with their defaults):
 - `virtual: false` This is shorthand for [function: true, search: false, order: false] and will override those settings. Intended for creating fields that are not database backed.
 
 **IMPORTANT NOTE**: Search uses [ts_vector](https://www.postgresql.org/docs/10/datatype-textsearch.html), which is performed by Postgres inside the database on string fields. This means that you cannot search fields that are _not_ string type (i.e. integer, datetime, associations, virtual fields). Make sure to set `search: false` or `virtual: true` on such fields.
-
 
 ### Module/template options for nested routes
 
@@ -211,12 +211,11 @@ Make sure that you include the :user_id in your query.
 
 You will need to pass the parent option in from the template.
 
-
 ### CSS
 
-Almost no CSS styling is included out of the box. I have added generic classes elements in the table in the hopes of making the table as CSS framwork agnostic as possible.
+Almost no CSS styling is included out of the box. I have added generic classes elements in the table in the hopes of making the table as CSS framework agnostic as possible.
 
-I have included a Bootstrap SASS example in the [CSS Module](https://github.com/alanvardy/exzeitable/blob/develop/CSS.md)
+I have included a Bootstrap SASS example in the [CSS Module](https://github.com/alanvardy/exzeitable/blob/main/CSS.md)
 
 ## Contributing
 
@@ -228,7 +227,7 @@ Suggestions, bug reports and contributions are very welcome! Please open an issu
 
 This project uses the `asdf` version manager and `docker-compose`
 
-```
+```bash
 # Clone the project from GitHub
 git clone git@github.com:alanvardy/exzeitable.git
 cd exzeitable

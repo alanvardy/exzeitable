@@ -9,7 +9,7 @@ This is just for my own use to reduce friction in publishing after I have been a
 5. Merge PR
 6. Publish
 
-```
+```bash
 git checkout master
 mix hex.publish
 ```

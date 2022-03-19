@@ -76,11 +76,11 @@
 ## v0.3.3 (2020-06-19)
 
 - No breaking changes to API, only to dependency requirements.
-- Feature: Add a refresh rate for requerying database periodically
+- Feature: Add a refresh rate for re-querying database periodically
 - Update Elixir and Javascript dependencies.
 - Update Elixir to 1.10.3
 - Update Erlang to 22.3.4
-- Add MIT licence
+- Add MIT license
 - Did some coarse level refactoring around function locations
 
 ## v0.3.2 (2020-02-04)
@@ -122,7 +122,7 @@
 
 ## v0.2.3 (2019-10-21)
 
-- Smush assigns and socket.assigns together and deduplicate
+- Smoosh assigns and socket.assigns together and deduplicate
 - Clear order_by before ordering query
 - Correct documentation
 
