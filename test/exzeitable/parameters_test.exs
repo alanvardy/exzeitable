@@ -12,7 +12,14 @@ defmodule Exzeitable.ParametersTest do
     ]
 
     after_merge = [
-      first: [function: false, hidden: false, search: true, order: true, label: "something"]
+      first: [
+        function: false,
+        hidden: false,
+        search: true,
+        order: true,
+        formatter: {Exzeitable.HTML.Format, :format_field},
+        label: "something"
+      ]
     ]
 
     assert Parameters.set_fields(opts) == after_merge
@@ -28,6 +35,7 @@ defmodule Exzeitable.ParametersTest do
     after_merge = [
       first: [
         hidden: false,
+        formatter: {Exzeitable.HTML.Format, :format_field},
         label: "something",
         virtual: true,
         function: true,

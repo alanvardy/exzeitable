@@ -83,6 +83,12 @@ describe('Acceptance Test', function () {
     cy.contains('Nex').should('not.exist')
   })
 
+  it('Can use custom formatter', function () {
+    cy.visit('http://localhost:5000/users/formatted')
+    cy.contains('<<< Bob >>>')
+    cy.contains('!!!boB!!!')
+  })
+
   it('Can use custom text', function () {
     cy.visit('http://localhost:5000/beitrage')
     cy.contains('Beiträge auflisten')

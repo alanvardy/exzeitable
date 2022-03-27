@@ -4,6 +4,7 @@ defmodule Exzeitable.Parameters do
 
   Validates that parameters are valid.
   """
+  alias Exzeitable.HTML.Format
   alias Exzeitable.Parameters.{ParameterError, Validation}
 
   @parameters %{
@@ -20,7 +21,8 @@ defmodule Exzeitable.Parameters do
     pagination: %{default: [:top, :bottom]},
     parent: %{default: nil},
     assigns: %{default: %{}},
-    text: %{default: Exzeitable.Text.Default}
+    text: %{default: Exzeitable.Text.Default},
+    formatter: %{default: {Format, :fornat_field}}
   }
 
   @default_fields [
@@ -28,7 +30,8 @@ defmodule Exzeitable.Parameters do
     function: false,
     hidden: false,
     search: true,
-    order: true
+    order: true,
+    formatter: {Format, :format_field}
   ]
 
   @virtual_fields [

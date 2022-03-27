@@ -21,6 +21,7 @@ defmodule Exzeitable.HTML.Format do
     else
       Map.get(entry, key, nil)
     end
+    |> format_field(fields[key].formatter)
   end
 
   # coveralls-ignore-stop
@@ -45,5 +46,22 @@ defmodule Exzeitable.HTML.Format do
     |> Map.delete(:assigns)
     |> Map.merge(assigns)
     |> then(&Map.put(socket, :assigns, &1))
+  end
+
+  # The default formatter
+  def format_field(value) do
+    to_string(value)
+  end
+
+  # Called for configured formatters which can be in the format
+  # {mod, fun}
+  # {mod, fun, args} in which case the value is prepended to `args`
+
+  defp format_field(value, {mod, fun}) do
+    apply(mod, fun, [value])
+  end
+
+  defp format_field(value, {mod, fun, args}) do
+    apply(mod, fun, [value | args])
   end
 end

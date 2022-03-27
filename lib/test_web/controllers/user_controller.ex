@@ -58,4 +58,7 @@ defmodule TestWeb.UserController do
     |> put_flash(:info, "User deleted successfully.")
     |> redirect(to: Routes.user_path(conn, :index))
   end
+
+  # For testing formatter configuration
+  def formatted_index(conn, _params), do: render(conn, "formatted_index.html")
 end
