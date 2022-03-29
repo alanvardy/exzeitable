@@ -22,7 +22,7 @@ defmodule Exzeitable.Parameters do
     parent: %{default: nil},
     assigns: %{default: %{}},
     text: %{default: Exzeitable.Text.Default},
-    formatter: %{default: {Format, :fornat_field}}
+    formatter: %{default: {Format, :format_field}}
   }
 
   @default_fields [
