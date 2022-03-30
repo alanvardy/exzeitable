@@ -18,7 +18,11 @@ defmodule Exzeitable.MixProject do
       preferred_cli_env: [
         dialyzer: :test,
         credo: :test,
-        "coveralls.html": :test
+        check: :test,
+        docs: :test,
+        "coveralls.html": :test,
+        "coveralls.json": :test,
+        "coveralls.lcov": :test
       ],
       dialyzer: [
         plt_add_apps: [:ex_unit, :mix],
@@ -109,13 +113,14 @@ defmodule Exzeitable.MixProject do
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:timex, "~> 3.5", only: [:dev, :test, :systemtest]},
-      {:ex_check, "~>0.12", only: :dev, runtime: false},
-      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.1", only: [:dev, :test], runtime: false},
+      {:timex, "~> 3.5", only: [:test, :systemtest]},
+      {:ex_check, "~>0.12", only: :test, runtime: false},
+      {:credo, "~> 1.5", only: :test, runtime: false},
+      {:dialyxir, "~> 1.1", only: :test, runtime: false},
       {:excoveralls, "~> 0.10", only: :test, runtime: false},
-      {:ex_doc, "~> 0.21", only: :dev, runtime: false},
-      {:inch_ex, github: "rrrene/inch_ex", only: [:dev, :test]}
+      {:ex_doc, "~> 0.21", only: :test, runtime: false},
+      {:inch_ex, github: "rrrene/inch_ex", only: [:test]},
+      {:stream_data, "~> 0.5", only: :test}
     ]
   end
 

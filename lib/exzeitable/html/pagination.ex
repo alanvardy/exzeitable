@@ -4,7 +4,7 @@ defmodule Exzeitable.HTML.Pagination do
   """
   use Exzeitable.HTML.Helpers
 
-  @type name :: String.t() | atom | integer
+  @type name :: :next | :previous | :dots | pos_integer
   @type params :: %{
           :page => pos_integer,
           :count => non_neg_integer,
