@@ -30,7 +30,7 @@ jobs:
           otp-version: 24.2
           elixir-version: 1.13.3
       - run: mix deps.get
-      - run: MIX_ENV=test mix coveralls.json
+      - run: mix coveralls.json
       - name: Upload to codecov.io
         uses: codecov/codecov-action@v1
 

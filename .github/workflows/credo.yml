@@ -30,4 +30,4 @@ jobs:
           otp-version: 24.2
           elixir-version: 1.13.3
       - run: mix deps.get
-      - run: MIX_ENV=test mix credo --strict
+      - run: mix credo --strict

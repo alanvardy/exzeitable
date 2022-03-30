@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add formatter to field options
 - Update Erlang to 24.2
 - Update Elixir to 1.13.3
 - Add link to ElixirCasts video in Readme

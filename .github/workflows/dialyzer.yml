@@ -31,4 +31,4 @@ jobs:
           otp-version: 24.2
           elixir-version: 1.13.3
       - run: mix deps.get
-      - run: MIX_ENV=dev mix check --only dialyzer
+      - run: mix dialyzer
