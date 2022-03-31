@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+### v0.5.3
+
 - Add formatter to field options
 - Update Erlang to 24.2
 - Update Elixir to 1.13.3

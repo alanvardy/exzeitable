@@ -1,7 +1,7 @@
 defmodule Exzeitable.MixProject do
   use Mix.Project
 
-  @version "0.5.2"
+  @version "0.5.3"
 
   def project do
     [
@@ -118,7 +118,7 @@ defmodule Exzeitable.MixProject do
       {:credo, "~> 1.5", only: :test, runtime: false},
       {:dialyxir, "~> 1.1", only: :test, runtime: false},
       {:excoveralls, "~> 0.10", only: :test, runtime: false},
-      {:ex_doc, "~> 0.21", only: :test, runtime: false},
+      {:ex_doc, "~> 0.21", only: [:dev, :test], runtime: false},
       {:inch_ex, github: "rrrene/inch_ex", only: [:test]},
       {:stream_data, "~> 0.5", only: :test}
     ]
