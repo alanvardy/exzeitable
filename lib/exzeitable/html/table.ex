@@ -2,15 +2,16 @@ defmodule Exzeitable.HTML.Table do
   @moduledoc "Builds the table part of the HTML"
   use Exzeitable.HTML.Helpers
 
+  alias Exzeitable.Params
   alias Exzeitable.HTML.{ActionButton, Filter, Format}
 
   @spec build(map) :: {:safe, iolist}
-  def build(%{list: list, fields: fields} = assigns) do
+  def build(%{params: %Params{fields: fields, list: list} = params} = assigns) do
     head =
       fields
       |> Filter.fields_where_not(:hidden)
       |> add_actions_header(assigns)
-      |> Enum.map(fn column -> table_header(column, assigns) end)
+      |> Enum.map(fn column -> table_header(column, params) end)
       |> cont(:thead, [])
 
     body =
@@ -20,25 +21,25 @@ defmodule Exzeitable.HTML.Table do
 
     [head, body]
     |> cont(:table, class: "exz-table")
-    |> maybe_nothing_found(assigns)
+    |> maybe_nothing_found(params)
     |> cont(:div, class: "exz-table-wrapper")
   end
 
   @spec add_actions_header(keyword, map) :: keyword
-  defp add_actions_header(fields, %{action_buttons: []}), do: fields
+  defp add_actions_header(fields, %{params: %Params{action_buttons: []}}), do: fields
 
   defp add_actions_header(fields, _assigns) do
     fields ++ [actions: %{sort: false, search: false, order: false}]
   end
 
-  @spec table_header({atom, map}, map) :: {:safe, iolist}
-  defp table_header(field, assigns) do
-    [Format.header(assigns, field), hide_link_for(field, assigns), sort_link_for(field, assigns)]
+  @spec table_header({atom, map}, Params.t()) :: {:safe, iolist}
+  defp table_header(field, %Params{} = params) do
+    [Format.header(params, field), hide_link_for(field, params), sort_link_for(field, params)]
     |> cont(:th, [])
   end
 
   @spec build_row(atom, map) :: {:safe, iolist}
-  defp build_row(entry, %{fields: fields} = assigns) do
+  defp build_row(entry, %{params: %Params{fields: fields}} = assigns) do
     values =
       fields
       |> Filter.fields_where_not(:hidden)
@@ -51,22 +52,22 @@ defmodule Exzeitable.HTML.Table do
   end
 
   @spec build_actions(atom, map) :: {:safe, iolist}
-  defp build_actions(_entry, %{action_buttons: []}), do: ""
+  defp build_actions(_entry, %{params: %Params{action_buttons: []}}), do: ""
 
-  defp build_actions(entry, assigns) do
-    assigns
+  defp build_actions(entry, %{params: params} = assigns) do
+    params
     |> Map.get(:action_buttons)
     |> Kernel.--([:new])
     |> Enum.map(fn action -> ActionButton.build(action, entry, assigns) end)
     |> cont(:td, [])
   end
 
-  @spec hide_link_for({atom, map}, map) :: {:safe, iolist} | String.t()
-  defp hide_link_for({:actions, _value}, _assigns), do: ""
-  defp hide_link_for(_, %{disable_hide: true}), do: ""
+  @spec hide_link_for({atom, map}, Params.t()) :: {:safe, iolist} | String.t()
+  defp hide_link_for({:actions, _value}, _params), do: ""
+  defp hide_link_for(_, %Params{disable_hide: true}), do: ""
 
-  defp hide_link_for({key, _value}, assigns) do
-    assigns
+  defp hide_link_for({key, _value}, %Params{} = params) do
+    params
     |> text(:hide)
     |> cont(:a,
       class: "exz-hide-link",
@@ -75,12 +76,12 @@ defmodule Exzeitable.HTML.Table do
     )
   end
 
-  @spec sort_link_for({atom, map}, map) :: {:safe, iolist}
-  defp sort_link_for({:actions, _v}, _), do: ""
-  defp sort_link_for({_key, %{order: false}}, _), do: ""
+  @spec sort_link_for({atom, map}, Params.t()) :: {:safe, iolist}
+  defp sort_link_for({:actions, _v}, _params), do: ""
+  defp sort_link_for({_key, %{order: false}}, _params), do: ""
 
-  defp sort_link_for({key, _v}, %{order: order} = assigns) do
-    sort = text(assigns, :sort)
+  defp sort_link_for({key, _v}, %Params{order: order} = params) do
+    sort = text(params, :sort)
 
     label =
       case order do
@@ -96,16 +97,16 @@ defmodule Exzeitable.HTML.Table do
     )
   end
 
-  defp maybe_nothing_found(content, %{list: []} = assigns) do
+  defp maybe_nothing_found(content, %Params{list: []} = params) do
     nothing_found =
-      assigns
+      params
       |> text(:nothing_found)
       |> cont(:div, class: "exz-nothing-found")
 
     [content, nothing_found]
   end
 
-  defp maybe_nothing_found(content, _assigns) do
+  defp maybe_nothing_found(content, _params) do
     content
   end
 end

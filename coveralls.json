@@ -3,6 +3,7 @@
     "minimum_coverage": 50
   },
   "skip_files": [
+    "lib/exzeitable.ex",
     "lib/test_web/*",
     "test/support/*"
   ]

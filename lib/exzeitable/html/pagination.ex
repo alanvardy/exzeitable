@@ -4,21 +4,19 @@ defmodule Exzeitable.HTML.Pagination do
   """
   use Exzeitable.HTML.Helpers
 
+  alias Exzeitable.Params
+
   @type name :: :next | :previous | :dots | pos_integer
-  @type params :: %{
-          :page => pos_integer,
-          :count => non_neg_integer,
-          :per_page => pos_integer,
-          optional(atom) => any()
-        }
+  @type page :: pos_integer
+  @type pages :: pos_integer
 
   @doc "Builds the pagination selector with page numbers, next and back etc."
-  @spec build(params) :: {:safe, iolist}
-  def build(%{page: page} = assigns) do
-    pages = page_count(assigns)
-    previous_button = paginate_button(assigns, :previous, page, pages)
-    numbered_buttons = numbered_buttons(assigns, page, pages)
-    next_button = paginate_button(assigns, :next, page, pages)
+  @spec build(Params.t()) :: {:safe, iolist}
+  def build(%Params{page: page} = params) do
+    pages = page_count(params)
+    previous_button = paginate_button(params, :previous, page, pages)
+    numbered_buttons = numbered_buttons(params, page, pages)
+    next_button = paginate_button(params, :next, page, pages)
 
     ([previous_button] ++ numbered_buttons ++ [next_button])
     |> cont(:ul, class: "exz-pagination-ul")
@@ -26,16 +24,16 @@ defmodule Exzeitable.HTML.Pagination do
   end
 
   # Handle the case where there is only a single page, just gives us some disabled buttons
-  @spec numbered_buttons(params, pos_integer, non_neg_integer) :: [{:safe, iolist}]
-  defp numbered_buttons(assigns, page, pages) do
+  @spec numbered_buttons(Params.t(), page, pages) :: [{:safe, iolist}]
+  defp numbered_buttons(params, page, pages) do
     pages
     |> filter_pages(page)
-    |> Enum.map(&paginate_button(assigns, &1, page, pages))
+    |> Enum.map(&paginate_button(params, &1, page, pages))
   end
 
   @doc "A partial page is still a page."
-  @spec page_count(params) :: pos_integer
-  def page_count(%{count: count, per_page: per_page}) do
+  @spec page_count(Params.t()) :: pages
+  def page_count(%Params{count: count, per_page: per_page}) do
     if rem(count, per_page) > 0 do
       div(count, per_page) + 1
     else
@@ -43,28 +41,28 @@ defmodule Exzeitable.HTML.Pagination do
     end
   end
 
-  @spec paginate_button(params, name, pos_integer, pos_integer) :: {:safe, iolist}
-  defp paginate_button(assigns, :next, page, pages) when page == pages do
-    assigns
+  @spec paginate_button(Params.t(), name, page, pages) :: {:safe, iolist}
+  defp paginate_button(%Params{} = params, :next, page, pages) when page == pages do
+    params
     |> text(:next)
     |> cont(:a, class: "exz-pagination-a", tabindex: "-1")
     |> cont(:li, class: "exz-pagination-li-disabled")
   end
 
-  defp paginate_button(assigns, :previous, 1, _pages) do
-    assigns
+  defp paginate_button(%Params{} = params, :previous, 1, _pages) do
+    params
     |> text(:previous)
     |> cont(:a, class: "exz-pagination-a", tabindex: "-1")
     |> cont(:li, class: "exz-pagination-li-disabled")
   end
 
-  defp paginate_button(_assigns, :dots, _page, _pages) do
+  defp paginate_button(_params, :dots, _page, _pages) do
     cont("....", :a, class: "exz-pagination-a exz-pagination-width", tabindex: "-1")
     |> cont(:li, class: "exz-pagination-li-disabled")
   end
 
-  defp paginate_button(assigns, :next, page, _pages) do
-    assigns
+  defp paginate_button(%Params{} = params, :next, page, _pages) do
+    params
     |> text(:next)
     |> cont(:a,
       class: "exz-pagination-a",
@@ -75,8 +73,8 @@ defmodule Exzeitable.HTML.Pagination do
     |> cont(:li, class: "exz-pagination-li")
   end
 
-  defp paginate_button(assigns, :previous, page, _pages) do
-    assigns
+  defp paginate_button(%Params{} = params, :previous, page, _pages) do
+    params
     |> text(:previous)
     |> cont(:a,
       class: "exz-pagination-a",
@@ -87,12 +85,12 @@ defmodule Exzeitable.HTML.Pagination do
     |> cont(:li, class: "exz-pagination-li")
   end
 
-  defp paginate_button(_assigns, page, page, _pages) when is_integer(page) do
+  defp paginate_button(_params, page, page, _pages) when is_integer(page) do
     cont(page, :a, class: "exz-pagination-a exz-pagination-width")
     |> cont(:li, class: "exz-pagination-li-active")
   end
 
-  defp paginate_button(_assigns, page, _page, _pages) when is_integer(page) do
+  defp paginate_button(_params, page, _page, _pages) when is_integer(page) do
     cont(page, :a,
       class: "exz-pagination-a exz-pagination-width",
       style: "cursor: pointer",

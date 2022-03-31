@@ -4,8 +4,20 @@ defmodule Exzeitable.HTML.PaginationTest do
   use ExUnitProperties
 
   alias Exzeitable.HTML.Pagination
+  alias Exzeitable.Params
+  alias TestWeb.Post
 
-  @params %{module: TestWeb.PostTable, text: Exzeitable.Text.Default, assigns: %{}}
+  @params %Params{
+    query: from(p in Post, preload: [:user]),
+    repo: TestWeb.Repo,
+    routes: TestWeb.Router.Helpers,
+    path: :post_path,
+    fields: [title: [], content: []],
+    module: TestWeb.PostTable,
+    text: Exzeitable.Text.Default,
+    assigns: %{},
+    csrf_token: Phoenix.Controller.get_csrf_token()
+  }
 
   describe "filter_pages/2" do
     test "returns no more than 7 buttons no matter the entry" do
@@ -41,11 +53,11 @@ defmodule Exzeitable.HTML.PaginationTest do
 
   describe "page_count/1" do
     test "counts the number of pages" do
-      assert 2 = Pagination.page_count(%{count: 10, per_page: 5})
+      assert 2 = Pagination.page_count(%Params{@params | count: 10, per_page: 5})
     end
 
     test "counts partial pages" do
-      assert 3 = Pagination.page_count(%{count: 11, per_page: 5})
+      assert 3 = Pagination.page_count(%Params{@params | count: 11, per_page: 5})
     end
 
     property "always returns a positive integer" do

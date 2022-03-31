@@ -7,8 +7,6 @@
 # General application configuration
 import Config
 
-config :stream_data, max_runs: 1000
-
 # Configure your database
 config :exzeitable, TestWeb.Repo,
   username: "postgres",

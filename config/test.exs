@@ -25,6 +25,8 @@ config :exzeitable, TestWeb.Endpoint,
 # In test we don't send emails.
 config :exzeitable, Exzeitable.Mailer, adapter: Swoosh.Adapters.Test
 
+config :stream_data, max_runs: 1000
+
 # Print only warnings and errors during test
 config :logger, level: :warn
 

@@ -1,4 +1,4 @@
-defmodule Exzeitable.Parameters.ParameterError do
+defmodule Exzeitable.Params.ParameterError do
   defexception [:parameter, :message]
 
   def message(%{parameter: :repo}) do
