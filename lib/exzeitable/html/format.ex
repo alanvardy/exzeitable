@@ -2,6 +2,8 @@ defmodule Exzeitable.HTML.Format do
   @moduledoc "Formatting text"
   use Exzeitable.HTML.Helpers
 
+  alias Exzeitable.Params
+
   @doc """
   If function: true, will pass the entry to the function of the same name as the entry
   Else just output the field
@@ -10,9 +12,11 @@ defmodule Exzeitable.HTML.Format do
   @spec field(map, atom, map) :: String.t() | {:safe, iolist}
   def field(entry, key, %{
         socket: socket,
-        fields: fields,
-        module: module,
-        assigns: assigns
+        params: %Params{
+          fields: fields,
+          module: module,
+          assigns: assigns
+        }
       }) do
     if Kernel.get_in(fields, [key, :function]) do
       socket = smush_assigns_together(socket, assigns)
@@ -27,12 +31,12 @@ defmodule Exzeitable.HTML.Format do
   # coveralls-ignore-stop
 
   @doc "Will output the user supplied label or fall back on the atom"
-  @spec header(map, {atom, map}) :: String.t()
-  def header(_assigns, {_key, %{label: label}}) when is_binary(label), do: label
+  @spec header(Params.t(), {atom, map}) :: String.t()
+  def header(_params, {_key, %{label: label}}) when is_binary(label), do: label
 
-  def header(assigns, {:actions, _map}), do: text(assigns, :actions)
+  def header(%Params{} = params, {:actions, _map}), do: text(params, :actions)
 
-  def header(_assigns, {key, _map}) do
+  def header(_params, {key, _map}) do
     key
     |> Atom.to_string()
     |> String.replace("_", " ")
@@ -49,6 +53,7 @@ defmodule Exzeitable.HTML.Format do
   end
 
   # The default formatter
+  @spec format_field(any) :: String.t()
   def format_field(value) do
     to_string(value)
   end

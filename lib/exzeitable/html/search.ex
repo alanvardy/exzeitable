@@ -3,9 +3,11 @@ defmodule Exzeitable.HTML.Search do
 
   use Exzeitable.HTML.Helpers
 
+  alias Exzeitable.Params
+
   @spec build(map) :: {:safe, iolist}
-  def build(%{debounce: debounce} = assigns) do
-    if search_enabled?(assigns) do
+  def build(%{params: %Params{debounce: debounce} = params}) do
+    if search_enabled?(params) do
       form_for(
         :search,
         "#",
@@ -18,11 +20,11 @@ defmodule Exzeitable.HTML.Search do
         fn f ->
           [
             text_input(f, :search,
-              placeholder: text(assigns, :search),
+              placeholder: text(params, :search),
               class: "exz-search-field",
               phx_debounce: debounce
             ),
-            counter(assigns)
+            counter(params)
           ]
           |> cont(:div, class: "exz-search-field-wrapper")
         end
@@ -33,14 +35,14 @@ defmodule Exzeitable.HTML.Search do
     end
   end
 
-  defp counter(%{count: count}) do
+  defp counter(%Params{count: count}) do
     count
     |> cont(:span, class: "exz-counter-field")
     |> cont(:div, class: "exz-counter-field-wrapper")
   end
 
   # Returns true if any of the fields have search enabled
-  defp search_enabled?(%{fields: fields}) do
+  defp search_enabled?(%Params{fields: fields}) do
     fields
     |> Enum.filter(fn {_k, field} -> Map.get(field, :search) end)
     |> Enum.any?()

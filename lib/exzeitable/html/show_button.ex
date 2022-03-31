@@ -3,22 +3,23 @@ defmodule Exzeitable.HTML.ShowButton do
   use Exzeitable.HTML.Helpers
 
   alias Exzeitable.HTML.{Filter, Format}
+  alias Exzeitable.Params
 
-  @spec show_buttons(map) :: [any()] | String.t()
-  def show_buttons(%{disable_hide: true}), do: ""
-  def show_buttons(%{show_field_buttons: false}), do: ""
+  @spec show_buttons(Params.t()) :: [any()] | String.t()
+  def show_buttons(%Params{disable_hide: true}), do: ""
+  def show_buttons(%Params{show_field_buttons: false}), do: ""
 
-  def show_buttons(assigns) do
-    assigns
-    |> Map.fetch!(:fields)
+  def show_buttons(%Params{fields: fields} = params) do
+    fields
     |> Filter.fields_where(:hidden)
-    |> Enum.map(fn field -> build_show_button(assigns, field) end)
+    |> Enum.map(&build_show_button(params, &1))
   end
 
-  def build_show_button(assigns, {key, _value} = field) do
-    name = Format.header(assigns, field)
+  @spec build_show_button(Params.t(), {atom, map}) :: {:safe, iolist}
+  def build_show_button(%Params{} = params, {key, _value} = field) do
+    name = Format.header(params, field)
 
-    assigns
+    params
     |> text(:show_field, name)
     |> cont(:a,
       class: "exz-show-button",
@@ -27,11 +28,11 @@ defmodule Exzeitable.HTML.ShowButton do
     )
   end
 
-  @spec build_show_hide_fields_button(map) :: {:safe, iolist} | String.t()
-  def build_show_hide_fields_button(%{disable_hide: true}), do: ""
+  @spec build_show_hide_fields_button(Params.t()) :: {:safe, iolist} | String.t()
+  def build_show_hide_fields_button(%Params{disable_hide: true}), do: ""
 
-  def build_show_hide_fields_button(%{show_field_buttons: true} = assigns) do
-    assigns
+  def build_show_hide_fields_button(%Params{show_field_buttons: true} = params) do
+    params
     |> text(:hide_field_buttons)
     |> cont(:a,
       class: "exz-info-button",
@@ -39,8 +40,8 @@ defmodule Exzeitable.HTML.ShowButton do
     )
   end
 
-  def build_show_hide_fields_button(assigns) do
-    assigns
+  def build_show_hide_fields_button(%Params{} = params) do
+    params
     |> text(:show_field_buttons)
     |> cont(:a,
       class: "exz-info-button",

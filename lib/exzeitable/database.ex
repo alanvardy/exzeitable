@@ -4,12 +4,12 @@ defmodule Exzeitable.Database do
 
   @doc "Get the data using query"
   @spec get_records(map) :: [map]
-  def get_records(%{query: query} = assigns) do
+  def get_records(%{query: query} = params) do
     query
-    |> order_query(assigns)
-    |> search_query(assigns)
-    |> paginate_query(assigns)
-    |> get_query(assigns)
+    |> order_query(params)
+    |> search_query(params)
+    |> paginate_query(params)
+    |> get_query(params)
   end
 
   @spec order_query(Ecto.Query.t(), map) :: Ecto.Query.t()
@@ -56,12 +56,12 @@ defmodule Exzeitable.Database do
 
   @doc "I want to just do a select: count(c.id)"
   @spec get_record_count(map) :: integer
-  def get_record_count(%{query: query} = assigns) do
+  def get_record_count(%{query: query} = params) do
     query
     |> select_ids()
-    |> search_query(assigns)
+    |> search_query(params)
     |> remove_order()
-    |> get_query(assigns)
+    |> get_query(params)
     |> List.first()
   end
 

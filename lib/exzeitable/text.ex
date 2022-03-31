@@ -4,6 +4,9 @@ defmodule Exzeitable.Text do
 
   Default text is in Exzeitable.Text.Default
   """
+
+  alias Exzeitable.Params
+
   @callback actions(map) :: String.t()
   @callback new(map) :: String.t()
   @callback show(map) :: String.t()
@@ -20,13 +23,13 @@ defmodule Exzeitable.Text do
   @callback hide(map) :: String.t()
   @callback sort(map) :: String.t()
 
-  @spec text(map, atom) :: String.t()
-  def text(%{text: module, assigns: assigns}, function) do
+  @spec text(Params.t(), atom) :: String.t()
+  def text(%Params{text: module, assigns: assigns}, function) do
     apply(module, function, [assigns])
   end
 
-  @spec text(map, atom, String.t()) :: String.t()
-  def text(%{text: module, assigns: assigns}, function, parameter) do
+  @spec text(Params.t(), atom, String.t()) :: String.t()
+  def text(%Params{text: module, assigns: assigns}, function, parameter) do
     apply(module, function, [assigns, parameter])
   end
 end

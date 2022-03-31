@@ -21,88 +21,115 @@ defmodule Exzeitable.HTML.ActionButton do
   """
   use Exzeitable.HTML.Helpers
 
+  alias Exzeitable.Params
+
   @type action :: :new | :delete | :show | :edit
 
   @doc "Builds an individual button, takes an atom representing the action, and the assigns map"
   @spec build(:new, map) :: {:safe, iolist}
   @spec build(action, atom, map) :: {:safe, iolist}
-  def build(:new, %{parent: nil} = assigns) do
-    %{
-      socket: socket,
-      routes: routes,
-      path: path,
-      action_buttons: action_buttons
-    } = assigns
-
+  def build(
+        :new,
+        %{
+          socket: socket,
+          params:
+            %Params{
+              parent: nil,
+              routes: routes,
+              path: path,
+              action_buttons: action_buttons
+            } = params
+        }
+      ) do
     if Enum.member?(action_buttons, :new) do
-      apply(routes, path, [socket, :new])
-      |> html(:new, assigns)
+      [socket, :new]
+      |> then(&apply(routes, path, &1))
+      |> html(:new, params)
     else
       ""
     end
   end
 
-  def build(:new, %{parent: parent} = assigns) do
-    %{
-      socket: socket,
-      routes: routes,
-      path: path,
-      action_buttons: action_buttons
-    } = assigns
-
+  def build(
+        :new,
+        %{
+          socket: socket,
+          params:
+            %Params{
+              parent: parent,
+              routes: routes,
+              path: path,
+              action_buttons: action_buttons
+            } = params
+        }
+      ) do
     if Enum.member?(action_buttons, :new) do
-      apply(routes, path, [socket, :new, parent])
-      |> html(:new, assigns)
+      [socket, :new, parent]
+      |> then(&apply(routes, path, &1))
+      |> html(:new, params)
     else
       ""
     end
   end
 
-  def build(:delete, entry, %{belongs_to: nil} = assigns) do
-    %{socket: socket, routes: routes, path: path} = assigns
-
-    apply(routes, path, [socket, :delete, entry])
-    |> html(:delete, assigns)
+  def build(
+        :delete,
+        entry,
+        %{socket: socket, params: %Params{belongs_to: nil, routes: routes, path: path} = params}
+      ) do
+    [socket, :delete, entry]
+    |> then(&apply(routes, path, &1))
+    |> html(:delete, params)
   end
 
-  def build(:delete, entry, assigns) do
-    %{socket: socket, routes: routes, path: path} = assigns
-
-    params = [socket, :delete, parent_for(entry, assigns), entry]
-
-    apply(routes, path, params)
-    |> html(:delete, assigns)
+  def build(
+        :delete,
+        entry,
+        %{socket: socket, params: %Params{routes: routes, path: path} = params}
+      ) do
+    [socket, :delete, parent_for(entry, params), entry]
+    |> then(&apply(routes, path, &1))
+    |> html(:delete, params)
   end
 
-  def build(:show, entry, %{belongs_to: nil} = assigns) do
-    %{socket: socket, routes: routes, path: path} = assigns
-
-    apply(routes, path, [socket, :show, entry])
-    |> html(:show, assigns)
+  def build(
+        :show,
+        entry,
+        %{socket: socket, params: %Params{belongs_to: nil, routes: routes, path: path} = params}
+      ) do
+    [socket, :show, entry]
+    |> then(&apply(routes, path, &1))
+    |> html(:show, params)
   end
 
-  def build(:show, entry, assigns) do
-    %{socket: socket, routes: routes, path: path} = assigns
-
-    params = [socket, :show, parent_for(entry, assigns), entry]
-
-    apply(routes, path, params)
-    |> html(:show, assigns)
+  def build(
+        :show,
+        entry,
+        %{socket: socket, params: %Params{routes: routes, path: path} = params}
+      ) do
+    [socket, :show, parent_for(entry, params), entry]
+    |> then(&apply(routes, path, &1))
+    |> html(:show, params)
   end
 
-  def build(:edit, entry, %{belongs_to: nil} = assigns) do
-    %{socket: socket, routes: routes, path: path} = assigns
-
-    apply(routes, path, [socket, :edit, entry])
-    |> html(:edit, assigns)
+  def build(
+        :edit,
+        entry,
+        %{socket: socket, params: %Params{belongs_to: nil, routes: routes, path: path} = params}
+      ) do
+    [socket, :edit, entry]
+    |> then(&apply(routes, path, &1))
+    |> html(:edit, params)
   end
 
-  def build(:edit, entry, assigns) do
-    %{socket: socket, routes: routes, path: path} = assigns
-    params = [socket, :edit, parent_for(entry, assigns), entry]
-
-    apply(routes, path, params)
-    |> html(:edit, assigns)
+  def build(
+        :edit,
+        entry,
+        %{socket: socket, params: %Params{routes: routes, path: path} = params}
+      ) do
+    [socket, :edit, parent_for(entry, params), entry]
+    |> then(&apply(routes, path, &1))
+    |> html(:edit, params)
   end
 
   # For custom actions such as archive
@@ -110,42 +137,43 @@ defmodule Exzeitable.HTML.ActionButton do
     apply(module, custom_action, [socket, entry, csrf_token])
   end
 
-  @spec html(String.t(), action, map) :: {:safe, iolist}
-  defp html(route, :new, assigns) do
-    assigns
+  @spec html(String.t(), action, Params.t()) :: {:safe, iolist}
+  defp html(route, :new, %Params{} = params) do
+    params
     |> text(:new)
     |> link(to: route, class: "exz-action-new")
   end
 
-  defp html(route, :show, assigns) do
-    assigns
+  defp html(route, :show, %Params{} = params) do
+    params
     |> text(:show)
     |> link(to: route, class: "exz-action-show")
   end
 
-  defp html(route, :edit, assigns) do
-    assigns
+  defp html(route, :edit, %Params{} = params) do
+    params
     |> text(:edit)
     |> link(to: route, class: "exz-action-edit")
   end
 
-  defp html(route, :delete, %{csrf_token: csrf_token} = assigns) do
-    assigns
+  defp html(route, :delete, %Params{csrf_token: csrf_token} = params) do
+    params
     |> text(:delete)
     |> link(
       to: route,
       class: "exz-action-delete",
       method: :delete,
-      "data-confirm": text(assigns, :confirm_action),
+      "data-confirm": text(params, :confirm_action),
       csrf_token: csrf_token
     )
   end
 
   # Gets the parent that the nested resource belongs to
-  def parent_for(entry, %{belongs_to: belongs_to}) do
+  @spec parent_for(map, Params.t()) :: struct
+  def parent_for(entry, %Params{belongs_to: belongs_to}) do
     case Map.get(entry, belongs_to) do
       nil -> raise "You need to select the association in :belongs_to"
-      result -> result
+      result when is_struct(result) -> result
     end
   end
 end
