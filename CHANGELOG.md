@@ -4,6 +4,7 @@
 
 - General refactoring
 - Added Params struct for representing state
+- Fix remaining `use Mix.Config`
 
 ### v0.5.3
 

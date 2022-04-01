@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :exzeitable, TestWeb.Repo,
   database: "exzeitable_system_test",
