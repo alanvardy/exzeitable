@@ -5,6 +5,7 @@
 - General refactoring
 - Added Params struct for representing state
 - Fix remaining `use Mix.Config`
+- Cleanup stray files
 
 ### v0.5.3
 
