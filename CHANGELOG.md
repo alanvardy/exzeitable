@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- General refactoring
+- Added Params struct for representing state
+
 ### v0.5.3
 
 - Add formatter to field options
