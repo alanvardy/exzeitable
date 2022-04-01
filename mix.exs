@@ -67,7 +67,8 @@ defmodule Exzeitable.MixProject do
         "lib/exzeitable.ex",
         "lib/exzeitable",
         "mix.exs",
-        "README.md"
+        "README.md",
+        "CHANGELOG.md"
       ]
     ]
   end
@@ -75,15 +76,15 @@ defmodule Exzeitable.MixProject do
   defp docs do
     [
       source_ref: "v#{@version}",
-      main: "README",
+      main: "README.md",
       canonical: "http://hexdocs.pm/exzeitable",
       source_url: "https://github.com/alanvardy/exzeitable",
       logo: "screenshot.png",
       filter_prefix: "Exzeitable",
       extras: [
-        "README.md": [filename: "README"],
-        "CHANGELOG.md": [filename: "CHANGELOG"],
-        "CSS.md": [filename: "CSS"]
+        "README.md": [filename: "README.md"],
+        "CHANGELOG.md": [filename: "CHANGELOG.md"],
+        "CSS.md": [filename: "CSS.md"]
       ]
     ]
   end
