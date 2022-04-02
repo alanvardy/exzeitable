@@ -2,7 +2,7 @@ name: Credo
 on: [push, pull_request]
 
 jobs:
-  test:
+  credo:
     runs-on: ubuntu-latest
     services:
       db:

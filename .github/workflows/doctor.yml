@@ -1,8 +1,8 @@
-name: Cypress
+name: Doctor
 on: [push, pull_request]
 
 jobs:
-  cypress:
+  doctor:
     runs-on: ubuntu-latest
     services:
       db:
@@ -22,13 +22,12 @@ jobs:
           path: |
             deps
             _build
-          key: ${{ runner.os }}-cypress-${{ hashFiles('**/mix.lock') }}
+          key: ${{ runner.os }}-credo-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
-            ${{ runner.os }}-cypress-
+            ${{ runner.os }}-credo-
       - uses: erlef/setup-beam@v1
         with:
           otp-version: 24.2
           elixir-version: 1.13.3
       - run: mix deps.get
-      - run: mix assets.deploy
-      - run: mix cypress.run
+      - run: mix doctor

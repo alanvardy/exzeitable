@@ -1,8 +1,7 @@
 defmodule Exzeitable.HTML.Format do
   @moduledoc "Formatting text"
-  use Exzeitable.HTML.Helpers
 
-  alias Exzeitable.Params
+  alias Exzeitable.{Params, Text}
 
   @doc """
   If function: true, will pass the entry to the function of the same name as the entry
@@ -34,7 +33,7 @@ defmodule Exzeitable.HTML.Format do
   @spec header(Params.t(), {atom, map}) :: String.t()
   def header(_params, {_key, %{label: label}}) when is_binary(label), do: label
 
-  def header(%Params{} = params, {:actions, _map}), do: text(params, :actions)
+  def header(%Params{} = params, {:actions, _map}), do: Text.text(params, :actions)
 
   def header(_params, {key, _map}) do
     key
@@ -52,7 +51,7 @@ defmodule Exzeitable.HTML.Format do
     |> then(&Map.put(socket, :assigns, &1))
   end
 
-  # The default formatter
+  @doc "The default formatter"
   @spec format_field(any) :: String.t()
   def format_field(value) do
     to_string(value)

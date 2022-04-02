@@ -4,9 +4,9 @@ defmodule TestWeb.User do
   import Ecto.Changeset
 
   schema "users" do
-    field(:name, :string)
-    field(:age, :integer)
-    has_many(:posts, TestWeb.Post, on_delete: :delete_all)
+    field :name, :string
+    field :age, :integer
+    has_many :posts, TestWeb.Post, on_delete: :delete_all
 
     timestamps()
   end

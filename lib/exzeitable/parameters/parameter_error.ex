@@ -1,6 +1,9 @@
 defmodule Exzeitable.Params.ParameterError do
+  @moduledoc "An exception for missing or bad parameters"
   defexception [:parameter, :message]
 
+  @doc "Sets the correct message based on the missing parameter"
+  @impl true
   def message(%{parameter: :repo}) do
     "You need to set the repo, i.e. MyApp.Repo"
   end

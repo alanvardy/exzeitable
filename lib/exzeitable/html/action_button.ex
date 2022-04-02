@@ -19,10 +19,11 @@ defmodule Exzeitable.HTML.ActionButton do
     end
   ```
   """
-  use Exzeitable.HTML.Helpers
 
-  alias Exzeitable.Params
+  alias Exzeitable.{Params, Text}
+  alias Phoenix.HTML.Link
 
+  @typedoc "Controller action"
   @type action :: :new | :delete | :show | :edit
 
   @doc "Builds an individual button, takes an atom representing the action, and the assigns map"
@@ -46,7 +47,7 @@ defmodule Exzeitable.HTML.ActionButton do
       |> then(&apply(routes, path, &1))
       |> html(:new, params)
     else
-      ""
+      {:safe, [""]}
     end
   end
 
@@ -68,10 +69,11 @@ defmodule Exzeitable.HTML.ActionButton do
       |> then(&apply(routes, path, &1))
       |> html(:new, params)
     else
-      ""
+      {:safe, [""]}
     end
   end
 
+  @doc false
   def build(
         :delete,
         entry,
@@ -140,35 +142,35 @@ defmodule Exzeitable.HTML.ActionButton do
   @spec html(String.t(), action, Params.t()) :: {:safe, iolist}
   defp html(route, :new, %Params{} = params) do
     params
-    |> text(:new)
-    |> link(to: route, class: "exz-action-new")
+    |> Text.text(:new)
+    |> Link.link(to: route, class: "exz-action-new")
   end
 
   defp html(route, :show, %Params{} = params) do
     params
-    |> text(:show)
-    |> link(to: route, class: "exz-action-show")
+    |> Text.text(:show)
+    |> Link.link(to: route, class: "exz-action-show")
   end
 
   defp html(route, :edit, %Params{} = params) do
     params
-    |> text(:edit)
-    |> link(to: route, class: "exz-action-edit")
+    |> Text.text(:edit)
+    |> Link.link(to: route, class: "exz-action-edit")
   end
 
   defp html(route, :delete, %Params{csrf_token: csrf_token} = params) do
     params
-    |> text(:delete)
-    |> link(
+    |> Text.text(:delete)
+    |> Link.link(
       to: route,
       class: "exz-action-delete",
       method: :delete,
-      "data-confirm": text(params, :confirm_action),
+      "data-confirm": Text.text(params, :confirm_action),
       csrf_token: csrf_token
     )
   end
 
-  # Gets the parent that the nested resource belongs to
+  @doc "Gets the parent that the nested resource belongs to"
   @spec parent_for(map, Params.t()) :: struct
   def parent_for(entry, %Params{belongs_to: belongs_to}) do
     case Map.get(entry, belongs_to) do

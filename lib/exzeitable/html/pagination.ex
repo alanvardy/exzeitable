@@ -2,9 +2,9 @@ defmodule Exzeitable.HTML.Pagination do
   @moduledoc """
    For building out the pagination buttons above and below the table
   """
-  use Exzeitable.HTML.Helpers
 
-  alias Exzeitable.Params
+  alias Exzeitable.HTML.Helpers
+  alias Exzeitable.{Params, Text}
 
   @type name :: :next | :previous | :dots | pos_integer
   @type page :: pos_integer
@@ -19,8 +19,8 @@ defmodule Exzeitable.HTML.Pagination do
     next_button = paginate_button(params, :next, page, pages)
 
     ([previous_button] ++ numbered_buttons ++ [next_button])
-    |> cont(:ul, class: "exz-pagination-ul")
-    |> cont(:nav, class: "exz-pagination-nav")
+    |> Helpers.tag(:ul, class: "exz-pagination-ul")
+    |> Helpers.tag(:nav, class: "exz-pagination-nav")
   end
 
   # Handle the case where there is only a single page, just gives us some disabled buttons
@@ -44,70 +44,72 @@ defmodule Exzeitable.HTML.Pagination do
   @spec paginate_button(Params.t(), name, page, pages) :: {:safe, iolist}
   defp paginate_button(%Params{} = params, :next, page, pages) when page == pages do
     params
-    |> text(:next)
-    |> cont(:a, class: "exz-pagination-a", tabindex: "-1")
-    |> cont(:li, class: "exz-pagination-li-disabled")
+    |> Text.text(:next)
+    |> Helpers.tag(:a, class: "exz-pagination-a", tabindex: "-1")
+    |> Helpers.tag(:li, class: "exz-pagination-li-disabled")
   end
 
   defp paginate_button(%Params{} = params, :previous, 1, _pages) do
     params
-    |> text(:previous)
-    |> cont(:a, class: "exz-pagination-a", tabindex: "-1")
-    |> cont(:li, class: "exz-pagination-li-disabled")
+    |> Text.text(:previous)
+    |> Helpers.tag(:a, class: "exz-pagination-a", tabindex: "-1")
+    |> Helpers.tag(:li, class: "exz-pagination-li-disabled")
   end
 
   defp paginate_button(_params, :dots, _page, _pages) do
-    cont("....", :a, class: "exz-pagination-a exz-pagination-width", tabindex: "-1")
-    |> cont(:li, class: "exz-pagination-li-disabled")
+    "...."
+    |> Helpers.tag(:a, class: "exz-pagination-a exz-pagination-width", tabindex: "-1")
+    |> Helpers.tag(:li, class: "exz-pagination-li-disabled")
   end
 
   defp paginate_button(%Params{} = params, :next, page, _pages) do
     params
-    |> text(:next)
-    |> cont(:a,
+    |> Text.text(:next)
+    |> Helpers.tag(:a,
       class: "exz-pagination-a",
       style: "cursor: pointer",
       "phx-click": "change_page",
       "phx-value-page": page + 1
     )
-    |> cont(:li, class: "exz-pagination-li")
+    |> Helpers.tag(:li, class: "exz-pagination-li")
   end
 
   defp paginate_button(%Params{} = params, :previous, page, _pages) do
     params
-    |> text(:previous)
-    |> cont(:a,
+    |> Text.text(:previous)
+    |> Helpers.tag(:a,
       class: "exz-pagination-a",
       style: "cursor: pointer",
       "phx-click": "change_page",
       "phx-value-page": page - 1
     )
-    |> cont(:li, class: "exz-pagination-li")
+    |> Helpers.tag(:li, class: "exz-pagination-li")
   end
 
   defp paginate_button(_params, page, page, _pages) when is_integer(page) do
-    cont(page, :a, class: "exz-pagination-a exz-pagination-width")
-    |> cont(:li, class: "exz-pagination-li-active")
+    Helpers.tag(page, :a, class: "exz-pagination-a exz-pagination-width")
+    |> Helpers.tag(:li, class: "exz-pagination-li-active")
   end
 
   defp paginate_button(_params, page, _page, _pages) when is_integer(page) do
-    cont(page, :a,
+    Helpers.tag(page, :a,
       class: "exz-pagination-a exz-pagination-width",
       style: "cursor: pointer",
       "phx-click": "change_page",
       "phx-value-page": page
     )
-    |> cont(:li, class: "exz-pagination-li")
+    |> Helpers.tag(:li, class: "exz-pagination-li")
   end
 
+  @spec filter_pages(pos_integer, pos_integer) :: [pos_integer | :dots]
   @doc "Selects the page buttons we need for pagination"
-  def filter_pages(pages, _page) when pages <= 7, do: 1..pages
+  def filter_pages(pages, _page) when pages <= 7, do: Enum.to_list(1..pages)
 
   def filter_pages(pages, page) when page in [1, 2, 3, pages - 2, pages - 1, pages] do
     [1, 2, 3, :dots, pages - 2, pages - 1, pages]
   end
 
   def filter_pages(pages, page) do
-    [1, :dots] ++ [page - 1, page, page + 1] ++ [:dots, pages]
+    [1, :dots, page - 1, page, page + 1, :dots, pages]
   end
 end

@@ -4,9 +4,9 @@ defmodule TestWeb.Post do
   import Ecto.Changeset
 
   schema "posts" do
-    field(:title, :string)
-    field(:content, :string)
-    belongs_to(:user, TestWeb.User)
+    field :title, :string
+    field :content, :string
+    belongs_to :user, TestWeb.User
 
     timestamps()
   end
