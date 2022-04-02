@@ -2,7 +2,7 @@ name: Dialyzer
 on: [push, pull_request]
 
 jobs:
-  test:
+  dialyzer:
     runs-on: ubuntu-latest
     services:
       db:

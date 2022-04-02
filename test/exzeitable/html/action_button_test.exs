@@ -146,7 +146,7 @@ defmodule Exzeitable.HTML.ActionButtonTest do
     test "does not build new action button when it is not required", %{conn: conn} do
       assigns = %{socket: conn, params: @params}
 
-      assert "" = ActionButton.build(:new, assigns)
+      assert {:safe, [""]} = ActionButton.build(:new, assigns)
     end
 
     test "can build a show action button", %{conn: conn} do

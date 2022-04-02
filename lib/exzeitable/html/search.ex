@@ -1,14 +1,15 @@
 defmodule Exzeitable.HTML.Search do
   @moduledoc "Build the search field part of the HTML"
 
-  use Exzeitable.HTML.Helpers
+  alias Exzeitable.HTML.Helpers
+  alias Exzeitable.{Params, Text}
+  alias Phoenix.HTML.Form
 
-  alias Exzeitable.Params
-
+  @doc "Returns the HTML search form"
   @spec build(map) :: {:safe, iolist}
   def build(%{params: %Params{debounce: debounce} = params}) do
     if search_enabled?(params) do
-      form_for(
+      Form.form_for(
         :search,
         "#",
         # onkeypress to disable enter key in search field
@@ -19,26 +20,26 @@ defmodule Exzeitable.HTML.Search do
         ],
         fn f ->
           [
-            text_input(f, :search,
-              placeholder: text(params, :search),
+            Form.text_input(f, :search,
+              placeholder: Text.text(params, :search),
               class: "exz-search-field",
               phx_debounce: debounce
             ),
             counter(params)
           ]
-          |> cont(:div, class: "exz-search-field-wrapper")
+          |> Helpers.tag(:div, class: "exz-search-field-wrapper")
         end
       )
-      |> cont(:div, class: "exz-search-wrapper")
+      |> Helpers.tag(:div, class: "exz-search-wrapper")
     else
-      ""
+      {:safe, [""]}
     end
   end
 
   defp counter(%Params{count: count}) do
     count
-    |> cont(:span, class: "exz-counter-field")
-    |> cont(:div, class: "exz-counter-field-wrapper")
+    |> Helpers.tag(:span, class: "exz-counter-field")
+    |> Helpers.tag(:div, class: "exz-counter-field-wrapper")
   end
 
   # Returns true if any of the fields have search enabled

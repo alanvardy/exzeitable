@@ -19,6 +19,8 @@ defmodule Exzeitable.MixProject do
         dialyzer: :test,
         credo: :test,
         check: :test,
+        format: :test,
+        doctor: :test,
         docs: :test,
         "coveralls.html": :test,
         "coveralls.json": :test,
@@ -121,7 +123,8 @@ defmodule Exzeitable.MixProject do
       {:excoveralls, "~> 0.10", only: :test, runtime: false},
       {:ex_doc, "~> 0.21", only: [:dev, :test], runtime: false},
       {:inch_ex, github: "rrrene/inch_ex", only: [:test]},
-      {:stream_data, "~> 0.5", only: :test}
+      {:stream_data, "~> 0.5", only: :test},
+      {:doctor, "~> 0.18.0", only: :test}
     ]
   end
 

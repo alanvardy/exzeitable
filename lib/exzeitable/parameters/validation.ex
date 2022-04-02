@@ -24,6 +24,7 @@ defmodule Exzeitable.Params.Validations do
     session
   end
 
+  @doc "Raises if any of the required keys are not present"
   @spec required_keys_present(map, [atom]) :: map
   def required_keys_present(params, required_keys) do
     keys = Map.keys(params)

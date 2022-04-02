@@ -105,6 +105,7 @@ defmodule Exzeitable.Params do
     end
   end
 
+  @doc "Creates a new params struct, holds state for liveview"
   @spec new(keyword, keyword, atom) :: map
   def new(function_opts, module_opts, module) do
     fields =

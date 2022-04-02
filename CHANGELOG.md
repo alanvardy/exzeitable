@@ -6,6 +6,7 @@
 - Added Params struct for representing state
 - Fix remaining `use Mix.Config`
 - Cleanup stray files
+- Add Doctor
 
 ### v0.5.3
 

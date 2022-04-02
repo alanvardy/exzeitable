@@ -1,10 +1,10 @@
 defmodule Exzeitable.HTML.Table do
   @moduledoc "Builds the table part of the HTML"
-  use Exzeitable.HTML.Helpers
+  alias Exzeitable.{Params, Text}
+  alias Exzeitable.HTML.{ActionButton, Filter, Format, Helpers}
+  alias Phoenix.HTML.Tag
 
-  alias Exzeitable.Params
-  alias Exzeitable.HTML.{ActionButton, Filter, Format}
-
+  @doc "Output the table as HTML"
   @spec build(map) :: {:safe, iolist}
   def build(%{params: %Params{fields: fields, list: list} = params} = assigns) do
     head =
@@ -12,17 +12,17 @@ defmodule Exzeitable.HTML.Table do
       |> Filter.fields_where_not(:hidden)
       |> add_actions_header(assigns)
       |> Enum.map(fn column -> table_header(column, params) end)
-      |> cont(:thead, [])
+      |> Helpers.tag(:thead, [])
 
     body =
       list
       |> Enum.map(fn entry -> build_row(entry, assigns) end)
-      |> cont(:tbody, [])
+      |> Helpers.tag(:tbody, [])
 
     [head, body]
-    |> cont(:table, class: "exz-table")
+    |> Helpers.tag(:table, class: "exz-table")
     |> maybe_nothing_found(params)
-    |> cont(:div, class: "exz-table-wrapper")
+    |> Helpers.tag(:div, class: "exz-table-wrapper")
   end
 
   @spec add_actions_header(keyword, map) :: keyword
@@ -35,7 +35,7 @@ defmodule Exzeitable.HTML.Table do
   @spec table_header({atom, map}, Params.t()) :: {:safe, iolist}
   defp table_header(field, %Params{} = params) do
     [Format.header(params, field), hide_link_for(field, params), sort_link_for(field, params)]
-    |> cont(:th, [])
+    |> Helpers.tag(:th, [])
   end
 
   @spec build_row(atom, map) :: {:safe, iolist}
@@ -45,10 +45,11 @@ defmodule Exzeitable.HTML.Table do
       |> Filter.fields_where_not(:hidden)
       |> Keyword.keys()
       |> Enum.map(fn key -> Format.field(entry, key, assigns) end)
-      |> Enum.map(fn value -> cont(value, :td, []) end)
+      |> Enum.map(fn value -> Helpers.tag(value, :td, []) end)
 
-    [values | build_actions(entry, assigns)]
-    |> cont(:tr, [])
+    values
+    |> Kernel.++([build_actions(entry, assigns)])
+    |> Helpers.tag(:tr, [])
   end
 
   @spec build_actions(atom, map) :: {:safe, iolist}
@@ -59,17 +60,17 @@ defmodule Exzeitable.HTML.Table do
     |> Map.get(:action_buttons)
     |> Kernel.--([:new])
     |> Enum.map(fn action -> ActionButton.build(action, entry, assigns) end)
-    |> cont(:td, [])
+    |> Helpers.tag(:td, [])
   end
 
-  @spec hide_link_for({atom, map}, Params.t()) :: {:safe, iolist} | String.t()
-  defp hide_link_for({:actions, _value}, _params), do: ""
-  defp hide_link_for(_, %Params{disable_hide: true}), do: ""
+  @spec hide_link_for({atom, map}, Params.t()) :: {:safe, iolist}
+  defp hide_link_for({:actions, _value}, _params), do: {:safe, [""]}
+  defp hide_link_for(_, %Params{disable_hide: true}), do: {:safe, [""]}
 
   defp hide_link_for({key, _value}, %Params{} = params) do
     params
-    |> text(:hide)
-    |> cont(:a,
+    |> Text.text(:hide)
+    |> Helpers.tag(:a,
       class: "exz-hide-link",
       "phx-click": "hide_column",
       "phx-value-column": key
@@ -77,11 +78,11 @@ defmodule Exzeitable.HTML.Table do
   end
 
   @spec sort_link_for({atom, map}, Params.t()) :: {:safe, iolist}
-  defp sort_link_for({:actions, _v}, _params), do: ""
-  defp sort_link_for({_key, %{order: false}}, _params), do: ""
+  defp sort_link_for({:actions, _v}, _params), do: {:safe, [""]}
+  defp sort_link_for({_key, %{order: false}}, _params), do: {:safe, [""]}
 
   defp sort_link_for({key, _v}, %Params{order: order} = params) do
-    sort = text(params, :sort)
+    sort = Text.text(params, :sort)
 
     label =
       case order do
@@ -90,7 +91,7 @@ defmodule Exzeitable.HTML.Table do
         _ -> "#{sort}  "
       end
 
-    content_tag(:a, label,
+    Tag.content_tag(:a, label,
       class: "exz-sort-link",
       "phx-click": "sort_column",
       "phx-value-column": key
@@ -100,8 +101,8 @@ defmodule Exzeitable.HTML.Table do
   defp maybe_nothing_found(content, %Params{list: []} = params) do
     nothing_found =
       params
-      |> text(:nothing_found)
-      |> cont(:div, class: "exz-nothing-found")
+      |> Text.text(:nothing_found)
+      |> Helpers.tag(:div, class: "exz-nothing-found")
 
     [content, nothing_found]
   end

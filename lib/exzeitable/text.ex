@@ -23,11 +23,13 @@ defmodule Exzeitable.Text do
   @callback hide(map) :: String.t()
   @callback sort(map) :: String.t()
 
+  @doc "Call the text function with assigns"
   @spec text(Params.t(), atom) :: String.t()
   def text(%Params{text: module, assigns: assigns}, function) do
     apply(module, function, [assigns])
   end
 
+  @doc "Call the text function with assigns and an extra parameter"
   @spec text(Params.t(), atom, String.t()) :: String.t()
   def text(%Params{text: module, assigns: assigns}, function, parameter) do
     apply(module, function, [assigns, parameter])
