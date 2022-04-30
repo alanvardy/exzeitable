@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add 'mix exzeitable.gen.migration` task for adding pg_trgm extension migration file
 - General refactoring
 - Added Params struct for representing state
 - Fix remaining `use Mix.Config`
