@@ -54,7 +54,7 @@ defmodule Exzeitable.MixProject do
       ]
     else
       [
-        mod: {Exzeitable.Application, []},
+        mod: {TestWeb.Application, []},
         extra_applications: [:logger, :postgrex, :ecto, :timex, :runtime_tools]
       ]
     end
@@ -68,6 +68,7 @@ defmodule Exzeitable.MixProject do
       files: [
         "lib/exzeitable.ex",
         "lib/exzeitable",
+        "lib/mix",
         "mix.exs",
         "README.md",
         "CHANGELOG.md"

@@ -59,27 +59,10 @@ end
 
 Search requires the `pg_trgm` extension for Postgres.
 
-Create a new migration
+Generate a new migration file and migrate to add the extension to Postgres.
 
 ```bash
-mix ecto.gen.migration add_pg_trgm
-```
-
-And add the following code to your migration file
-
-```elixir
-  def up do
-    execute("CREATE EXTENSION pg_trgm")
-  end
-
-  def down do
-    execute("DROP EXTENSION pg_trgm")
-  end
-```
-
-Then migrate
-
-```bash
+mix exzeitable.gen.migration
 mix ecto.migrate
 ```
 
