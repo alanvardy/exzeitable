@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+### v0.5.4 (2022-04-30)
+
 - Add 'mix exzeitable.gen.migration` task for adding pg_trgm extension migration file
 - General refactoring
 - Added Params struct for representing state
@@ -9,7 +11,7 @@
 - Cleanup stray files
 - Add Doctor
 
-### v0.5.3
+### v0.5.3 (2022-03-30)
 
 - Add formatter to field options
 - Update Erlang to 24.2
