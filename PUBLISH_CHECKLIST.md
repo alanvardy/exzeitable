@@ -10,6 +10,7 @@ This is just for my own use to reduce friction in publishing after I have been a
 6. Publish
 
 ```bash
-git checkout master
+git checkout main
+git pull
 mix hex.publish
 ```
