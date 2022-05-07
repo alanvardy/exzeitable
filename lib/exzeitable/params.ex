@@ -122,6 +122,5 @@ defmodule Exzeitable.Params do
     |> Validations.paired_options()
     |> Validations.required_keys_present(@enforce_keys)
     |> then(&struct!(__MODULE__, &1))
-    |> then(&%{"params" => &1})
   end
 end
