@@ -40,7 +40,7 @@ defmodule Exzeitable do
         Helpers.live_render(conn, __MODULE__,
           # Live component ID
           id: Keyword.get(unquote(opts), :id, 1),
-          session: Params.new(opts, unquote(opts), __MODULE__)
+          session: %{"params" => Params.new(opts, unquote(opts), __MODULE__)}
         )
       end
 
@@ -49,9 +49,21 @@ defmodule Exzeitable do
       ###########################
 
       @doc "Initial setup on page load"
-      @spec mount(atom, map, socket) :: {:ok, socket}
+      @spec mount(:not_mounted_at_router | map, map, socket) :: {:ok, socket}
       def mount(:not_mounted_at_router, assigns, socket) do
         assigns = Map.new(assigns, fn {k, v} -> {String.to_atom(k), v} end)
+
+        socket =
+          socket
+          |> assign(assigns)
+          |> maybe_get_records()
+          |> maybe_set_refresh()
+
+        {:ok, socket}
+      end
+
+      def mount(_map, assigns, socket) do
+        assigns = %{params: Params.new([], unquote(opts), __MODULE__)}
 
         socket =
           socket
@@ -136,9 +148,7 @@ defmodule Exzeitable do
         {:noreply, maybe_get_records(socket)}
       end
 
-      defp maybe_get_records(socket) do
-        %{assigns: %{params: params}} = socket
-
+      defp maybe_get_records(%{assigns: %{params: params}} = socket) do
         if connected?(socket) do
           socket
           |> assign_params(:list, Database.get_records(params))

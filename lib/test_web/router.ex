@@ -26,10 +26,9 @@ defmodule TestWeb.Router do
     get("/posts/disable_hide", PostController, :disable_hide)
     get("/posts/no_pagination", PostController, :no_pagination)
     resources("/posts", PostController)
-  end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", TestWeb do
-  #   pipe_through :api
-  # end
+    live_session(:default) do
+      live "/live_session_users", UserTable
+    end
+  end
 end

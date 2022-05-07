@@ -23,7 +23,7 @@ config :exzeitable, TestWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "OOPA//jwKZu7BThkw/h/nCKOzozSSugm+4Xo4FYq893EpUe9BLPy9stfVfClKyQP",
   render_errors: [view: TestWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Exzeitable.PubSub,
+  pubsub_server: TestWeb.PubSub,
   live_view: [signing_salt: "xvB6U8L/"]
 
 # Configures the mailer

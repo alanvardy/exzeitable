@@ -125,6 +125,8 @@ Call the table from your template
 <%= YourAppWeb.Live.File.live_table(@conn, query: @query, action_buttons: [:show, :edit], assigns: %{user_id: @current_user.id}) %>
 ```
 
+Note that if you are navigating to the live table using [Phoenix LiveView live_session/3](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.Router.html#live_session/3) the opts in live_table/3 will not be utilized, only the module options will apply.
+
 ## Customizing your table
 
 ### Required module/template options
