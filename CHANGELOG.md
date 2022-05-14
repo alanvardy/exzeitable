@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Support live routes
+
 ### v0.5.4 (2022-04-30)
 
 - Add 'mix exzeitable.gen.migration` task for adding pg_trgm extension migration file
