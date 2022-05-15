@@ -1,9 +1,12 @@
 defmodule Exzeitable.HTML.ActionButtonTest do
   @moduledoc false
   use TestWeb.ConnCase, async: true
+  use ExUnitProperties
   import Ecto.Query
 
   require Phoenix.ChannelTest
+
+  alias Exzeitable.Support.Generators
   alias Exzeitable.{Database, Params}
   alias Exzeitable.HTML.{ActionButton, Filter}
   alias TestWeb.{Post, Repo, User}
@@ -26,6 +29,9 @@ defmodule Exzeitable.HTML.ActionButtonTest do
     search: "",
     csrf_token: Phoenix.Controller.get_csrf_token()
   }
+
+  describe "build/3" do
+  end
 
   describe "parent_for/1" do
     test "selects the parent for the item" do
@@ -113,8 +119,10 @@ defmodule Exzeitable.HTML.ActionButtonTest do
   end
 
   describe "build/2" do
+    # create table with parent
+    ##########################
     # test "can build a new action button with a parent", %{conn: conn} do
-    #   user = %User{name: "Dufus", age: 2} |> Repo.insert()
+    #   {:ok, user} = %User{name: "Dufus", age: 2} |> Repo.insert()
 
     #   assigns = %{
     #     socket: conn,
@@ -123,6 +131,24 @@ defmodule Exzeitable.HTML.ActionButtonTest do
 
     #   assert nil = ActionButton.build(:new, assigns)
     # end
+
+    property "always returns an iolist for new action", %{conn: conn} do
+      check all params <- Generators.params() do
+        assert {:safe, [_ | _]} = ActionButton.build(:new, %{params: params, socket: conn})
+      end
+    end
+
+    property "always returns an iolist for other actions", %{conn: conn} do
+      check all params <- Generators.params(),
+                action <- Generators.not_new_action() do
+        {:ok, post} =
+          %Post{title: "Post number 1", content: "THIS IS CONTENT", user_id: 1} |> Repo.insert()
+
+        assert {:safe, [_ | _]} =
+                 ActionButton.build(action, post, %{params: params, socket: conn})
+      end
+    end
+
     test "can build a new action button", %{conn: conn} do
       assigns = %{
         socket: conn,

@@ -31,6 +31,7 @@ defmodule Exzeitable.MixProject do
         list_unused_filters: true,
         plt_local_path: "dialyzer",
         plt_core_path: "dialyzer",
+        ignore_warnings: ".dialyzer-ignore.exs",
         flags: [:unmatched_returns, :no_improper_lists]
       ],
 

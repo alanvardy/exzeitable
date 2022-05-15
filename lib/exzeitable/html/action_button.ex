@@ -22,13 +22,15 @@ defmodule Exzeitable.HTML.ActionButton do
 
   alias Exzeitable.{Params, Text}
   alias Phoenix.HTML.Link
+  alias Phoenix.LiveView.Socket
 
   @typedoc "Controller action"
   @type action :: :new | :delete | :show | :edit
+  @type assigns :: %{socket: Socket.t(), params: Params.t()}
 
   @doc "Builds an individual button, takes an atom representing the action, and the assigns map"
-  @spec build(:new, map) :: {:safe, iolist}
-  @spec build(action, atom, map) :: {:safe, iolist}
+  @spec build(:new, assigns) :: {:safe, iolist}
+  @spec build(action, struct, assigns) :: {:safe, iolist}
   def build(
         :new,
         %{
@@ -171,7 +173,7 @@ defmodule Exzeitable.HTML.ActionButton do
   end
 
   @doc "Gets the parent that the nested resource belongs to"
-  @spec parent_for(map, Params.t()) :: struct
+  @spec parent_for(struct, Params.t()) :: struct
   def parent_for(entry, %Params{belongs_to: belongs_to}) do
     case Map.get(entry, belongs_to) do
       nil -> raise "You need to select the association in :belongs_to"
