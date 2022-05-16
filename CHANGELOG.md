@@ -3,6 +3,8 @@
 ## Unreleased
 
 - Support live routes
+- Increase test coverage
+- Fix codecov badge link
 
 ### v0.5.4 (2022-04-30)
 
