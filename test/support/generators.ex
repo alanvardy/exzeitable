@@ -11,18 +11,9 @@ defmodule Exzeitable.Support.Generators do
 
   @actions [:new, :edit, :show, :delete]
 
-  def action_buttons do
-    gen all new <- boolean(),
-            show <- boolean(),
-            delete <- boolean(),
-            edit <- boolean() do
-      [
-        if(new, do: :new),
-        if(show, do: :show),
-        if(delete, do: :delete),
-        if(edit, do: :edit)
-      ]
-      |> Enum.reject(&is_nil/1)
+  def actions do
+    gen all list <- list_of(member_of(@actions), max_length: 4) do
+      list
     end
   end
 
@@ -38,24 +29,63 @@ defmodule Exzeitable.Support.Generators do
     end
   end
 
+  def post do
+    gen all title <- string(:alphanumeric),
+            content <- string(:alphanumeric),
+            user_id <- positive_integer(),
+            id <- positive_integer() do
+      %TestWeb.Post{id: id, title: title, content: content, user_id: user_id}
+    end
+  end
+
   def params do
-    gen all buttons <- action_buttons() do
+    gen all buttons <- actions(),
+            label <- one_of([string(:alphanumeric), nil]),
+            label2 <- one_of([string(:alphanumeric), nil]),
+            hidden <- boolean(),
+            hidden2 <- boolean(),
+            order <- boolean(),
+            order2 <- boolean(),
+            per_page <- positive_integer(),
+            page <- positive_integer(),
+            search_string <- string(:alphanumeric),
+            search2 <- boolean(),
+            search3 <- boolean(),
+            count <- one_of([positive_integer(), constant(0)]),
+            posts <- list_of(post()) do
       %Params{
         query: from(p in Post, preload: [:user]),
         parent: nil,
         routes: TestWeb.Router.Helpers,
         repo: TestWeb.Repo,
         path: :post_path,
-        fields: [title: [], content: []],
+        fields: [
+          title: %{
+            formatter: {Exzeitable.HTML.Format, :format_field},
+            function: false,
+            hidden: hidden,
+            label: label,
+            order: order,
+            search: search2
+          },
+          content: %{
+            formatter: {Exzeitable.HTML.Format, :format_field},
+            function: false,
+            hidden: hidden2,
+            label: label2,
+            order: order2,
+            search: search3
+          }
+        ],
         action_buttons: buttons,
         belongs_to: nil,
-        per_page: 50,
+        per_page: per_page,
         module: TestWeb.PostTable,
-        page: 1,
+        page: page,
         order: nil,
-        count: 0,
-        list: [],
-        search: "",
+        count: count,
+        list: posts,
+        search: search_string,
         csrf_token: Phoenix.Controller.get_csrf_token()
       }
     end

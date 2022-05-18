@@ -58,7 +58,7 @@ defmodule Exzeitable.HTML.Table do
   defp build_actions(entry, %{params: params} = assigns) do
     params
     |> Map.get(:action_buttons)
-    |> Kernel.--([:new])
+    |> Enum.reject(& &1 === :new)
     |> Enum.map(fn action -> ActionButton.build(action, entry, assigns) end)
     |> Helpers.tag(:td, [])
   end
