@@ -71,7 +71,7 @@ defmodule Mix.Tasks.Exzeitable.Gen.Migration do
 
       fuzzy_path = Path.join(path, "*_#{base_name}")
 
-      if Path.wildcard(fuzzy_path) != [] do
+      if Path.wildcard(fuzzy_path) !== [] do
         Mix.raise(
           "migration can't be created, there is already a migration file with name #{@name}."
         )

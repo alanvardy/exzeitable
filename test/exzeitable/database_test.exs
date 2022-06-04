@@ -36,7 +36,7 @@ defmodule Exzeitable.DatabaseTest do
       |> Database.get_records()
       |> Enum.count()
 
-    assert db_count == 3
+    assert db_count === 3
   end
 
   test "get_records/1 returns a list of items" do
@@ -45,7 +45,7 @@ defmodule Exzeitable.DatabaseTest do
         %User{name: "Dufus", age: 2} |> Repo.insert() |> elem(1)
       end
 
-    assert names(Database.get_records(@assigns)) == names(contacts)
+    assert names(Database.get_records(@assigns)) === names(contacts)
   end
 
   test "get_records/1 offsets based on page number" do
@@ -58,7 +58,7 @@ defmodule Exzeitable.DatabaseTest do
       |> Database.get_records()
       |> Enum.count()
 
-    assert db_count == 2
+    assert db_count === 2
   end
 
   test "get_records/1 orders queries" do
@@ -75,7 +75,7 @@ defmodule Exzeitable.DatabaseTest do
       |> Database.get_records()
       |> Enum.reverse()
 
-    assert first == second
+    assert first === second
   end
 
   test "get_record_count/1 gets the number of records" do
@@ -87,14 +87,14 @@ defmodule Exzeitable.DatabaseTest do
       @assigns
       |> Database.get_record_count()
 
-    assert db == 3
+    assert db === 3
   end
 
   test "prefix_string/1 removed non-characters and appends :*" do
-    assert Database.prefix_search("bananas") == "bananas:*"
-    assert Database.prefix_search("baNANas") == "baNANas:*"
-    assert Database.prefix_search("ba@NAN%as") == "baNANas:*"
-    assert Database.prefix_search("ba_@nan%as") == "bananas:*"
+    assert Database.prefix_search("bananas") === "bananas:*"
+    assert Database.prefix_search("baNANas") === "baNANas:*"
+    assert Database.prefix_search("ba@NAN%as") === "baNANas:*"
+    assert Database.prefix_search("ba_@nan%as") === "bananas:*"
   end
 
   test "tsvector_string/1 turns a keyword list with field metadata into a string" do
@@ -105,14 +105,14 @@ defmodule Exzeitable.DatabaseTest do
     expected =
       "to_tsvector('english', coalesce(id, ' ') || ' ' || coalesce(name, ' ')) @@ to_tsquery(?)"
 
-    assert generated == expected
+    assert generated === expected
   end
 
   test "prefix_string/1 handles multiple search terms separated by space" do
-    assert Database.prefix_search("bananas apples") == "bananas:* & apples:*"
-    assert Database.prefix_search("baNANas ApPlEs") == "baNANas:* & ApPlEs:*"
-    assert Database.prefix_search("ba@NAN%as @appLeS$") == "baNANas:* & appLeS:*"
-    assert Database.prefix_search("   ba_@nan%as    a_@pple$s1   ") == "bananas:* & apples1:*"
+    assert Database.prefix_search("bananas apples") === "bananas:* & apples:*"
+    assert Database.prefix_search("baNANas ApPlEs") === "baNANas:* & ApPlEs:*"
+    assert Database.prefix_search("ba@NAN%as @appLeS$") === "baNANas:* & appLeS:*"
+    assert Database.prefix_search("   ba_@nan%as    a_@pple$s1   ") === "bananas:* & apples1:*"
   end
 
   def names(users), do: users |> Enum.map(fn u -> Map.get(u, :name) end)

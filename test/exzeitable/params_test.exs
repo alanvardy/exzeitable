@@ -109,7 +109,7 @@ defmodule Exzeitable.ParamsTest do
         ]
       ]
 
-      assert Params.set_fields(opts) == after_merge
+      assert Params.set_fields(opts) === after_merge
     end
 
     test "overwrites other options when virtual: true is set" do
@@ -131,7 +131,7 @@ defmodule Exzeitable.ParamsTest do
         ]
       ]
 
-      assert Params.set_fields(opts) == after_merge
+      assert Params.set_fields(opts) === after_merge
     end
   end
 end

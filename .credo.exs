@@ -66,6 +66,32 @@
       #
       checks: [
         #
+        ## BlitzCredoChecks
+        #
+        {BlitzCredoChecks.DocsBeforeSpecs, []},
+        {BlitzCredoChecks.DoctestIndent, []},
+        {BlitzCredoChecks.LowercaseTestNames, []},
+        {BlitzCredoChecks.NoAsyncFalse, []},
+        {BlitzCredoChecks.NoDSLParentheses, []},
+        {BlitzCredoChecks.NoIsBitstring, []},
+        {BlitzCredoChecks.SetWarningsAsErrorsInTest, []},
+        {BlitzCredoChecks.StrictComparison, []},
+        {BlitzCredoChecks.UseStream, []},
+        {BlitzCredoChecks.ImproperImport,
+         allowed_modules: [
+           [:ConnCase],
+           [:DataCase],
+           [:Ecto],
+           [:Phoenix],
+           [:ChannelCase],
+           [:Plug],
+           [:ExUnit],
+           [:Mix],
+           [:Gettext],
+           [:ErrorHelpers]
+         ]},
+        {BlitzCredoChecks.TodosNeedTickets, ticket_url: "https://linear.app/vardy/issue/"},
+        #
         ## Consistency Checks
         #
         {Credo.Check.Consistency.ExceptionNames, []},

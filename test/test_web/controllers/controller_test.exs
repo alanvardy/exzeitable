@@ -5,7 +5,7 @@ defmodule TestWeb.ControllerTest do
   describe "users" do
     setup :users
 
-    test "Get users page via live_session", %{conn: conn} do
+    test "get users page via live_session", %{conn: conn} do
       conn = get(conn, "/live_session_users")
 
       # Only contains the table, not the outer HTML
@@ -14,13 +14,13 @@ defmodule TestWeb.ControllerTest do
       assert html_response(conn, 200) =~ "Name backwards"
     end
 
-    test "Get users page", %{conn: conn} do
+    test "get users page", %{conn: conn} do
       conn = get(conn, Routes.user_path(conn, :index))
 
       assert html_response(conn, 200) =~ "Users"
     end
 
-    test "Get formatted version", %{conn: conn} do
+    test "get formatted version", %{conn: conn} do
       conn = get(conn, Routes.user_path(conn, :formatted_index))
 
       assert html_response(conn, 200) =~ "Listing Formatted Users"
@@ -28,25 +28,25 @@ defmodule TestWeb.ControllerTest do
   end
 
   describe "posts" do
-    test "Get posts page", %{conn: conn} do
+    test "get posts page", %{conn: conn} do
       conn = get(conn, Routes.post_path(conn, :index))
 
       assert html_response(conn, 200) =~ "Posts"
     end
 
-    test "Get no action buttons", %{conn: conn} do
+    test "get no action buttons", %{conn: conn} do
       conn = get(conn, Routes.post_path(conn, :no_action_buttons))
 
       assert html_response(conn, 200) =~ "Posts"
     end
 
-    test "Get disable hide", %{conn: conn} do
+    test "get disable hide", %{conn: conn} do
       conn = get(conn, Routes.post_path(conn, :disable_hide))
 
       assert html_response(conn, 200) =~ "Posts"
     end
 
-    test "Get no pagination", %{conn: conn} do
+    test "get no pagination", %{conn: conn} do
       conn = get(conn, Routes.post_path(conn, :no_pagination))
 
       assert html_response(conn, 200) =~ "Posts"
