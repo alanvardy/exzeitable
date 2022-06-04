@@ -18,10 +18,10 @@ defmodule Exzeitable.Support.FileHelpers do
     assert File.regular?(file), "Expected #{file} to exist, but does not"
   end
 
-  @spec assert_file(binary, String.t() | function) :: any
   @doc """
   Asserts a file was generated and that it matches a given pattern.
   """
+  @spec assert_file(binary, String.t() | function) :: any
   def assert_file(file, callback) when is_function(callback, 1) do
     assert_file(file)
     callback.(File.read!(file))

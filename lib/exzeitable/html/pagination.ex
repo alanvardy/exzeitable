@@ -42,7 +42,7 @@ defmodule Exzeitable.HTML.Pagination do
   end
 
   @spec paginate_button(Params.t(), name, page, pages) :: {:safe, iolist}
-  defp paginate_button(%Params{} = params, :next, page, pages) when page == pages do
+  defp paginate_button(%Params{} = params, :next, page, page) do
     params
     |> Text.text(:next)
     |> Helpers.tag(:a, class: "exz-pagination-a", tabindex: "-1")
@@ -101,8 +101,8 @@ defmodule Exzeitable.HTML.Pagination do
     |> Helpers.tag(:li, class: "exz-pagination-li")
   end
 
-  @spec filter_pages(pos_integer, pos_integer) :: [pos_integer | :dots]
   @doc "Selects the page buttons we need for pagination"
+  @spec filter_pages(pos_integer, pos_integer) :: [pos_integer | :dots]
   def filter_pages(pages, _page) when pages <= 7, do: Enum.to_list(1..pages)
 
   def filter_pages(pages, page) when page in [1, 2, 3, pages - 2, pages - 1, pages] do

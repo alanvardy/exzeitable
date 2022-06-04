@@ -53,7 +53,7 @@ defmodule Exzeitable.HTML.ActionButtonTest do
         |> List.first()
         |> ActionButton.parent_for(params)
 
-      assert db.name == user.name
+      assert db.name === user.name
     end
 
     test "raises an error when it cannot find the field" do
@@ -98,7 +98,7 @@ defmodule Exzeitable.HTML.ActionButtonTest do
         item_three: %{boogers: true}
       ]
 
-      assert Filter.fields_where(list, :boogers) == resulting_list
+      assert Filter.fields_where(list, :boogers) === resulting_list
     end
 
     test "returns all the fields for which an attribute is false" do
@@ -114,7 +114,7 @@ defmodule Exzeitable.HTML.ActionButtonTest do
         item_four: %{boogers: false}
       ]
 
-      assert Filter.fields_where_not(list, :boogers) == resulting_list
+      assert Filter.fields_where_not(list, :boogers) === resulting_list
     end
   end
 
