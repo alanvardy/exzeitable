@@ -52,10 +52,8 @@ defmodule Exzeitable.HTML.Format do
   end
 
   @doc "The default formatter"
-  @spec format_field(any) :: String.t()
-  def format_field(value) do
-    to_string(value)
-  end
+  @spec format_field(any) :: any
+  def format_field(value), do: value
 
   # Called for configured formatters which can be in the format
   # {mod, fun}
