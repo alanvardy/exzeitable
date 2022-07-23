@@ -9,6 +9,8 @@
 - Increase test coverage
 - Fix codecov badge link
 - Add BlitzCredoChecks
+- Remove :gettext from :compilers in mix.exs as no longer required there
+- Add additional dialyzer flags for OTP 25
 
 ### v0.5.4 (2022-04-30)
 

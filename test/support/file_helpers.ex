@@ -13,7 +13,7 @@ defmodule Exzeitable.Support.FileHelpers do
   @doc """
   Asserts a file was generated.
   """
-  @spec assert_file(String.t()) :: boolean
+  @spec assert_file(String.t()) :: true
   def assert_file(file) do
     assert File.regular?(file), "Expected #{file} to exist, but does not"
   end
