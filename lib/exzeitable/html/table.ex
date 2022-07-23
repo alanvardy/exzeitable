@@ -52,7 +52,7 @@ defmodule Exzeitable.HTML.Table do
     |> Helpers.tag(:tr, [])
   end
 
-  @spec build_actions(atom, map) :: {:safe, iolist}
+  @spec build_actions(atom, map) :: {:safe, iolist} | String.t()
   defp build_actions(_entry, %{params: %Params{action_buttons: []}}), do: ""
 
   defp build_actions(entry, %{params: params} = assigns) do

@@ -9,7 +9,7 @@ defmodule Exzeitable.MixProject do
       version: @version,
       elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:gettext] ++ Mix.compilers(),
+      compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       build_embedded: Mix.env() == :prod,
       aliases: aliases(),
@@ -32,7 +32,7 @@ defmodule Exzeitable.MixProject do
         plt_local_path: "dialyzer",
         plt_core_path: "dialyzer",
         ignore_warnings: ".dialyzer-ignore.exs",
-        flags: [:unmatched_returns, :no_improper_lists]
+        flags: [:unmatched_returns, :no_improper_lists, :extra_return, :missing_return]
       ],
 
       # Hex
