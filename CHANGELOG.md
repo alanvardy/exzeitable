@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+### v0.5.6 (2022-07-23)
+
+- Make tooling deps test only
+- Remove Phoenix Live Dashboard dep
+
 ### v0.5.5 (2022-07-23)
 
 - Bugfix for default formatter, previously it would attempt to_string on all values passing through which breaks :safe tuples.

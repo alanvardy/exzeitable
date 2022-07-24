@@ -1,7 +1,7 @@
 defmodule Exzeitable.MixProject do
   use Mix.Project
 
-  @version "0.5.5"
+  @version "0.5.6"
 
   def project do
     [
@@ -110,7 +110,6 @@ defmodule Exzeitable.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.17"},
       {:floki, ">= 0.30.0", only: :test},
-      {:phoenix_live_dashboard, "~> 0.6"},
       {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
       {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6"},
@@ -120,12 +119,12 @@ defmodule Exzeitable.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:timex, "~> 3.5", only: [:dev, :test, :systemtest]},
       {:ex_check, "~>0.12", only: :test, runtime: false},
-      {:credo, "~> 1.5", runtime: false},
-      {:blitz_credo_checks, "~> 0.1", runtime: false},
+      {:credo, "~> 1.5", only: :test, runtime: false},
+      {:blitz_credo_checks, "~> 0.1", only: :test, runtime: false},
       {:dialyxir, "~> 1.1", only: :test, runtime: false},
       {:excoveralls, "~> 0.10", only: :test, runtime: false},
-      {:ex_doc, "~> 0.21", only: [:dev, :test], runtime: false},
-      {:inch_ex, github: "rrrene/inch_ex", only: [:test]},
+      {:ex_doc, "~> 0.21", only: :test, runtime: false},
+      {:inch_ex, github: "rrrene/inch_ex", only: :test},
       {:stream_data, "~> 0.5", only: :test},
       {:doctor, "~> 0.19.0", only: :test}
     ]
