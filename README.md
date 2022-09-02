@@ -211,11 +211,14 @@ Suggestions, bug reports and contributions are very welcome! Please open an issu
 
 ### Getting set up
 
-This project uses the `asdf` version manager and `docker-compose`
+This project uses the `asdf` version manager and `docker-compose`.
+
+If you would like to contribute, **fork** the repo on GitHub and then head over
+to your terminal.
 
 ```bash
-# Clone the project from GitHub
-git clone git@github.com:alanvardy/exzeitable.git
+# Clone the project from your GitHub fork
+git clone git@github.com:yourname/exzeitable.git
 cd exzeitable
 
 # Start postgres
