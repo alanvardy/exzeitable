@@ -4,24 +4,24 @@
 
 ### v0.5.6 (2022-07-23)
 
-- Make tooling deps test only
-- Remove Phoenix Live Dashboard dep
+- Make tooling dependencies test only
+- Remove Phoenix Live Dashboard dependency
 
 ### v0.5.5 (2022-07-23)
 
-- Bugfix for default formatter, previously it would attempt to_string on all values passing through which breaks :safe tuples.
+- Bugfix for default formatter. Previously, it would attempt to_string on all values passing through which breaks `:safe` tuples.
 - Support live routes
 - Increase test coverage
-- Fix codecov badge link
+- Fix CodeCov badge link
 - Add BlitzCredoChecks
-- Remove :gettext from :compilers in mix.exs as no longer required there
+- Remove `:gettext` from `:compilers` in `mix.exs` as it is no longer required there
 - Add additional dialyzer flags for OTP 25
 
 ### v0.5.4 (2022-04-30)
 
 - Add 'mix exzeitable.gen.migration` task for adding pg_trgm extension migration file
 - General refactoring
-- Added Params struct for representing state
+- Added Params struct for representing the state
 - Fix remaining `use Mix.Config`
 - Cleanup stray files
 - Add Doctor
@@ -31,8 +31,8 @@
 - Add formatter to field options
 - Update Erlang to 24.2
 - Update Elixir to 1.13.3
-- Add link to ElixirCasts video in Readme
-- Update postgres to 14.2
+- Add a link to the Elixir Casts video in Readme
+- Update Postgres to 14.2
 - General refactoring
 
 ## v0.5.2 (2022-01-08)
@@ -81,35 +81,35 @@
 
 - Support searching across multiple columns (thank you `@greg-rychlewski`)
 - Use regex for slightly improved search speed (thank you again `@greg-rychlewski`)
-- Remove cypress-ci as it's custom functionality is not being used on CI
+- Remove cypress-ci as its custom functionality is not being used on CI
 - Update JavaScript assets
 - Improve install instructions
 - Provide docker-compose.yml for Postgres
 
 ## v0.4.1 (2020-07-10)
 
-- Bugfix: Added custom text for "Actions" (was missed in last release)
-- Improved test suite so that `mix check` runs `credo` before the other tests
+- Bugfix: Added custom text for "Actions" (was missed in the last release)
+- Improved the test suite so that `mix check` runs `credo` before the other tests
 - Improve the README
   
 ## v0.4.0 (2020-07-04)
 
 - No breaking changes to API
-- Feature: Added custom text functionality via the :text keyword
-- Feature: Added ability disable hide functionality
+- Feature: Added custom text functionality via the `:text` keyword
+- Feature: Added ability to disable hide functionality
 - Feature: Added ability to hide pagination
 - Various dependency updates
 - Refactored a bunch of things that were bugging me
 
 ## v0.3.3 (2020-06-19)
 
-- No breaking changes to API, only to dependency requirements.
+- I made no breaking changes to the API, only to dependency requirements.
 - Feature: Add a refresh rate for re-querying database periodically
 - Update Elixir and Javascript dependencies.
 - Update Elixir to 1.10.3
 - Update Erlang to 22.3.4
 - Add MIT license
-- Did some coarse level refactoring around function locations
+- Did some coarse-level refactoring around function locations
 
 ## v0.3.2 (2020-02-04)
 
@@ -118,7 +118,7 @@
 
 ## v0.3.1 (2020-02-04)
 
-- Update to support Phoenix LiveView 0.6.0, removing the deprecated `mount/2` in favour of `mount/3`.
+- Update to support Phoenix LiveView 0.6.0, removing the deprecated `mount/2` in favor of `mount/3`.
 
 ## v0.3.0 (2020-01-18)
 
@@ -141,8 +141,8 @@
 ## v0.2.5 (2019-12-03)
 
 - Added custom buttons, defined similarly to the custom fields
-- Added a behaviour for render/1 in the user defined table module
-- Broke out a Pagination and ActionButton modules from Exzeitable.HTML
+- Added a behaviour for render/1 in the user-defined table module
+- Broke out `Pagination` and `ActionButton` modules from Exzeitable.HTML
 
 ## v0.2.4 (2019-10-31)
 
@@ -150,14 +150,14 @@
 
 ## v0.2.3 (2019-10-21)
 
-- Smoosh assigns and socket.assigns together and deduplicate
+- Smoosh `assigns` and `socket.assigns` together and deduplicate
 - Clear order_by before ordering query
 - Correct documentation
 
 ## v0.2.2 (2019-10-20)
 
 - Add support for passing assigns through to custom field functions
-- Remove actions column when no actions
+- Remove the actions column when no actions
 - Added a nothing found message when no content
 - Renamed CSS classes from .lt- to .exz-
 
@@ -175,7 +175,7 @@
 ## v0.1.2 (2019-10-11)
 
 - Added ability to show and hide 'show buttons' for columns
-- Disabled use of enter key with search box (created a CSRF error)
+- Disabled use of the enter key with the search box (created a CSRF error)
 - Added specs
 - Added documentation
 
