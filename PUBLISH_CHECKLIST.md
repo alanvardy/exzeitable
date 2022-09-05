@@ -1,6 +1,6 @@
 # Publish Checklist
 
-This is just for my own use to reduce friction in publishing after I have been away.
+This checklist is for my use to reduce friction in publishing after I have been away.
 
 1. Increment `@version` in `mix.exs`
 2. Increment version on line 53 in `README.md`

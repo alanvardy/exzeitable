@@ -2,18 +2,18 @@
 
 [![Build Status](https://github.com/alanvardy/exzeitable/workflows/Coveralls/badge.svg)](https://github.com/alanvardy/exzeitable) [![Build Status](https://github.com/alanvardy/exzeitable/workflows/Dialyzer/badge.svg)](https://github.com/alanvardy/exzeitable) [![Build Status](https://github.com/alanvardy/exzeitable/workflows/Cypress/badge.svg)](https://github.com/alanvardy/exzeitable) [![Build Status](https://github.com/alanvardy/exzeitable/workflows/Credo/badge.svg)](https://github.com/alanvardy/exzeitable)[![Build Status](https://github.com/alanvardy/exzeitable/workflows/Doctor/badge.svg)](https://github.com/alanvardy/exzeitable) [![codecov](https://codecov.io/gh/alanvardy/exzeitable/branch/main/graph/badge.svg?token=P3O42SF7VJ)](https://codecov.io/gh/alanvardy/exzeitable)[![hex.pm](http://img.shields.io/hexpm/v/exzeitable.svg?style=flat)](https://hex.pm/packages/exzeitable)
 
-Dynamic, live updating datatables that takes a database query and a module, and make the magic happen. Ideal for quickly adding CRUD interfaces on an admin backend.
+Dynamic, live updating data tables generated with just a database query and a module. Ideal for quickly adding CRUD interfaces on an admin backend.
 
 Features:
 
-- Full text search
+- Full-text search
 - Sorting
 - Periodic refresh
 - Bootstrap friendly and easily configured for other CSS frameworks.
 - Customizable everything (and if something isn't, open an issue!)
 - Powered by Phoenix LiveView and Postgres.
 
-Documentation can be found at [https://hexdocs.pm/exzeitable](https://hexdocs.pm/exzeitable).
+Find the documentation at [https://hexdocs.pm/exzeitable](https://hexdocs.pm/exzeitable).
 
 ## Video
 
@@ -45,7 +45,7 @@ See the [Exzeitable video on ElixirCasts](https://elixircasts.io/exzeitable) for
 
 This package requires a Postgres database, Phoenix, and Phoenix LiveView.
 
-The package can be installed by adding [exzeitable](https://github.com/alanvardy/exzeitable) and [Phoenix Live View](https://github.com/phoenixframework/phoenix_live_view) to your list of dependencies in `mix.exs`:
+Add [Exzeitable](https://github.com/alanvardy/exzeitable) and [Phoenix Live View](https://github.com/phoenixframework/phoenix_live_view) to your list of dependencies in `mix.exs`.
 
 ```elixir
 def deps do
@@ -59,7 +59,7 @@ end
 
 Search requires the `pg_trgm` extension for Postgres.
 
-Generate a new migration file and migrate to add the extension to Postgres.
+Generate a new migration file and migrate to add it to Postgres.
 
 ```bash
 mix exzeitable.gen.migration
@@ -103,13 +103,11 @@ defmodule YourAppWeb.Live.File do
 end
 ```
 
-Options can be added to either your module (as seen above), or in the template (As seen below) or both.
-If an option is defined in both the template option will replace the module option. The only exception is `:fields` which must be specified in the module.
+We can add options to both the module (as seen above) and the template (As seen below). Template options overwrite module options.
 
 ### Controller
 
-This is where you can specify the query that forms the default data of the table.
-Everything the table does is with a subset of this data.
+Controllers are an excellent place to define the base query that forms the default data of the table. Then, everything the table does is with a subset of this data.
 
 ```elixir
 query = from(f in Files)
@@ -125,7 +123,7 @@ Call the table from your template
 <%= YourAppWeb.Live.File.live_table(@conn, query: @query, action_buttons: [:show, :edit], assigns: %{user_id: @current_user.id}) %>
 ```
 
-Note that if you are navigating to the live table using [Phoenix LiveView live_session/3](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.Router.html#live_session/3) the opts in live_table/3 will not be utilized, only the module options will apply.
+Note that if you are navigating to the live table using [Phoenix LiveView live_session/3](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.Router.html#live_session/3) the opts in live_table/3 will not be utilized, and only the module options will apply.
 
 ## Customizing your table
 
@@ -134,18 +132,18 @@ Note that if you are navigating to the live table using [Phoenix LiveView live_s
 - `:repo` The module for your repository. Example: `YourApp.Repo`
 - `:routes` Your route module. Example: `YourAppWeb.Router.Helpers`
 - `:path` The base path for your resource. Example: `:site_path`
-- `:fields` A keyword list where the atom is the ecto field and the value is a keyword list of options. Example: `metadata: [label: "Additional Information"]`
-- `:query` A Ecto.Query struct, the part before you give it to the Repo. Example: `from(s in Site, preload: [:users])`
+- `:fields` A keyword list where the atom is the Ecto field and the value is a keyword list of options. Example: `metadata: [label: "Additional Information"]`
+- `:query` An Ecto.Query struct, the part before you give it to the Repo. Example: `from(s in Site, preload: [:users])`
 
 ### Optional module/template options
 
-- `action_buttons: [:new, :edit, :show, :delete]` A list of atoms representing action buttons available for the user to use. This does not do authorization, the routes will still be available.
-- `per_page: 20` Integer representing number of entries per page.
+- `action_buttons: [:new, :edit, :show, :delete]` A list of atoms representing action buttons available for the user to use. Omitting an atom does not affect authorization, as the routes will still be available.
+- `per_page: 20` Integer representing the number of entries per page.
 - `debounce: 300` Sets how many milliseconds between responding to user input on the search field.
 - `refresh: false` Re-queries the database every x milliseconds, defaults to false (disabled).
-- `disable_hide: false` Disable hide and show functionality for columns, including not showing the buttons.
+- `disable_hide: false` Disable show/hide functionality for columns, including not showing the buttons.
 - `pagination: [:top, :bottom]` Whether to show the pagination above and below
-- `text: Exzeitable.Text.Default` The text that appears on the table, you can replace this with your own custom module.
+- `text: Exzeitable.Text.Default` The translation that appears on the table, defaults to English.
 - `assigns: %{}` Passes additional assigns to socket.assigns. Keep your payload small!
 
 ### Field options
@@ -167,8 +165,8 @@ The following field options are available (with their defaults):
 - `hidden: false` Hide the column by default (user can click show button to reveal)
 - `search: true` Whether to include the column in search results. See the important note below.
 - `order: true` Do not allow the column to be sorted (hide the sort button)
-- `formatter: {Exzeitable.HTML.Format, :format}` Specifies a formatter function that will be applied to the column content when formatting. The formatter can be specified as either `{Mod, fun}` or `{Mod, fun, args}`. If `{Mod, fun, args}` is used then the content to be formatted is prepended to the list of `args` before calling `fun`. The default formatter calls `to_string/1`.
-- `virtual: false` This is shorthand for [function: true, search: false, order: false] and will override those settings. Intended for creating fields that are not database backed.
+- `formatter: {Exzeitable.HTML.Format, :format}` Specifies a formatter function that will be applied to the column content when formatting. The formatter can be specified as either `{Mod, fun}` or `{Mod, fun, args}` (The function will have the original content prepended to the list of `args`). The default formatter passes through the data without modification.
+- `virtual: false` This is shorthand for `[function: true, search: false, order: false]` and will override those settings. Virtual fields are for creating fields that are not database-backed.
 
 **IMPORTANT NOTE**: Search uses [ts_vector](https://www.postgresql.org/docs/10/datatype-textsearch.html), which is performed by Postgres inside the database on string fields. This means that you cannot search fields that are _not_ string type (i.e. integer, datetime, associations, virtual fields). Make sure to set `search: false` or `virtual: true` on such fields.
 
@@ -178,7 +176,7 @@ Needed to build links where more than one struct is needed, i.e. `link("Show Pos
 
  [The official docs](https://hexdocs.pm/phoenix/routing.html#nested-resources) if you would like to learn more.
 
-If you define one of the below options you then need to define the other.
+To define `belongs_to`, you must also define `parent` (and vice versa).
 
 Continuing the example of users and posts:
 
@@ -188,18 +186,18 @@ resources "/users", UserController do
 end
 ```
 
-The users Exzeitable does not need the 2 options below, but the posts Exzeitable does. Because all of its routes are different. The following will be needed to make the posts Exzeitable work:
+The users Exzeitable do not need the two options below, but the posts Exzeitable does. Because all of its routes are different. We will need the following to make the posts Exzeitable work:
 
 - `belongs_to: :user`
 - `parent: @user`
 
-Make sure that you include the :user_id in your query.
+Make sure that you include the `:user_id` in your query.
 
-You will need to pass the parent option in from the template.
+In addition, you will need to pass the parent option in from the template.
 
 ### CSS
 
-Almost no CSS styling is included out of the box. I have added generic classes elements in the table in the hopes of making the table as CSS framework agnostic as possible.
+I have added generic classes and almost no CSS styling to make the table as CSS framework agnostic as possible, and thus a user of this library should be able to style the tables to their needs.
 
 I have included a Bootstrap SASS example in the [CSS Module](https://github.com/alanvardy/exzeitable/blob/main/CSS.md)
 
@@ -207,7 +205,7 @@ I have included a Bootstrap SASS example in the [CSS Module](https://github.com/
 
 ### Opening Issues and Pull Requests
 
-Suggestions, bug reports and contributions are very welcome! Please open an issue before starting on a pull request however as I would hate to have any of your efforts be in vain.
+Suggestions, bug reports, and contributions are very welcome! However, please open an issue before starting on a pull request, as I would hate to have any of your efforts be in vain.
 
 ### Getting set up
 
