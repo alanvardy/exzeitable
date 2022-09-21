@@ -50,7 +50,7 @@ Add [Exzeitable](https://github.com/alanvardy/exzeitable) and [Phoenix Live View
 ```elixir
 def deps do
   [
-    {:exzeitable, "~> 0.5"},
+    {:exzeitable, "~> 0.6"},
   ]
 end
 ```

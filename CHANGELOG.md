@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### v 0.6.0 (2022-09-23)
+- Make Exzeitable compatible with Phoenix LiveView 0.18
+
 ### v0.5.6 (2022-07-23)
 
 - Make tooling dependencies test only
