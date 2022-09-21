@@ -37,7 +37,7 @@ defmodule Exzeitable do
 
       @spec live_table(Plug.Conn.t(), keyword) :: {:safe, iolist}
       def live_table(conn, opts \\ []) do
-        Helpers.live_render(conn, __MODULE__,
+        Phoenix.Component.live_render(conn, __MODULE__,
           # Live component ID
           id: Keyword.get(unquote(opts), :id, 1),
           session: %{"params" => Params.new(opts, unquote(opts), __MODULE__)}
