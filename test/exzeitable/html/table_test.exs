@@ -7,7 +7,7 @@ defmodule Exzeitable.HTML.TableTest do
 
   describe "build/1" do
     property "always returns {:safe, iolist}", %{conn: conn} do
-      check all params <- Generators.params() do
+      check all(params <- Generators.params()) do
         assert {:safe, [_ | _]} = Table.build(%{params: params, socket: conn})
       end
     end

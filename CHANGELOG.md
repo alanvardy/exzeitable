@@ -4,6 +4,7 @@
 
 ### v0.6.1 (2023-04-02)
 - Fix issue with adding action buttons to table
+- Update to Phoenix 1.7
 
 ### v0.6.0 (2022-09-23)
 - Make Exzeitable compatible with Phoenix LiveView 0.18

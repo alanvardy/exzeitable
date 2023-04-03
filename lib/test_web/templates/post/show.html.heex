@@ -1,7 +1,6 @@
 <h1>Show Post</h1>
 
 <ul>
-
   <li>
     <strong>Title:</strong>
     <%= @post.title %>
@@ -11,8 +10,7 @@
     <strong>Content:</strong>
     <%= @post.content %>
   </li>
-
 </ul>
 
-<span><%= link "Edit", to: Routes.post_path(@conn, :edit, @post) %></span>
-<span><%= link "Back", to: Routes.post_path(@conn, :index) %></span>
+<span><%= link("Edit", to: Routes.post_path(@conn, :edit, @post)) %></span>
+<span><%= link("Back", to: Routes.post_path(@conn, :index)) %></span>

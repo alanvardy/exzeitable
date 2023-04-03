@@ -1,5 +1,5 @@
 <h1>Neuer Beitrag</h1>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.post_path(@conn, :create)) %>
+<%= render("form.html", Map.put(assigns, :action, Routes.post_path(@conn, :create))) %>
 
-<span><%= link "Zurück", to: Routes.post_path(@conn, :index) %></span>
+<span><%= link("Zurück", to: Routes.post_path(@conn, :index)) %></span>
