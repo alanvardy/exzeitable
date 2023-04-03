@@ -137,7 +137,10 @@ defmodule Exzeitable.HTML.ActionButton do
   end
 
   # For custom actions such as archive
-  def build(custom_action, entry, %{module: module, socket: socket, csrf_token: csrf_token}) do
+  def build(custom_action, entry, %{
+        socket: socket,
+        params: %Params{module: module, csrf_token: csrf_token}
+      }) do
     apply(module, custom_action, [socket, entry, csrf_token])
   end
 

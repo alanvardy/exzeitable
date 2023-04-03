@@ -9,7 +9,10 @@ defmodule TestWeb.PostTable do
     path: :post_path,
     fields: [title: [], content: []],
     query: from(p in Post),
+    action_buttons: [:show, :edit, :custom_button],
     refresh: 5000
 
   def render(assigns), do: ~H"<%= build_table(assigns) %>"
+
+  def custom_button(_socket, _entry, _csrf_token), do: "CUSTOM BUTTON"
 end
