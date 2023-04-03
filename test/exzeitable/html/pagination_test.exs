@@ -38,9 +38,11 @@ defmodule Exzeitable.HTML.PaginationTest do
 
   describe "build/1" do
     property "always returns html without error" do
-      check all page <- positive_integer(),
-                count <- integer(0..100_000),
-                per_page <- positive_integer() do
+      check all(
+              page <- positive_integer(),
+              count <- integer(0..100_000),
+              per_page <- positive_integer()
+            ) do
         result =
           @params
           |> Map.merge(%{page: page, count: count, per_page: per_page})
@@ -61,9 +63,11 @@ defmodule Exzeitable.HTML.PaginationTest do
     end
 
     property "always returns a positive integer" do
-      check all page <- positive_integer(),
-                count <- integer(0..100_000),
-                per_page <- positive_integer() do
+      check all(
+              page <- positive_integer(),
+              count <- integer(0..100_000),
+              per_page <- positive_integer()
+            ) do
         result =
           @params
           |> Map.merge(%{page: page, count: count, per_page: per_page})

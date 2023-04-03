@@ -133,14 +133,16 @@ defmodule Exzeitable.HTML.ActionButtonTest do
     # end
 
     property "always returns an iolist for new action", %{conn: conn} do
-      check all params <- Generators.params() do
+      check all(params <- Generators.params()) do
         assert {:safe, [_ | _]} = ActionButton.build(:new, %{params: params, socket: conn})
       end
     end
 
     property "always returns an iolist for other actions", %{conn: conn} do
-      check all params <- Generators.params(),
-                action <- Generators.not_new_action() do
+      check all(
+              params <- Generators.params(),
+              action <- Generators.not_new_action()
+            ) do
         {:ok, post} =
           %Post{title: "Post number 1", content: "THIS IS CONTENT", user_id: 1} |> Repo.insert()
 

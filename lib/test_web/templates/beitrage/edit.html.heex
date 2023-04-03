@@ -1,5 +1,5 @@
 <h1>Beitrag bearbeiten</h1>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.post_path(@conn, :update, @post)) %>
+<%= render("form.html", Map.put(assigns, :action, Routes.post_path(@conn, :update, @post))) %>
 
-<span><%= link "Zurück", to: Routes.post_path(@conn, :index) %></span>
+<span><%= link("Zurück", to: Routes.post_path(@conn, :index)) %></span>
