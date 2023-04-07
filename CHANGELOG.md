@@ -2,19 +2,22 @@
 
 ## Unreleased
 
-### v0.6.1 (2023-04-02)
+## v0.6.2 (2023-04-06)
+- Rerelease to fix versioning issue
+
+## v0.6.1 (2023-04-06)
 - Fix issue with adding action buttons to table
 - Update to Phoenix 1.7
 
-### v0.6.0 (2022-09-23)
+## v0.6.0 (2022-09-23)
 - Make Exzeitable compatible with Phoenix LiveView 0.18
 
-### v0.5.6 (2022-07-23)
+## v0.5.6 (2022-07-23)
 
 - Make tooling dependencies test only
 - Remove Phoenix Live Dashboard dependency
 
-### v0.5.5 (2022-07-23)
+## v0.5.5 (2022-07-23)
 
 - Bugfix for default formatter. Previously, it would attempt to_string on all values passing through which breaks `:safe` tuples.
 - Support live routes
@@ -24,7 +27,7 @@
 - Remove `:gettext` from `:compilers` in `mix.exs` as it is no longer required there
 - Add additional dialyzer flags for OTP 25
 
-### v0.5.4 (2022-04-30)
+## v0.5.4 (2022-04-30)
 
 - Add 'mix exzeitable.gen.migration` task for adding pg_trgm extension migration file
 - General refactoring
@@ -33,7 +36,7 @@
 - Cleanup stray files
 - Add Doctor
 
-### v0.5.3 (2022-03-30)
+## v0.5.3 (2022-03-30)
 
 - Add formatter to field options
 - Update Erlang to 24.2
