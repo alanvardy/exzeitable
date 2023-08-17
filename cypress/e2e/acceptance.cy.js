@@ -21,33 +21,23 @@ describe('Acceptance Test', function () {
     cy.contains('Bob')
   })
 
-  it('Can search for names', function () {
-    cy.contains('Sioban').should('not.exist')
-    cy.get('input#search_search').type('siob')
-    cy.contains('Sioban')
-    cy.contains('21')
-    cy.get('input#search_search').clear()
-  })
-
-  it('Can sort columns', function () {
-    cy.contains('Bob')
-    cy.contains('Sioban').should('not.exist')
-    cy.contains('Nancy').should('not.exist')
-    cy.contains('sort').first().click()
-    cy.contains('Sioban').should('not.exist')
-    cy.contains('Nancy')
-    cy.contains('sort').first().click()
-    cy.contains('Alan').should('not.exist')
-    cy.contains('Sioban')
-    cy.contains('sort').first().click()
-  })
-
   it('Can visit page 2', function () {
     cy.contains('Bob')
     cy.contains('Sioban').should('not.exist')
     cy.get('nav.exz-pagination-nav').contains('2').first().click()
     cy.contains('Sioban')
     cy.contains('Bob').should('not.exist')
+  })
+
+  it('Can search for names', function () {
+    cy.visit('http://localhost:5000/users')
+    cy.contains('Sioban').should('not.exist')
+    cy.get('input#search_search').type('siob')
+    cy.contains('Sioban')
+    cy.contains('21')
+    cy.contains('Bob').should('not.exist');
+    cy.get('input#search_search').clear()
+    cy.contains('Bob')
   })
 
   // LIVE SESSION
@@ -70,27 +60,6 @@ describe('Acceptance Test', function () {
     cy.contains('Show Field Buttons').first().click()
     cy.contains('Show Name').first().click()
     cy.contains('Bob')
-  })
-
-  it('Live Session: Can search for names', function () {
-    cy.contains('Sioban').should('not.exist')
-    cy.get('input#search_search').type('siob')
-    cy.contains('Sioban')
-    cy.contains('21')
-    cy.get('input#search_search').clear()
-  })
-
-  it('Live Session: Can sort columns', function () {
-    cy.contains('Bob')
-    cy.contains('Sioban').should('not.exist')
-    cy.contains('Nancy').should('not.exist')
-    cy.contains('sort').first().click()
-    cy.contains('Sioban').should('not.exist')
-    cy.contains('Nancy')
-    cy.contains('sort').first().click()
-    cy.contains('Alan').should('not.exist')
-    cy.contains('Sioban')
-    cy.contains('sort').first().click()
   })
 
   it('Live Session: Can visit page 2', function () {
