@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## v0.6.3 (2023-09-17)
+- Dependency updates and test fixes only
+
 ## v0.6.2 (2023-04-06)
 - Rerelease to fix versioning issue
 
