@@ -1,0 +1,174 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+  credo:
+    name: Credo
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:14.2
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_PASSWORD: postgres
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-credo-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-credo-
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: 26.0.2
+          elixir-version: 1.15.5
+      - run: mix deps.get
+      - run: mix credo --strict
+
+  doctor:
+    name: Doctor
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:14.2
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_PASSWORD: postgres
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-credo-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-credo-
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: 26.0.2
+          elixir-version: 1.15.5
+      - run: mix deps.get
+      - run: mix doctor
+
+  cypress:
+    name: Cypress
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:14.2
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_PASSWORD: postgres
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-cypress-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cypress-
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: 26.0.2
+          elixir-version: 1.15.5
+      - run: mix deps.get
+      - run: mix assets.deploy
+      - run: mix cypress.run
+
+  dialyzer:
+    name: Dialyzer
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:14.2
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_PASSWORD: postgres
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: |
+            deps
+            _build
+            dialyzer
+          key: ${{ runner.os }}-dialyzer-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-dialyzer-
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: 26.0.2
+          elixir-version: 1.15.5
+      - run: mix deps.get
+      - run: mix dialyzer
+
+  coveralls:
+    name: Coveralls
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:14.2
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_PASSWORD: postgres
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-coveralls-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-coveralls-
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: 26.0.2
+          elixir-version: 1.15.5
+      - run: mix deps.get
+      - run: mix coveralls.json
+      - name: Upload to codecov.io
+        uses: codecov/codecov-action@v1
+
+  auto-merge:
+    name: Auto-merge
+    if: ${{ github.event_name == 'pull_request'}}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ahmadnassri/action-dependabot-auto-merge@v2
+        with:
+          target: minor
+          github-token: ${{ secrets.MYTOKEN}} 
+
