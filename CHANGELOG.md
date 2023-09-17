@@ -32,7 +32,7 @@
 
 ## v0.5.4 (2022-04-30)
 
-- Add 'mix exzeitable.gen.migration` task for adding pg_trgm extension migration file
+- Add `mix exzeitable.gen.migration` task for adding pg_trgm extension migration file
 - General refactoring
 - Added Params struct for representing the state
 - Fix remaining `use Mix.Config`
