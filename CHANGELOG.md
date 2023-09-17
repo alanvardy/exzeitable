@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Update Elixir and Erlang versions
+
 ## v0.6.3 (2023-09-17)
 - Dependency updates and test fixes only
 

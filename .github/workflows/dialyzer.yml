@@ -28,7 +28,7 @@ jobs:
             ${{ runner.os }}-dialyzer-
       - uses: erlef/setup-beam@v1
         with:
-          otp-version: 25.0
-          elixir-version: 1.13.4
+          otp-version: 26.0.2
+          elixir-version: 1.15.5
       - run: mix deps.get
       - run: mix dialyzer
