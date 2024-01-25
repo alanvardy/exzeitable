@@ -1,5 +1,5 @@
 %{
-  "blitz_credo_checks": {:hex, :blitz_credo_checks, "0.1.9", "bf9731b11d51cf1e807072fbad2fc91baffefa65f58f06c9aa216f91e4696f53", [:mix], [{:credo, "~> 1.4", [hex: :credo, repo: "hexpm", optional: false]}], "hexpm", "36d4a2d0772470d1a10c2f0506a6ce0b3624e25376ae62f2efa25083ce7aacc3"},
+  "blitz_credo_checks": {:hex, :blitz_credo_checks, "0.1.10", "54ae0aa673101e3edd4f2ab0ee7860f90c3240e515e268546dd9f01109d2b917", [:mix], [{:credo, "~> 1.4", [hex: :credo, repo: "hexpm", optional: false]}], "hexpm", "b3248dd2c88a6fe907e84ed104e61b863c6451d8755aa609b36d3eb6c7bab9db"},
   "bunt": {:hex, :bunt, "0.2.1", "e2d4792f7bc0ced7583ab54922808919518d0e57ee162901a16a1b6664ef3b14", [:mix], [], "hexpm", "a330bfb4245239787b15005e66ae6845c9cd524a288f0d141c148b02603777a5"},
   "castore": {:hex, :castore, "1.0.5", "9eeebb394cc9a0f3ae56b813459f990abb0a3dedee1be6b27fdb50301930502f", [:mix], [], "hexpm", "8d7c597c3e4a64c395980882d4bca3cebb8d74197c590dc272cfd3b6a6310578"},
   "certifi": {:hex, :certifi, "2.12.0", "2d1cca2ec95f59643862af91f001478c9863c2ac9cb6e2f89780bfd8de987329", [:rebar3], [], "hexpm", "ee68d85df22e554040cdb4be100f33873ac6051387baf6a8f6ce82272340ff1c"},
