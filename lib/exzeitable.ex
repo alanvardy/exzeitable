@@ -16,7 +16,9 @@ defmodule Exzeitable do
 
     quote do
       use Phoenix.LiveView
-      use Phoenix.HTML
+      import Phoenix.HTML
+      import Phoenix.HTML.Form
+      use PhoenixHTMLHelpers
       import Ecto.Query
       alias Phoenix.LiveView.Helpers
       alias Exzeitable.{Database, Filter, Format, HTML, Params, Validation}

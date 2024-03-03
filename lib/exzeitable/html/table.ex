@@ -2,7 +2,7 @@ defmodule Exzeitable.HTML.Table do
   @moduledoc "Builds the table part of the HTML"
   alias Exzeitable.{Params, Text}
   alias Exzeitable.HTML.{ActionButton, Filter, Format, Helpers}
-  alias Phoenix.HTML.Link
+  alias PhoenixHTMLHelpers.Link
 
   @doc "Output the table as HTML"
   @spec build(map) :: {:safe, iolist}
