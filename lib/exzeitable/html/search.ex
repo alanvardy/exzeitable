@@ -3,7 +3,7 @@ defmodule Exzeitable.HTML.Search do
 
   alias Exzeitable.HTML.Helpers
   alias Exzeitable.{Params, Text}
-  alias Phoenix.HTML.Form
+  alias PhoenixHTMLHelpers.Form
 
   @doc "Returns the HTML search form"
   @spec build(map) :: {:safe, iolist}

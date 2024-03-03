@@ -3,7 +3,7 @@ defmodule Exzeitable.HTML do
     For building the HTML tags themselves, check CSS.md for information on applying CSS classes.
   """
 
-  use Phoenix.HTML
+  use PhoenixHTMLHelpers
   alias Exzeitable.HTML.{ActionButton, Pagination, Search, ShowButton, Table}
   alias Exzeitable.Params
 

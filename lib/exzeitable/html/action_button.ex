@@ -21,8 +21,8 @@ defmodule Exzeitable.HTML.ActionButton do
   """
 
   alias Exzeitable.{Params, Text}
-  alias Phoenix.HTML.Link
   alias Phoenix.LiveView.Socket
+  alias PhoenixHTMLHelpers.Link
 
   @typedoc "Controller action"
   @type action :: :new | :delete | :show | :edit
