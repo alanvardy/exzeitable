@@ -110,11 +110,11 @@ defmodule Exzeitable.MixProject do
       {:phoenix_view, "~> 2.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.20.0"},
-      {:floki, ">= 0.30.0", only: :test},
+      {:floki, ">= 0.36.2", only: :test},
       {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
-      {:swoosh, "~> 1.3"},
+      {:swoosh, "~> 1.16"},
       {:telemetry_metrics, "~> 1.0"},
-      {:telemetry_poller, "~> 1.0"},
+      {:telemetry_poller, "~> 1.1"},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
@@ -123,10 +123,10 @@ defmodule Exzeitable.MixProject do
       {:credo, "~> 1.5", only: :test, runtime: false},
       {:blitz_credo_checks, "~> 0.1", only: :test, runtime: false},
       {:dialyxir, "~> 1.1", only: :test, runtime: false},
-      {:excoveralls, "~> 0.10", only: :test, runtime: false},
+      {:excoveralls, "~> 0.18.1", only: :test, runtime: false},
       {:ex_doc, "~> 0.21", only: [:test, :dev], runtime: false},
       {:inch_ex, github: "rrrene/inch_ex", only: :test},
-      {:stream_data, "~> 1.0", only: :test},
+      {:stream_data, "~> 1.1", only: :test},
       {:doctor, "~> 0.21.0", only: :test}
     ]
   end
