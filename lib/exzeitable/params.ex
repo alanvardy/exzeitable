@@ -51,6 +51,7 @@ defmodule Exzeitable.Params do
     :module,
     :csrf_token,
     # optional
+    :query_modifier,
     :order,
     :parent,
     :belongs_to,
