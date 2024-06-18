@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## v0.6.5 (2024-06-18)
+- Add `:query_modifier` option to allow dynamic altering of queries
+- Update Elixir and Erlang versions
+- Update dependencies
+
 ## v0.6.4 (2024-03-03)
 - Update Elixir and Erlang versions
 - Update dependencies
