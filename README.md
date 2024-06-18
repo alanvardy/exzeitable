@@ -145,6 +145,16 @@ Note that if you are navigating to the live table using [Phoenix LiveView live_s
 - `pagination: [:top, :bottom]` Whether to show the pagination above and below
 - `text: Exzeitable.Text.Default` The translation that appears on the table, defaults to English.
 - `assigns: %{}` Passes additional assigns to socket.assigns. Keep your payload small!
+- `query_modifier: {MyModule, :my_function}` Passes the query to MyModule.my_function/2, where query can then be dynamically altered before being returned. Arguments are the query, and the `Exzeitable.Params` struct, which is how Exzeitable stores state. Return value is the query.
+
+```elixir
+defmodule MyApp.MyModule do
+  def my_function(query, _state) do
+     # Make your modifications and return the new query
+    query
+  end
+end
+```
 
 ### Field options
 

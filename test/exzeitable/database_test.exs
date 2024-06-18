@@ -4,9 +4,10 @@ defmodule Exzeitable.DatabaseTest do
   alias Exzeitable.Database
   alias TestWeb.User
 
-  @assigns %{
+  @assigns %Exzeitable.Params{
     query: from(u in User),
     parent: nil,
+    csrf_token: "234",
     routes: TestWeb.Router.Helpers,
     repo: TestWeb.Repo,
     path: :user_path,

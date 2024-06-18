@@ -1,14 +1,16 @@
 defmodule Exzeitable.Database do
   @moduledoc "Database interactions"
   import Ecto.Query
+  alias Exzeitable.Params
 
   @doc "Get the data using query"
   @spec get_records(map) :: [map]
-  def get_records(%{query: query} = params) do
+  def get_records(%Params{query: query} = params) do
     query
     |> order_query(params)
     |> search_query(params)
     |> paginate_query(params)
+    |> modify_query(params)
     |> get_query(params)
   end
 
@@ -48,6 +50,23 @@ defmodule Exzeitable.Database do
       |> exclude(:preload)
 
     from(q in query, select: count(q.id))
+  end
+
+  defp modify_query(query, %Params{query_modifier: nil}) do
+    query
+  end
+
+  defp modify_query(query, %Params{query_modifier: {mod, fun}} = params) when is_atom(mod) and is_atom(fun) do
+   apply(mod, fun, [query, params])
+  end
+
+  defp modify_query(_query, %Params{query_modifier: invalid}) do
+    raise """
+      Invalid option given for :query_modifier
+
+      Expected: {Module, :function}
+      Got:      #{inspect(invalid)}
+    """
   end
 
   # Repo.all

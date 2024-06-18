@@ -28,7 +28,7 @@ config :exzeitable, Exzeitable.Mailer, adapter: Swoosh.Adapters.Test
 config :stream_data, max_runs: 100
 
 # Print only warnings and errors during test
-config :logger, level: :warn
+config :logger, level: :warning
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
