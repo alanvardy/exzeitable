@@ -1,7 +1,7 @@
 defmodule Exzeitable.HTML.ShowButton do
   @moduledoc "Show buttons and the buttons that toggle their visibility"
   alias Exzeitable.HTML.{Filter, Format, Helpers}
-  alias Exzeitable.{Params, Text}
+  alias Exzeitable.{HTML, Params, Text}
 
   @doc "Returns HTML for all the show column buttons that should be visible"
   @spec show_buttons(Params.t()) :: [{:safe, iolist}]
@@ -22,7 +22,7 @@ defmodule Exzeitable.HTML.ShowButton do
     params
     |> Text.text(:show_field, name)
     |> Helpers.tag(:a,
-      class: "exz-show-button",
+      class: HTML.class(params, "exz-show-button"),
       "phx-click": "show_column",
       "phx-value-column": key
     )
@@ -38,7 +38,7 @@ defmodule Exzeitable.HTML.ShowButton do
     params
     |> Text.text(:hide_field_buttons)
     |> Helpers.tag(:a,
-      class: "exz-info-button",
+      class: HTML.class(params, "exz-info-button"),
       "phx-click": "hide_buttons"
     )
   end
@@ -47,7 +47,7 @@ defmodule Exzeitable.HTML.ShowButton do
     params
     |> Text.text(:show_field_buttons)
     |> Helpers.tag(:a,
-      class: "exz-info-button",
+      class: HTML.class(params, "exz-info-button"),
       "phx-click": "show_buttons"
     )
   end

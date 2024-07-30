@@ -24,10 +24,13 @@ defmodule Exzeitable.HTML do
     top_navigation =
       div_wrap(
         [
-          div_wrap([top_pagination, new_button, show_hide_fields], "exz-pagination-wrapper"),
+          div_wrap(
+            [top_pagination, new_button, show_hide_fields],
+            class(params, "exz-pagination-wrapper")
+          ),
           search_box
         ],
-        "exz-row"
+        class(params, "exz-row")
       )
 
     content_tag(
@@ -40,9 +43,22 @@ defmodule Exzeitable.HTML do
         bottom_buttons,
         bottom_pagination
       ],
-      class: "outer-wrapper",
+      class: class(params, "outer-wrapper"),
       onclick: ""
     )
+  end
+
+  @doc "Appends additional classes onto the default class if user defined them in config"
+  @spec class(Params.t(), String.t()) :: String.t()
+  def class(%Params{html_classes: nil}, class) do
+    class
+  end
+
+  def class(%Params{html_classes: html_classes}, class) do
+    case Enum.find(html_classes, &(elem(&1, 0) === class)) do
+      {_, additional_classes} -> "#{class} #{additional_classes}"
+      nil -> class
+    end
   end
 
   defp div_wrap(content, class \\ "") do

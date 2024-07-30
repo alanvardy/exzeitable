@@ -4,7 +4,7 @@ defmodule Exzeitable.HTML.Pagination do
   """
 
   alias Exzeitable.HTML.Helpers
-  alias Exzeitable.{Params, Text}
+  alias Exzeitable.{HTML, Params, Text}
 
   @type name :: :next | :previous | :dots | pos_integer
   @type page :: pos_integer
@@ -19,8 +19,8 @@ defmodule Exzeitable.HTML.Pagination do
     next_button = paginate_button(params, :next, page, pages)
 
     ([previous_button] ++ numbered_buttons ++ [next_button])
-    |> Helpers.tag(:ul, class: "exz-pagination-ul")
-    |> Helpers.tag(:nav, class: "exz-pagination-nav")
+    |> Helpers.tag(:ul, class: HTML.class(params, "exz-pagination-ul"))
+    |> Helpers.tag(:nav, class: HTML.class(params, "exz-pagination-nav"))
   end
 
   # Handle the case where there is only a single page, just gives us some disabled buttons
@@ -45,60 +45,63 @@ defmodule Exzeitable.HTML.Pagination do
   defp paginate_button(%Params{} = params, :next, page, page) do
     params
     |> Text.text(:next)
-    |> Helpers.tag(:a, class: "exz-pagination-a", tabindex: "-1")
-    |> Helpers.tag(:li, class: "exz-pagination-li-disabled")
+    |> Helpers.tag(:a, class: HTML.class(params, "exz-pagination-a"), tabindex: "-1")
+    |> Helpers.tag(:li, class: HTML.class(params, "exz-pagination-li-disabled"))
   end
 
   defp paginate_button(%Params{} = params, :previous, 1, _pages) do
     params
     |> Text.text(:previous)
-    |> Helpers.tag(:a, class: "exz-pagination-a", tabindex: "-1")
-    |> Helpers.tag(:li, class: "exz-pagination-li-disabled")
+    |> Helpers.tag(:a, class: HTML.class(params, "exz-pagination-a"), tabindex: "-1")
+    |> Helpers.tag(:li, class: HTML.class(params, "exz-pagination-li-disabled"))
   end
 
-  defp paginate_button(_params, :dots, _page, _pages) do
+  defp paginate_button(params, :dots, _page, _pages) do
     "...."
-    |> Helpers.tag(:a, class: "exz-pagination-a exz-pagination-width", tabindex: "-1")
-    |> Helpers.tag(:li, class: "exz-pagination-li-disabled")
+    |> Helpers.tag(:a,
+      class: HTML.class(params, "exz-pagination-a exz-pagination-width"),
+      tabindex: "-1"
+    )
+    |> Helpers.tag(:li, class: HTML.class(params, "exz-pagination-li-disabled"))
   end
 
   defp paginate_button(%Params{} = params, :next, page, _pages) do
     params
     |> Text.text(:next)
     |> Helpers.tag(:a,
-      class: "exz-pagination-a",
+      class: HTML.class(params, "exz-pagination-a"),
       style: "cursor: pointer",
       "phx-click": "change_page",
       "phx-value-page": page + 1
     )
-    |> Helpers.tag(:li, class: "exz-pagination-li")
+    |> Helpers.tag(:li, class: HTML.class(params, "exz-pagination-li"))
   end
 
   defp paginate_button(%Params{} = params, :previous, page, _pages) do
     params
     |> Text.text(:previous)
     |> Helpers.tag(:a,
-      class: "exz-pagination-a",
+      class: HTML.class(params, "exz-pagination-a"),
       style: "cursor: pointer",
       "phx-click": "change_page",
       "phx-value-page": page - 1
     )
-    |> Helpers.tag(:li, class: "exz-pagination-li")
+    |> Helpers.tag(:li, class: HTML.class(params, "exz-pagination-li"))
   end
 
-  defp paginate_button(_params, page, page, _pages) when is_integer(page) do
-    Helpers.tag(page, :a, class: "exz-pagination-a exz-pagination-width")
-    |> Helpers.tag(:li, class: "exz-pagination-li-active")
+  defp paginate_button(params, page, page, _pages) when is_integer(page) do
+    Helpers.tag(page, :a, class: HTML.class(params, "exz-pagination-a exz-pagination-width"))
+    |> Helpers.tag(:li, class: HTML.class(params, "exz-pagination-li-active"))
   end
 
-  defp paginate_button(_params, page, _page, _pages) when is_integer(page) do
+  defp paginate_button(params, page, _page, _pages) when is_integer(page) do
     Helpers.tag(page, :a,
-      class: "exz-pagination-a exz-pagination-width",
+      class: HTML.class(params, "exz-pagination-a exz-pagination-width"),
       style: "cursor: pointer",
       "phx-click": "change_page",
       "phx-value-page": page
     )
-    |> Helpers.tag(:li, class: "exz-pagination-li")
+    |> Helpers.tag(:li, class: HTML.class(params, "exz-pagination-li"))
   end
 
   @doc "Selects the page buttons we need for pagination"

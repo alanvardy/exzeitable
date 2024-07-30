@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- User can add additional classes to table elements
+
 ## v0.6.5 (2024-06-18)
 - Add `:query_modifier` option to allow dynamic altering of queries
 - Update Elixir and Erlang versions
@@ -15,7 +17,7 @@
 - Dependency updates and test fixes only
 
 ## v0.6.2 (2023-04-06)
-- Rerelease to fix versioning issue
+- Re-release to fix versioning issue
 
 ## v0.6.1 (2023-04-06)
 - Fix issue with adding action buttons to table
@@ -31,7 +33,7 @@
 
 ## v0.5.5 (2022-07-23)
 
-- Bugfix for default formatter. Previously, it would attempt to_string on all values passing through which breaks `:safe` tuples.
+- Bug fix for default formatter. Previously, it would attempt to_string on all values passing through which breaks `:safe` tuples.
 - Support live routes
 - Increase test coverage
 - Fix CodeCov badge link
