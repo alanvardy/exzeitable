@@ -23,6 +23,7 @@ defmodule Exzeitable.Params do
           csrf_token: String.t(),
           # optional
           order: [{:asc | :desc, column}] | nil,
+          html_classes: Keyword.t(String.t()) | nil,
           parent: struct | nil,
           belongs_to: atom | nil,
           page: pos_integer,
@@ -55,6 +56,7 @@ defmodule Exzeitable.Params do
     :order,
     :parent,
     :belongs_to,
+    :html_classes,
     page: 1,
     count: 0,
     list: [],

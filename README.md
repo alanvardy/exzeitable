@@ -146,6 +146,7 @@ Note that if you are navigating to the live table using [Phoenix LiveView live_s
 - `text: Exzeitable.Text.Default` The translation that appears on the table, defaults to English.
 - `assigns: %{}` Passes additional assigns to socket.assigns. Keep your payload small!
 - `query_modifier: {MyModule, :my_function}` Passes the query to MyModule.my_function/2, where query can then be dynamically altered before being returned. Arguments are the query, and the `Exzeitable.Params` struct, which is how Exzeitable stores state. Return value is the query.
+- `html_classes` Allows the user to add additional HTML classes to elements. Is a list of 2-element tuples where the first element is a string representing the default class (or classes) and the second element is a string representing the classes to be added. I.e. if the default class is `exz-pagination-ul` then you can append `p-5` to it by adding `html_classes: [{"exz-pagination-ul", "p-5"}]`. This can make styling the table with tailwind or bootstrap much easier.
 
 ```elixir
 defmodule MyApp.MyModule do

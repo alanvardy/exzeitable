@@ -1,4 +1,6 @@
 defmodule Exzeitable.HTML.ActionButton do
+  alias Exzeitable.HTML
+
   @moduledoc """
   For the actions buttons such as :new, :edit etc, as well as custom buttons.
 
@@ -148,19 +150,19 @@ defmodule Exzeitable.HTML.ActionButton do
   defp html(route, :new, %Params{} = params) do
     params
     |> Text.text(:new)
-    |> Link.link(to: route, class: "exz-action-new")
+    |> Link.link(to: route, class: HTML.class(params, "exz-action-new"))
   end
 
   defp html(route, :show, %Params{} = params) do
     params
     |> Text.text(:show)
-    |> Link.link(to: route, class: "exz-action-show")
+    |> Link.link(to: route, class: HTML.class(params, "exz-action-show"))
   end
 
   defp html(route, :edit, %Params{} = params) do
     params
     |> Text.text(:edit)
-    |> Link.link(to: route, class: "exz-action-edit")
+    |> Link.link(to: route, class: HTML.class(params, "exz-action-edit"))
   end
 
   defp html(route, :delete, %Params{csrf_token: csrf_token} = params) do
@@ -168,7 +170,7 @@ defmodule Exzeitable.HTML.ActionButton do
     |> Text.text(:delete)
     |> Link.link(
       to: route,
-      class: "exz-action-delete",
+      class: HTML.class(params, "exz-action-delete"),
       method: :delete,
       "data-confirm": Text.text(params, :confirm_action),
       csrf_token: csrf_token
