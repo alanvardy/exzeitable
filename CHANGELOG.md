@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.6.6 (2024-07-30)
+
 - User can add additional classes to table elements
 
 ## v0.6.5 (2024-06-18)

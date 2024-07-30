@@ -1,7 +1,7 @@
 defmodule Exzeitable.MixProject do
   use Mix.Project
 
-  @version "0.6.5"
+  @version "0.6.6"
 
   def project do
     [
