@@ -127,7 +127,7 @@ defmodule Exzeitable.MixProject do
       {:ex_doc, "~> 0.21", only: [:test, :dev], runtime: false},
       {:inch_ex, github: "rrrene/inch_ex", only: :test},
       {:stream_data, "~> 1.1", only: :test},
-      {:doctor, "~> 0.21.0", only: :test}
+      {:doctor, "~> 0.22.0", only: :test}
     ]
   end
 
