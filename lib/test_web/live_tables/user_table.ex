@@ -11,7 +11,7 @@ defmodule TestWeb.UserTable do
     query: from(u in User),
     per_page: 5
 
-  def render(assigns), do: ~H"<%= build_table(assigns) %>"
+  def render(assigns), do: ~H"{build_table(assigns)}"
 
   def name_backwards(_socket, entry) do
     entry

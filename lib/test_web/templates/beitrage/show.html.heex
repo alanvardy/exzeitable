@@ -3,14 +3,14 @@
 <ul>
   <li>
     <strong>Titel:</strong>
-    <%= @post.title %>
+    {@post.title}
   </li>
 
   <li>
     <strong>Inhalt:</strong>
-    <%= @post.content %>
+    {@post.content}
   </li>
 </ul>
 
-<span><%= link("Bearbeiten", to: Routes.post_path(@conn, :edit, @post)) %></span>
-<span><%= link("Zurück", to: Routes.post_path(@conn, :index)) %></span>
+<span>{link("Bearbeiten", to: Routes.post_path(@conn, :edit, @post))}</span>
+<span>{link("Zurück", to: Routes.post_path(@conn, :index))}</span>

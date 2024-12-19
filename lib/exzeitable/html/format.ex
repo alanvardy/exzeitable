@@ -27,8 +27,6 @@ defmodule Exzeitable.HTML.Format do
     |> format_field(fields[key].formatter)
   end
 
-  # coveralls-ignore-stop
-
   @doc "Will output the user supplied label or fall back on the atom"
   @spec header(Params.t(), {atom, map}) :: String.t()
   def header(_params, {_key, %{label: label}}) when is_binary(label), do: label

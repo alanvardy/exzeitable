@@ -12,7 +12,7 @@ defmodule TestWeb.PostTable do
     action_buttons: [:show, :edit, :custom_button],
     refresh: 5000
 
-  def render(assigns), do: ~H"<%= build_table(assigns) %>"
+  def render(assigns), do: ~H"{build_table(assigns)}"
 
   def custom_button(_socket, _entry, _csrf_token), do: "CUSTOM BUTTON"
 end
