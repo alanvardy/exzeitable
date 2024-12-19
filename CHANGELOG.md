@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## v0.6.7 (2024-12-18)
+
+- Update to Phoenix LiveView 1.0
+
 ## v0.6.6 (2024-07-30)
 
 - User can add additional classes to table elements
