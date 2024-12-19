@@ -20,9 +20,9 @@ defmodule TestWeb do
   def controller do
     quote do
       use Phoenix.Controller, namespace: TestWeb
+      use Gettext, backend: TestWeb.Gettext
 
       import Plug.Conn
-      import TestWeb.Gettext
       alias TestWeb.Router.Helpers, as: Routes
       import Phoenix.LiveView.Controller
     end
@@ -41,9 +41,9 @@ defmodule TestWeb do
       import Phoenix.HTML
       import Phoenix.HTML.Form
       use PhoenixHTMLHelpers
+      use Gettext, backend: TestWeb.Gettext
 
       import TestWeb.ErrorHelpers
-      import TestWeb.Gettext
       alias TestWeb.Router.Helpers, as: Routes
 
       import Phoenix.LiveView.Helpers
@@ -62,7 +62,7 @@ defmodule TestWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import TestWeb.Gettext
+      use Gettext, backend: TestWeb.Gettext
     end
   end
 

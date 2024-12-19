@@ -56,8 +56,9 @@ defmodule Exzeitable.Database do
     query
   end
 
-  defp modify_query(query, %Params{query_modifier: {mod, fun}} = params) when is_atom(mod) and is_atom(fun) do
-   apply(mod, fun, [query, params])
+  defp modify_query(query, %Params{query_modifier: {mod, fun}} = params)
+       when is_atom(mod) and is_atom(fun) do
+    apply(mod, fun, [query, params])
   end
 
   defp modify_query(_query, %Params{query_modifier: invalid}) do

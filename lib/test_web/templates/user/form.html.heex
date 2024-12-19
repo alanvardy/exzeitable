@@ -5,15 +5,15 @@
     </div>
   <% end %>
 
-  <%= label(f, :name) %>
-  <%= text_input(f, :name) %>
-  <%= error_tag(f, :name) %>
+  {label(f, :name)}
+  {text_input(f, :name)}
+  {error_tag(f, :name)}
 
-  <%= label(f, :age) %>
-  <%= number_input(f, :age) %>
-  <%= error_tag(f, :age) %>
+  {label(f, :age)}
+  {number_input(f, :age)}
+  {error_tag(f, :age)}
 
   <div>
-    <%= submit("Save") %>
+    {submit("Save")}
   </div>
 <% end %>
