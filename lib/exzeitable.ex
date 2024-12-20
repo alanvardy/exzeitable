@@ -20,7 +20,7 @@ defmodule Exzeitable do
       import Phoenix.HTML.Form
       use PhoenixHTMLHelpers
       import Ecto.Query
-      alias Phoenix.LiveView.Helpers
+      alias Phoenix.LiveView.{Helpers, Socket}
       alias Exzeitable.{Database, Filter, Format, HTML, Params, Validation}
       @callback render(map) :: {:ok, iolist}
       @type socket :: Phoenix.LiveView.Socket.t()
@@ -104,7 +104,7 @@ defmodule Exzeitable do
       end
 
       @doc "Changes page when pagination buttons are clicked"
-      def handle_event("change_page", %{"page" => page}, %{assigns: %{params: params}} = socket) do
+      def handle_event("change_page", %{"page" => page}, %Socket{assigns: %{params: params}} = socket) do
         new_params = Map.put(params, :page, String.to_integer(page))
 
         socket
@@ -150,7 +150,7 @@ defmodule Exzeitable do
         {:noreply, maybe_get_records(socket)}
       end
 
-      defp maybe_get_records(%{assigns: %{params: params}} = socket) do
+      defp maybe_get_records(%Socket{assigns: %{params: params}} = socket) do
         if connected?(socket) do
           socket
           |> assign_params(:list, Database.get_records(params))
@@ -162,7 +162,7 @@ defmodule Exzeitable do
         end
       end
 
-      defp maybe_set_refresh(%{socket: %{assigns: %{refresh: refresh}}} = socket)
+      defp maybe_set_refresh(%{socket: %Socket{assigns: %{refresh: refresh}} = socket})
            when is_integer(refresh) do
         with true <- connected?(socket),
              {:ok, _tref} <- :timer.send_interval(refresh, self(), :refresh) do
@@ -176,7 +176,7 @@ defmodule Exzeitable do
         socket
       end
 
-      defp assign_params(%{assigns: %{params: params}} = socket, key, value) do
+      defp assign_params(%Socket{assigns: %{params: params}} = socket, key, value) do
         params
         |> Map.put(key, value)
         |> then(&assign(socket, :params, &1))

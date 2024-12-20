@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## v0.6.8 (2024-12-20)
+
+- Update Elixir and Erlang versions
+
 ## v0.6.7 (2024-12-18)
 
 - Update to Phoenix LiveView 1.0
