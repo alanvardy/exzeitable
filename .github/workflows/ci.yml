@@ -28,8 +28,8 @@ jobs:
             ${{ runner.os }}-credo-
       - uses: erlef/setup-beam@v1
         with:
-          otp-version: 27.0
-          elixir-version: 1.17
+          otp-version: 27.2
+          elixir-version: 1.18.0
       - run: mix deps.get
       - run: mix credo --strict
 
@@ -59,8 +59,8 @@ jobs:
             ${{ runner.os }}-credo-
       - uses: erlef/setup-beam@v1
         with:
-          otp-version: 27.0
-          elixir-version: 1.17
+          otp-version: 27.2
+          elixir-version: 1.18.0
       - run: mix deps.get
       - run: mix doctor
 
@@ -90,8 +90,8 @@ jobs:
             ${{ runner.os }}-cypress-
       - uses: erlef/setup-beam@v1
         with:
-          otp-version: 27.0
-          elixir-version: 1.17
+          otp-version: 27.2
+          elixir-version: 1.18.0
       - run: mix deps.get
       - run: mix assets.deploy
       - run: mix cypress.run
@@ -123,8 +123,8 @@ jobs:
             ${{ runner.os }}-dialyzer-
       - uses: erlef/setup-beam@v1
         with:
-          otp-version: 27.0
-          elixir-version: 1.17
+          otp-version: 27.2
+          elixir-version: 1.18.0
       - run: mix deps.get
       - run: mix dialyzer
 
@@ -154,8 +154,8 @@ jobs:
             ${{ runner.os }}-coveralls-
       - uses: erlef/setup-beam@v1
         with:
-          otp-version: 27.0
-          elixir-version: 1.17
+          otp-version: 27.2
+          elixir-version: 1.18.0
       - run: mix deps.get
       - run: mix coveralls.json
       - name: Upload to codecov.io
