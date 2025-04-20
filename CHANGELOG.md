@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## v0.6.9 (2025-04-19)
+
+- Update dependencies and Elixir minor version
+
 ## v0.6.8 (2024-12-20)
 
 - Update Elixir and Erlang versions
