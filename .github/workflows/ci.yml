@@ -29,7 +29,7 @@ jobs:
       - uses: erlef/setup-beam@v1
         with:
           otp-version: 27.2
-          elixir-version: 1.18.0
+          elixir-version: 1.18.3
       - run: mix deps.get
       - run: mix credo --strict
 
@@ -60,7 +60,7 @@ jobs:
       - uses: erlef/setup-beam@v1
         with:
           otp-version: 27.2
-          elixir-version: 1.18.0
+          elixir-version: 1.18.3
       - run: mix deps.get
       - run: mix doctor
 
@@ -91,7 +91,7 @@ jobs:
       - uses: erlef/setup-beam@v1
         with:
           otp-version: 27.2
-          elixir-version: 1.18.0
+          elixir-version: 1.18.3
       - run: mix deps.get
       - run: mix assets.deploy
       - run: mix cypress.run
@@ -124,7 +124,7 @@ jobs:
       - uses: erlef/setup-beam@v1
         with:
           otp-version: 27.2
-          elixir-version: 1.18.0
+          elixir-version: 1.18.3
       - run: mix deps.get
       - run: mix dialyzer
 
@@ -155,7 +155,7 @@ jobs:
       - uses: erlef/setup-beam@v1
         with:
           otp-version: 27.2
-          elixir-version: 1.18.0
+          elixir-version: 1.18.3
       - run: mix deps.get
       - run: mix coveralls.json
       - name: Upload to codecov.io
