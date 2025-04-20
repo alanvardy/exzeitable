@@ -13,7 +13,7 @@ config :exzeitable, env: :systemtest
 
 config :exzeitable, TestWeb.Endpoint,
   secret_key_base: "PuPVb+cWuZmcKPrLR+Cydi2BhbQ+Q+hOqN1cOKYC3QnTzUTWb0HLyfx1enJVot6r",
-  http: [port: 5000],
+  http: [port: 8000],
   url: [host: "localhost"],
   render_errors: [view: TestWeb.ErrorView, accepts: ~w(html json)],
   server: true,
