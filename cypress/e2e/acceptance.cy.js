@@ -2,7 +2,7 @@ describe('Acceptance Test', function() {
   // REGULAR ROUTE
 
   it('Can visit the users page', function() {
-    cy.visit('http://localhost:5000/users')
+    cy.visit('http://localhost:8000/users')
   })
 
   it('Can hide the names column', function() {
@@ -28,7 +28,7 @@ describe('Acceptance Test', function() {
   })
 
   it('Can search for names', function() {
-    cy.visit('http://localhost:5000/users')
+    cy.visit('http://localhost:8000/users')
     cy.contains('Sioban').should('not.exist')
     cy.get('input#search_search').type('siob')
     cy.contains('Sioban')
@@ -41,7 +41,7 @@ describe('Acceptance Test', function() {
   // LIVE SESSION
 
   it('Live Session: Can visit the users page', function() {
-    cy.visit('http://localhost:5000/live_session_users')
+    cy.visit('http://localhost:8000/live_session_users')
   })
 
   it('Live Session: Can hide the names column', function() {
@@ -69,14 +69,14 @@ describe('Acceptance Test', function() {
   // MISC
 
   it('Doesnt see the action column when there are no action buttons', function() {
-    cy.visit('http://localhost:5000/posts/no_action_buttons')
+    cy.visit('http://localhost:8000/posts/no_action_buttons')
     cy.contains('Posts')
     cy.contains('Show Field Buttons')
     cy.contains('Actions').should('not.exist')
   })
 
   it('Cannot see hide functionality when it is disabled', function() {
-    cy.visit('http://localhost:5000/posts/disable_hide')
+    cy.visit('http://localhost:8000/posts/disable_hide')
     cy.contains('Posts')
     cy.contains('Actions')
     cy.contains('Next')
@@ -85,7 +85,7 @@ describe('Acceptance Test', function() {
   })
 
   it('Cannot see pagination when it is disabled', function() {
-    cy.visit('http://localhost:5000/posts/no_pagination')
+    cy.visit('http://localhost:8000/posts/no_pagination')
     cy.contains('Posts')
     cy.contains('Actions')
     cy.contains('Show Field Buttons')
@@ -93,13 +93,13 @@ describe('Acceptance Test', function() {
   })
 
   it('Can use custom formatter', function() {
-    cy.visit('http://localhost:5000/users/formatted')
+    cy.visit('http://localhost:8000/users/formatted')
     cy.contains('<<< Bob >>>')
     cy.contains('!!!boB!!!')
   })
 
   it('Can use custom text', function() {
-    cy.visit('http://localhost:5000/beitrage')
+    cy.visit('http://localhost:8000/beitrage')
     cy.contains('Beiträge auflisten')
     cy.contains('Ausblenden')
     cy.contains('Sortieren')

@@ -104,7 +104,11 @@ defmodule Exzeitable do
       end
 
       @doc "Changes page when pagination buttons are clicked"
-      def handle_event("change_page", %{"page" => page}, %Socket{assigns: %{params: params}} = socket) do
+      def handle_event(
+            "change_page",
+            %{"page" => page},
+            %Socket{assigns: %{params: params}} = socket
+          ) do
         new_params = Map.put(params, :page, String.to_integer(page))
 
         socket
